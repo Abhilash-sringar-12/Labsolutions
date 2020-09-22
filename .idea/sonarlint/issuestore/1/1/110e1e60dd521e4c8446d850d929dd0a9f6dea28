@@ -1,0 +1,63 @@
+
+V	java:S110<"<This class has 9 parents which is greater than 5 authorized.(Ùÿ×îÿÿÿÿÿ
+˜
+java:S1186€"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+=	java:S131”""Add a default case to this switch.(Ò“ÿšùÿÿÿÿ
+Q
+java:S1874]"6Remove this use of "ProgressDialog"; it is deprecated.(…Õ‚ªıÿÿÿÿ
+p
+java:S2293ó"YReplace the type specification in this constructor call with the diamond operator ("<>").(®âøÓ
+:
+java:S1659H"$Declare "mMonth" on a separate line.(²¬ã‚
+9
+java:S1659H"#Declare "mHour" on a separate line.(²¬ã‚
+G
+java:S1874]",Remove this use of "show"; it is deprecated.(…Õ‚ªıÿÿÿÿ
+l	java:S117 "QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Æ¤‡ıÿÿÿÿ
+F
+java:S1659A"+Declare "scheduledTime" on a separate line.(à„î’üÿÿÿÿ
+A
+java:S5411Ç"*Use the primitive boolean expression here.(»ş —
+R
+java:S1874Ø"6Remove this use of "ProgressDialog"; it is deprecated.(û™›Õûÿÿÿÿ
+i
+java:S1192Î"MDefine a constant instead of duplicating this literal "instrumentId" 3 times.(æ†‚úÿÿÿÿ
+;
+java:S1659H"%Declare "mMinute" on a separate line.(²¬ã‚
+Q
+java:S1874€"3Remove this use of "getDrawable"; it is deprecated.(ñ»µß8éã·èÈ.
+n
+java:S3776Ä"RRefactor this method to reduce its Cognitive Complexity from 25 to the 15 allowed.(İêç¿úÿÿÿÿ
+J
+java:S1874„"3Remove this use of "getDrawable"; it is deprecated.(Ã÷ßî
+d
+java:S3252"MUse static access with "android.text.Spanned" for "SPAN_EXCLUSIVE_EXCLUSIVE".(£îŸ´
+n
+java:S3776N"SRefactor this method to reduce its Cognitive Complexity from 137 to the 15 allowed.(¨Œşÿÿÿÿ
+f
+java:S1192f"KDefine a constant instead of duplicating this literal "department" 3 times.(­ä³òùÿÿÿÿ
+\
+java:S1192y"FDefine a constant instead of duplicating this literal "token" 8 times.(éÊ——
+b
+java:S1192å"KDefine a constant instead of duplicating this literal "activities" 7 times.(µƒ®¶
+8
+java:S1659H""Declare "mDay" on a separate line.(²¬ã‚
+˜
+java:S1186‰"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+L
+java:S1874D"6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº
+O
+java:S1874ş"3Remove this use of "getDrawable"; it is deprecated.(»¯ó£ÿÿÿÿÿ
+˜
+java:S1186á"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+V
+java:S1874‚"3Remove this use of "getDrawable"; it is deprecated.(êßõİüÿÿÿÿ8éã·èÈ.
+o
+java:S3252Œ"SUse static access with "android.text.style.DynamicDrawableSpan" for "ALIGN_BOTTOM".(’©–‰şÿÿÿÿ
+l	java:S117¡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·­ƒ•ÿÿÿÿÿ
+t
+java:S2293J"YReplace the type specification in this constructor call with the diamond operator ("<>").(ºÔ÷áüÿÿÿÿ
+˜
+java:S1186³"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+H
+java:S1874Ø",Remove this use of "show"; it is deprecated.(û™›Õûÿÿÿÿ

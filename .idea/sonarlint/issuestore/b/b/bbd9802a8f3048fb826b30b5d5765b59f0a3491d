@@ -1,0 +1,34 @@
+
+X	java:S110"<This class has 9 parents which is greater than 5 authorized.(„ªò³8í–ÔæÉ.
+L
+java:S5411M"*Use the primitive boolean expression here.(×€ã¼ûÿÿÿÿ8³¬ËçÉ.
+H
+java:S1659!"&Declare "userName" on a separate line.(ü¹ÍÔÿÿÿÿÿ8ëÕâæÉ.
+X
+java:S1874("6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ8ëÕâæÉ.
+I
+java:S1874N",Remove this use of "show"; it is deprecated.(ıàæº8çÖ‘èÉ.
+i
+java:S1192Q"LDefine a constant instead of duplicating this literal "companyName" 3 times.(¾‰ˆü8 ôãçÉ.
+H
+java:S1659!"&Declare "password" on a separate line.(ü¹ÍÔÿÿÿÿÿ8ëÕâæÉ.
+G
+java:S1659!"%Declare "company" on a separate line.(ü¹ÍÔÿÿÿÿÿ8ëÕâæÉ.
+^
+java:S1128"<Remove this unused import 'com.google.firebase.FirebaseApp'.(å·¢Çøÿÿÿÿ8şÃãæÉ.
+f
+java:S1192`"IDefine a constant instead of duplicating this literal "userType" 3 times.(¸ÁÔâ8 ôãçÉ.
+h
+java:S1192U"KDefine a constant instead of duplicating this literal "department" 3 times.(–±¤œ8 ôãçÉ.
+J
+java:S1659!"(Declare "department" on a separate line.(ü¹ÍÔÿÿÿÿÿ8ëÕâæÉ.
+t
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 35 to the 15 allowed.(¨Œşÿÿÿÿ8 ôãçÉ.
+E
+java:S1659!"#Declare "phone" on a separate line.(ü¹ÍÔÿÿÿÿÿ8ëÕâæÉ.
+S
+java:S1874N"6Remove this use of "ProgressDialog"; it is deprecated.(ıàæº8çÖ‘èÉ.
+n
+java:S1192]"LDefine a constant instead of duplicating this literal "phoneNumber" 3 times.(ÑÙ‰²ûÿÿÿÿ8 ôãçÉ.
+Ÿ
+java:S1186£"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8ÊúÜèÉ.

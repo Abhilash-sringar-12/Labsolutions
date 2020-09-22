@@ -1,0 +1,163 @@
+
+k
+java:S1192Ä"MDefine a constant instead of duplicating this literal "Labsolutions" 4 times.(§µÏÜ8°¦ªÉ.
+o
+java:S1128"MRemove this unused import 'com.example.labsolutions.workadmin.AllActivities'.(ò›ö¯üÿÿÿÿ8–í¿É.
+F
+java:S1659N"+Declare "spareDescFour" on a separate line.(Šç¼ÿÿÿÿÿ
+E
+java:S1659O"*Declare "engineerName" on a separate line.(«Ü¶ûÿÿÿÿ
+E
+java:S1659O"*Declare "adminTokenId" on a separate line.(«Ü¶ûÿÿÿÿ
+|
+java:S1192•"^Define a constant instead of duplicating this literal " declined the registered call" 3 times.(¿Î™¡8İ‹§É.
+f
+java:S1192"HDefine a constant instead of duplicating this literal "minutes" 3 times.(øÒî¥8°¦ªÉ.
+K
+java:S1659O"0Declare "customerDepartment" on a separate line.(«Ü¶ûÿÿÿÿ
+u
+java:S3776S"SRefactor this method to reduce its Cognitive Complexity from 202 to the 15 allowed.(¨Œşÿÿÿÿ8èæ‡É.
+b
+java:S1117°"?Rename "closureDate" which hides the field declared at line 79.(”õµêÿÿÿÿÿ8İ‹§É.
+E
+java:S1659N"*Declare "spareQtyFour" on a separate line.(Šç¼ÿÿÿÿÿ
+p
+java:S3776•"RRefactor this method to reduce its Cognitive Complexity from 63 to the 15 allowed.(Ôº½¢8°¦ªÉ.
+E
+java:S1659O"*Declare "instrumentId" on a separate line.(«Ü¶ûÿÿÿÿ
+d
+java:S1192œ"FDefine a constant instead of duplicating this literal "hours" 3 times.(åæ¤•8°¦ªÉ.
+M
+java:S1066²"/Merge this if statement with the enclosing one.(â±À‚8İ‹§É.
+F
+java:S1659O"+Declare "scheduledDate" on a separate line.(«Ü¶ûÿÿÿÿ
+E
+java:S1659O"*Declare "approvedDate" on a separate line.(«Ü¶ûÿÿÿÿ
+l
+java:S1192“"NDefine a constant instead of duplicating this literal "declined-data" 6 times.(â±À‚8İ‹§É.
+u
+java:S1192•"WDefine a constant instead of duplicating this literal "engineer-approved-info" 7 times.(¿Î™¡8İ‹§É.
+E
+java:S1659N"*Declare "spareDescOne" on a separate line.(Šç¼ÿÿÿÿÿ
+K
+java:S1172•"-Remove this unused method parameter "status".(Ôº½¢8°¦ªÉ.
+b
+java:S1117©"?Rename "closureTime" which hides the field declared at line 79.(§¦ú‚üÿÿÿÿ8°¦ªÉ.
+O
+java:S1874È",Remove this use of "show"; it is deprecated.(Ñ¢ïúÿÿÿÿ8°¦ªÉ.
+_
+java:S1075ˆ"ARefactor your code to get this URI from a customizable parameter.(ÓİÑô8İ£«‚É.
+k
+java:S1192®"MDefine a constant instead of duplicating this literal "waiting-data" 3 times.(‰¾”Á8Œ§ÇàÈ.
+J
+java:S1659F"(Declare "reschedule" on a separate line.(îÓ®Êıÿÿÿÿ8¨˜¥É.
+Ÿ
+java:S1186÷"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8°¦ªÉ.
+M
+java:S1874è"*Remove this use of "no"; it is deprecated.(³Çªÿûÿÿÿÿ8°¦ªÉ.
+c
+java:S1117›"@Rename "engineerName" which hides the field declared at line 79.(‚‹Ä§úÿÿÿÿ8°¦ªÉ.
+h
+java:S2147ä"ECombine this catch with the one at line 476, which has the same body.(ÿ‰À¾üÿÿÿÿ8ÚÒÿ‘É.
+Y
+java:S1874È"6Remove this use of "ProgressDialog"; it is deprecated.(Ñ¢ïúÿÿÿÿ8°¦ªÉ.
+E
+java:S1659N"*Declare "spareDescTwo" on a separate line.(Šç¼ÿÿÿÿÿ
+b
+java:S1117¯"?Rename "closureTime" which hides the field declared at line 79.(‚êù©ıÿÿÿÿ8èæ‡É.
+E
+java:S1659O"*Declare "approvedTime" on a separate line.(«Ü¶ûÿÿÿÿ
+l
+java:S1192 "NDefine a constant instead of duplicating this literal "resolved-info" 3 times.(Õƒ§8°¦ªÉ.
+I
+java:S1874Æ"+Remove this use of "yes"; it is deprecated.(É›“•8°¦ªÉ.
+j
+java:S1192‰"GDefine a constant instead of duplicating this literal "mailId" 6 times.(›áÉ¸ûÿÿÿÿ8İ‹§É.
+D
+java:S1659O")Declare "closureDate" on a separate line.(«Ü¶ûÿÿÿÿ
+N
+java:S1659O"3Declare "resolutionDescription" on a separate line.(«Ü¶ûÿÿÿÿ
+j
+java:S1192‡"LDefine a constant instead of duplicating this literal "phoneNumber" 4 times.(èŒü¡8İ‹§É.
+Y
+java:S2589i"7Remove this expression which always evaluates to "true"(‡ÙÃ®ıÿÿÿÿ8İ‹§É.
+k
+java:S1192n"NDefine a constant instead of duplicating this literal "engineer-info" 4 times.(Éâ´é8İ‹§É.
+F
+java:S1659N"+Declare "spareQtyThree" on a separate line.(Šç¼ÿÿÿÿÿ
+k
+java:S1192"TDefine a constant instead of duplicating this literal "admin-approved-info" 5 times.(Ï¢Ğ‹
+j
+java:S1192‹"GDefine a constant instead of duplicating this literal "status" 3 times.(”ıÚëıÿÿÿÿ8İ‹§É.
+A
+java:S1659F"&Declare "reassign" on a separate line.(îÓ®Êıÿÿÿÿ
+F
+java:S1659O"+Declare "durationHours" on a separate line.(«Ü¶ûÿÿÿÿ
+S
+java:S1874I"6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº8èæ‡É.
+Ÿ
+java:S1186æ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8°¦ªÉ.
+Ÿ
+java:S1186Ş"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8°¦ªÉ.
+K
+java:S1659O"0Declare "problemDescription" on a separate line.(«Ü¶ûÿÿÿÿ
+{
+java:S2293D"YReplace the type specification in this constructor call with the diamond operator ("<>").(ŒÉş–úÿÿÿÿ8èæ‡É.
+^
+java:S1858Ä"@"getKey" returns a string, there's no need to call "toString()".(ñ¤‚8°¦ªÉ.
+D
+java:S1659N")Declare "spareQtyTwo" on a separate line.(Šç¼ÿÿÿÿÿ
+e
+java:S1192Å"GDefine a constant instead of duplicating this literal "token" 12 times.(·ƒ€…8°¦ªÉ.
+k
+java:S1192’"TDefine a constant instead of duplicating this literal "workadmin@gmail.com" 5 times.(…¤ˆö
+a
+java:S1874ˆ"CRemove this use of "getExternalStorageDirectory"; it is deprecated.(ÓİÑô8İ£«‚É.
+=
+java:S1659O""Declare "date" on a separate line.(«Ü¶ûÿÿÿÿ
+c
+java:S2147Ş"ECombine this catch with the one at line 476, which has the same body.(à®¿­8ÚÒÿ‘É.
+g
+java:S1192œ"IDefine a constant instead of duplicating this literal "duration" 4 times.(åæ¤•8°¦ªÉ.
+H
+java:S1659O"-Declare "durationMinutes" on a separate line.(«Ü¶ûÿÿÿÿ
+P
+java:S11285".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8»’ÚàÈ.
+M
+java:S1066“"/Merge this if statement with the enclosing one.(â±À‚8İ‹§É.
+=
+java:S1659O""Declare "time" on a separate line.(«Ü¶ûÿÿÿÿ
+F
+java:S1659O"+Declare "scheduledTime" on a separate line.(«Ü¶ûÿÿÿÿ
+F	java:S108")Either remove or fill this block of code.(”ı¾8Áª‚É.
+c
+java:S2147à"ECombine this catch with the one at line 476, which has the same body.(ï­£Ä8ÚÒÿ‘É.
+H
+java:S1659O"-Declare "customerCompany" on a separate line.(«Ü¶ûÿÿÿÿ
+|
+java:S1192’"^Define a constant instead of duplicating this literal "labsolutions.ic.app@gmail.com" 4 times.(…¤ˆö8İ‹§É.
+c
+java:S2147â"ECombine this catch with the one at line 476, which has the same body.(½ÙŠï8ÚÒÿ‘É.
+H
+java:S1659O"-Declare "customerTokenId" on a separate line.(«Ü¶ûÿÿÿÿ
+E
+java:S1659O"*Declare "customerName" on a separate line.(«Ü¶ûÿÿÿÿ
+†
+java:S1192‘"cDefine a constant instead of duplicating this literal "Admin approved the registered call" 3 times.(Ÿ›–èÿÿÿÿÿ8Á¼ÙÈ.
+U
+java:S2589ï"7Remove this expression which always evaluates to "true"(â±À‚8ÚÒÿ‘É.
+H
+java:S1659O"-Declare "enginnerTokenid" on a separate line.(«Ü¶ûÿÿÿÿ
+Ÿ
+java:S1186î"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8°¦ªÉ.
+G
+java:S1659N",Declare "spareDescThree" on a separate line.(Šç¼ÿÿÿÿÿ
+]
+java:S1858Î"@"getKey" returns a string, there's no need to call "toString()".(Âãúk8°¦ªÉ.
+m
+java:S1192¨"JDefine a constant instead of duplicating this literal "timeStamp" 4 times.(íô•ıÿÿÿÿ8°¦ªÉ.
+N
+java:S1068A",Remove this unused "mainInfo" private field.(ßòı˜ıÿÿÿÿ8èæ‡É.
+V	java:S110?"<This class has 9 parents which is greater than 5 authorized.(óî‡àøÿÿÿÿ
+M
+java:S1066ï"/Merge this if statement with the enclosing one.(â±À‚8ÚÒÿ‘É.

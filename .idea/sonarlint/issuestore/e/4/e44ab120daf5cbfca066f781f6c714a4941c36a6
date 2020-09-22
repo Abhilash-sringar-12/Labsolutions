@@ -1,0 +1,74 @@
+
+˜
+java:S1186¥"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+F
+java:S1874"*Remove this use of "no"; it is deprecated.(³Çªÿûÿÿÿÿ
+i
+java:S1192Ş"MDefine a constant instead of duplicating this literal "Labsolutions" 5 times.(ëÿĞâøÿÿÿÿ
+M
+java:S1659)"2Declare "scheduledDateAndTime" on a separate line.(­¦ìËÿÿÿÿÿ
+B
+java:S16596",Declare "waitingEndData" on a separate line.(ÍèÎá
+p
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ÿ·ã
+B
+java:S1874‹"+Remove this use of "yes"; it is deprecated.(É›“•
+d
+java:S1192]"IDefine a constant instead of duplicating this literal "end-data" 3 times.(Ùê™Ğûÿÿÿÿ
+`
+java:S1192L"KDefine a constant instead of duplicating this literal "activities" 8 times.(èÅÏ0
+t
+java:S22932"YReplace the type specification in this constructor call with the diamond operator ("<>").(ò³ÓŠıÿÿÿÿ
+˜
+java:S1186ø"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+H
+java:S1874¸",Remove this use of "show"; it is deprecated.(ÏöÕÇÿÿÿÿÿ
+K
+java:S1659)"0Declare "problemDescription" on a separate line.(­¦ìËÿÿÿÿÿ
+˜
+java:S1186‡"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+B
+java:S1874J",Remove this use of "show"; it is deprecated.(ÊÚ« 
+i
+java:S3776©"RRefactor this method to reduce its Cognitive Complexity from 26 to the 15 allowed.(ìÒÙ‹
+]
+java:S1192m"GDefine a constant instead of duplicating this literal "token" 12 times.(éÊ——
+\
+java:S1192M"FDefine a constant instead of duplicating this literal "users" 3 times.(º½Û‘
+L
+java:S18747"6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº
+R
+java:S2589N"7Remove this expression which always evaluates to "true"(‡ÙÃ®ıÿÿÿÿ
+—
+java:S1186~"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+˜
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+E
+java:S1659)"*Declare "instrumentId" on a separate line.(­¦ìËÿÿÿÿÿ
+n
+java:S3776:"SRefactor this method to reduce its Cognitive Complexity from 133 to the 15 allowed.(¨Œşÿÿÿÿ
+R
+java:S1874¸"6Remove this use of "ProgressDialog"; it is deprecated.(ÏöÕÇÿÿÿÿÿ
+M
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(ß·¬©
+˜
+java:S1186ä"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+b
+java:S1192J"LDefine a constant instead of duplicating this literal "Please wait" 3 times.(ÊÚ« 
+J
+java:S37403"/Provide the parametrized type for this generic.(õ¼“Æùÿÿÿÿ
+h
+java:S1192\"MDefine a constant instead of duplicating this literal "waiting-data" 5 times.(£Ìøúÿÿÿÿ
+m
+java:S1192Ş"JDefine a constant instead of duplicating this literal "Call for " 3 times.(ëÿĞâøÿÿÿÿ8«¢âÙÈ.
+V	java:S110("<This class has 9 parents which is greater than 5 authorized.(¼•şÿÿÿÿ
+`
+java:S1192¬"IDefine a constant instead of duplicating this literal "customer" 3 times.(ÀŠĞè
+h
+java:S1192Â"QDefine a constant instead of duplicating this literal "current-activity" 5 times.(æ­’»
+C
+java:S1874",Remove this use of "show"; it is deprecated.(ß·¬©
+f
+java:S1192Â"ODefine a constant instead of duplicating this literal "activity-users" 6 times.(æ­’»
+L
+java:S1874J"6Remove this use of "ProgressDialog"; it is deprecated.(ÊÚ« 

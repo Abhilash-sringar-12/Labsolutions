@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/view_white"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="30dp"
+    tools:context=".admin.CreateUserActivity">
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextUserName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="Name"
+        android:textColorHint="@color/view_black">
+    <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_supervised_user_circle_24"
+            android:ems="10"
+            android:inputType="textPersonName"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+<com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/editTextTextEmailAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:hint="Email"
+        android:textColorHint="@color/view_black">
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_mail_24"
+            android:ems="10"
+            android:inputType="textEmailAddress"
+            android:textSize="20sp" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/editTextTextPassword"
+        android:layout_height="wrap_content"
+        app:passwordToggleEnabled="true"
+        app:passwordToggleTint="@color/colorAccent"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+      android:hint="Password"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ems="10"
+            android:inputType="textPassword"
+            android:textSize ="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/editTextPhone"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:hint="Phone"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_local_phone_24"
+            android:ems="10"
+            android:inputType="phone"
+            android:textSize ="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/editTextCompany"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:hint="Company"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_add_location_24"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize ="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/editTextDepartment"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:hint="Department"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_youtube_searched_for_24"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize ="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+ <RadioGroup
+        android:layout_width="match_parent"
+        android:id="@+id/usertype"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+     android:checkedButton="@+id/engineer"
+        android:orientation="horizontal">
+    <RadioButton
+        android:layout_width="0dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/engineer"
+        android:text="Engineer"
+        android:layout_marginBottom="10dp"
+        android:textSize="20dp"/>
+
+    <RadioButton
+        android:layout_width="30dp"
+        android:layout_weight="1"
+        android:layout_height="wrap_content"
+        android:id="@+id/serviceuser"
+        android:text="Customer"
+        android:textSize="20dp"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Sign In"
+        android:textColor="@color/view_white"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/drawable_rounded" />
+
+</LinearLayout>

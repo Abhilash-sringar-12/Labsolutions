@@ -1,0 +1,29 @@
+
+J
+java:S1874!"/Remove this use of "execute"; it is deprecated.(‹şºøÿÿÿÿ
+e
+java:S1874X"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(Û¶…óøÿÿÿÿ
+3
+java:S1118"Hide this public constructor.(ñÅÕè
+K
+java:S1874Y"5Remove this use of "onPostExecute"; it is deprecated.(¹ï•é
+’
+java:S55270"wEnable server hostname verification on this SSL/TLS connection, by setting "mail.smtp.ssl.checkserveridentity" to true.(£Ó±ùÿÿÿÿ
+>
+java:S1185S"(Remove this method to simply inherit it.(ËĞƒ
+Z
+java:S2147$"DCombine this catch with the one at line 34, which has the same body.(°±âİ
+C
+java:S1185X"(Remove this method to simply inherit it.(Û¶…óøÿÿÿÿ
+G
+java:S1874Q"1Remove this use of "AsyncTask"; it is deprecated.(ĞÀ¿ò
+_
+java:S2147&"DCombine this catch with the one at line 34, which has the same body.(ĞĞ¹óúÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(ñÅÕè
+P
+java:S11615":Add the "@Override" annotation above this method signature(‡èú×
+I
+java:S1874T"4Remove this use of "onPreExecute"; it is deprecated.(”•P
+`
+java:S1874S"JDon't override a deprecated method or explicitly mark it as "@Deprecated".(ËĞƒ

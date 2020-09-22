@@ -1,0 +1,35 @@
+
+m
+java:S3776."RRefactor this method to reduce its Cognitive Complexity from 74 to the 15 allowed.(¨Œşÿÿÿÿ
+d
+java:S3252Ò"MUse static access with "android.text.Spanned" for "SPAN_EXCLUSIVE_EXCLUSIVE".(£îŸ´
+o
+java:S3252Ñ"SUse static access with "android.text.style.DynamicDrawableSpan" for "ALIGN_BOTTOM".(’©–‰şÿÿÿÿ
+J
+java:S1874°"3Remove this use of "getDrawable"; it is deprecated.(Ã÷ßî
+i
+java:S1192K"NDefine a constant instead of duplicating this literal "activity-info" 5 times.( ÆÓİÿÿÿÿÿ
+O
+java:S1874«"3Remove this use of "getDrawable"; it is deprecated.(ôœ¨Øıÿÿÿÿ
+O
+java:S1874®"3Remove this use of "getDrawable"; it is deprecated.(êßõİüÿÿÿÿ
+=	java:S131·""Add a default case to this switch.(Ò“ÿšùÿÿÿÿ
+L
+java:S1874("6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº
+V	java:S110&"<This class has 9 parents which is greater than 5 authorized.(Ã‚ùÌùÿÿÿÿ
+o
+java:S2293+"YReplace the type specification in this constructor call with the diamond operator ("<>").(·êŒ­
+i
+java:S1192U"LDefine a constant instead of duplicating this literal "Rescheduled" 3 times.(ï²Ô¼8íåÍ€É.
+G
+java:S1874<",Remove this use of "show"; it is deprecated.(¼‚ßùøÿÿÿÿ
+—
+java:S1186l"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+h
+java:S1192M"MDefine a constant instead of duplicating this literal "instrumentId" 3 times.(™Öô–øÿÿÿÿ
+V
+java:S1858D"@"getKey" returns a string, there's no need to call "toString()".(°ß¢–
+Q
+java:S1874<"6Remove this use of "ProgressDialog"; it is deprecated.(¼‚ßùøÿÿÿÿ
+—
+java:S1186"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰

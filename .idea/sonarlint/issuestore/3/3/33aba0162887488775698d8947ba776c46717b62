@@ -1,0 +1,72 @@
+
+c
+java:S2147ù"ECombine this catch with the one at line 375, which has the same body.(ï­£Ä8‚¯è­É.
+Y
+java:S2589y"7Remove this expression which always evaluates to "true"(‡ÙÃ®ıÿÿÿÿ8©”¨èÈ.
+p
+java:S3776‚"RRefactor this method to reduce its Cognitive Complexity from 30 to the 15 allowed.(‹¶èÂ8‚¯è­É.
+h
+java:S2147ı"ECombine this catch with the one at line 375, which has the same body.(ÿ‰À¾üÿÿÿÿ8‚¯è­É.
+^
+java:S1858Ğ"@"getKey" returns a string, there's no need to call "toString()".(ñ¤‚8©”¨èÈ.
+M
+java:S1874‰"*Remove this use of "no"; it is deprecated.(³Çªÿûÿÿÿÿ8©”¨èÈ.
+n
+java:S3776Y"SRefactor this method to reduce its Cognitive Complexity from 218 to the 15 allowed.(¨Œşÿÿÿÿ
+I
+java:S1874ƒ"+Remove this use of "yes"; it is deprecated.(É›“•8©”¨èÈ.
+Ÿ
+java:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8©”¨èÈ.
+?
+java:S16596")Declare "sprThreeQty" on a separate line.(ÒĞµ—
+V	java:S1102"<This class has 9 parents which is greater than 5 authorized.(¤íÉ¯ıÿÿÿÿ
+>
+java:S16596"(Declare "sprFourQty" on a separate line.(ÒĞµ—
+@
+java:S16596"*Declare "sprThreeDesc" on a separate line.(ÒĞµ—
+T
+java:S1874…"6Remove this use of "ProgressDialog"; it is deprecated.(¦œâˆ8©”¨èÈ.
+
+java:S1192ï"\Define a constant instead of duplicating this literal " resolved the reopened call" 3 times.(À¥Çíüÿÿÿÿ8‚¯è­É.
+L
+java:S1874V"6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº
+Ÿ
+java:S1186æ"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8©”¨èÈ.
+X
+java:S1874p"6Remove this use of "ProgressDialog"; it is deprecated.(áÕ©¤şÿÿÿÿ8©”¨èÈ.
+Ÿ
+java:S1186Ş"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8©”¨èÈ.
+>
+java:S16596"(Declare "sprOneDesc" on a separate line.(ÒĞµ—
+Ÿ
+java:S1186ï"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8©”¨èÈ.
+=
+java:S16596"'Declare "sprTwoQty" on a separate line.(ÒĞµ—
+m
+java:S1192™"JDefine a constant instead of duplicating this literal "timeStamp" 7 times.(ã¯‹úÿÿÿÿ8©”¨èÈ.
+J
+java:S1874…",Remove this use of "show"; it is deprecated.(¦œâˆ8©”¨èÈ.
+g
+java:S1192r"KDefine a constant instead of duplicating this literal "activities" 5 times.(èÅÏ08©”¨èÈ.
+?
+java:S16596")Declare "sprFourDesc" on a separate line.(ÒĞµ—
+N
+java:S1874p",Remove this use of "show"; it is deprecated.(áÕ©¤şÿÿÿÿ8©”¨èÈ.
+p
+java:S1192ï"MDefine a constant instead of duplicating this literal "Labsolutions" 3 times.(À¥Çíüÿÿÿÿ8‚¯è­É.
+j
+java:S1192‹"GDefine a constant instead of duplicating this literal "mailId" 3 times.(¬’°ôùÿÿÿÿ8©”¨èÈ.
+g
+java:S1192³"IDefine a constant instead of duplicating this literal "duration" 4 times.(ƒ©ø8©”¨èÈ.
+j
+java:S1192¾"GDefine a constant instead of duplicating this literal "token" 12 times.(Ûí±¯øÿÿÿÿ8©”¨èÈ.
+l
+java:S1192ƒ"NDefine a constant instead of duplicating this literal "resolved-info" 4 times.(úÌäñ8©”¨èÈ.
+c
+java:S2147û"ECombine this catch with the one at line 375, which has the same body.(½ÙŠï8‚¯è­É.
+>
+java:S16596"(Declare "sprTwoDesc" on a separate line.(ÒĞµ—
+r
+java:S1192…"ODefine a constant instead of duplicating this literal "activity-users" 4 times.(­­åùşÿÿÿÿ8‚¯è­É.
+M
+java:S1066"/Merge this if statement with the enclosing one.(»²ÓŞ8‚¯è­É.

@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <ImageView
+        android:layout_rowSpan="2"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:id="@+id/activityImage"
+        android:src="@drawable/activities"
+        android:layout_row="0"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_column="0" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:textColor="@color/view_black"
+        android:id="@+id/activityName"
+        android:layout_row="0"
+        android:layout_column="1" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_columnWeight="1"
+        android:layout_marginLeft="10dp"
+        android:textSize="12dp"
+        android:textColor="@color/view_black"
+        android:id="@+id/activityDescription"
+        android:layout_row="1"
+        android:layout_column="1" />
+
+    <TextView
+        android:id="@+id/activityStatus"
+        android:layout_width="100dp"
+        android:paddingRight="10dp"
+        android:layout_height="wrap_content"
+        android:layout_row="1"
+        android:layout_column="2"
+        android:layout_columnWeight="1"
+        android:textColor="@color/view_black"
+        android:layout_gravity="right"
+        android:textSize="12dp"
+        android:textStyle="bold|italic" />
+</GridLayout>

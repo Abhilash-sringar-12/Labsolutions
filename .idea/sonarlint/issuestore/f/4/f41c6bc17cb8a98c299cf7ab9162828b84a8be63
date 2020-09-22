@@ -1,0 +1,36 @@
+
+B
+java:S1874@",Remove this use of "show"; it is deprecated.(¸Ï¬å
+A
+java:S1659&"&Declare "fromDate" on a separate line.(èõ—Ñşÿÿÿÿ
+^
+java:S5361A"HReplace this call to "replaceAll()" by a call to the "replace()" method.(ÖÊíÖ
+l	java:S117›"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Æ¤‡ıÿÿÿÿ
+G
+java:S1659&",Declare "departmentName" on a separate line.(èõ—Ñşÿÿÿÿ
+m
+java:S3776)"RRefactor this method to reduce its Cognitive Complexity from 16 to the 15 allowed.(¨Œşÿÿÿÿ
+L
+java:S1874@"6Remove this use of "ProgressDialog"; it is deprecated.(¸Ï¬å
+c
+java:S5361L"HReplace this call to "replaceAll()" by a call to the "replace()" method.(±«á›şÿÿÿÿ
+Q	java:S110"<This class has 9 parents which is greater than 5 authorized.(ìà ©
+l	java:S117„"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·­ƒ•ÿÿÿÿÿ
+=
+java:S1659#"'Declare "amcToDate" on a separate line.(Ê÷ƒØ
+l	java:S117ƒ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Æ¤‡ıÿÿÿÿ
+@
+java:S1659&"%Declare "company" on a separate line.(èõ—Ñşÿÿÿÿ
+C
+java:S1659""(Declare "department" on a separate line.(»Ô¦Àüÿÿÿÿ
+?
+java:S1659&"$Declare "toDate" on a separate line.(èõ—Ñşÿÿÿÿ
+G
+java:S1659"",Declare "instrumentType" on a separate line.(»Ô¦Àüÿÿÿÿ
+Q
+java:S1874%"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+E
+java:S1659""*Declare "instrumentId" on a separate line.(»Ô¦Àüÿÿÿÿ
+=
+java:S1659&""Declare "type" on a separate line.(èõ—Ñşÿÿÿÿ
+l	java:S117œ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·­ƒ•ÿÿÿÿÿ

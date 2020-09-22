@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "421144564713",
+    "firebase_url": "https://labsolutions-8b328.firebaseio.com",
+    "project_id": "labsolutions-8b328",
+    "storage_bucket": "labsolutions-8b328.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:421144564713:android:7e74d965040e0b61027178",
+        "android_client_info": {
+          "package_name": "com.example.labsolutions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421144564713-pmu5jan0ah0j207fk5af9fc5sdb33a7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDozzmjnUAhDwhVmJJisrCk9yFGxobXe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421144564713-pmu5jan0ah0j207fk5af9fc5sdb33a7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

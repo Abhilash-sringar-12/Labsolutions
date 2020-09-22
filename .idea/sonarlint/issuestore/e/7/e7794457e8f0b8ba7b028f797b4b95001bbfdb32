@@ -1,0 +1,45 @@
+
+I
+java:S1874"3Remove this use of "getDrawable"; it is deprecated.(¥–„#
+V	java:S110%"<This class has 9 parents which is greater than 5 authorized.(ü­³÷øÿÿÿÿ
+N
+java:S1874y"3Remove this use of "getDrawable"; it is deprecated.(É—œøÿÿÿÿ
+d
+java:S3252¾"MUse static access with "android.text.Spanned" for "SPAN_EXCLUSIVE_EXCLUSIVE".(£îŸ´
+I
+java:S1874{"3Remove this use of "getDrawable"; it is deprecated.(Ş ì¸
+N
+java:S1874}"3Remove this use of "getDrawable"; it is deprecated.(˜Ğ”ˆşÿÿÿÿ
+I
+java:S1874"3Remove this use of "getDrawable"; it is deprecated.(¥İü¨
+h
+java:S3252Ã"LUse static access with "android.content.Context" for "CONNECTIVITY_SERVICE".(Ü‹Ñùÿÿÿÿ
+J
+java:S1874ƒ"3Remove this use of "getDrawable"; it is deprecated.(Ã÷ßî
+B
+java:S1874<",Remove this use of "show"; it is deprecated.(Çá
+—
+java:S1186c"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰
+N
+java:S1874u"3Remove this use of "getDrawable"; it is deprecated.(óÕ–àùÿÿÿÿ
+t
+java:S2293'"YReplace the type specification in this constructor call with the diamond operator ("<>").(ú³úøÿÿÿÿ
+o
+java:S3252½"SUse static access with "android.text.style.DynamicDrawableSpan" for "ALIGN_BOTTOM".(’©–‰şÿÿÿÿ
+I
+java:S1874w"3Remove this use of "getDrawable"; it is deprecated.(ƒÈï«
+X
+java:S1874Ä"<Remove this use of "getActiveNetworkInfo"; it is deprecated.(ˆÛ¡Çøÿÿÿÿ
+O
+java:S1874Ä"3Remove this use of "isConnected"; it is deprecated.(ˆÛ¡Çøÿÿÿÿ
+=	java:S131Š""Add a default case to this switch.(Ò“ÿšùÿÿÿÿ
+L
+java:S1874<"6Remove this use of "ProgressDialog"; it is deprecated.(Çá
+T
+java:S1128"7Remove this unused import 'android.widget.AdapterView'.(¶¾éæ8Ì˜Ú÷É.
+Q
+java:S2209Ã"5Change this instance-reference to a static reference.(Ü‹Ñùÿÿÿÿ
+X
+java:S1874Ä"<Remove this use of "getActiveNetworkInfo"; it is deprecated.(ˆÛ¡Çøÿÿÿÿ
+Q
+java:S1874+"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ

@@ -1,0 +1,45 @@
+
+d
+java:S3252ˆ"MUse static access with "android.text.Spanned" for "SPAN_EXCLUSIVE_EXCLUSIVE".(£îŸ´
+H
+java:S1874L"3Remove this use of "getDrawable"; it is deprecated.(¥–„#
+<	java:S131U""Add a default case to this switch.(Ò“ÿšùÿÿÿÿ
+I
+java:S1874F"3Remove this use of "getDrawable"; it is deprecated.(Þ ì¸
+o
+java:S3252‡"SUse static access with "android.text.style.DynamicDrawableSpan" for "ALIGN_BOTTOM".(’©–‰þÿÿÿÿ
+I
+java:S1874N"3Remove this use of "getDrawable"; it is deprecated.(Ã÷ßî
+N
+java:S1874@"3Remove this use of "getDrawable"; it is deprecated.(óÕ–àùÿÿÿÿ
+I
+java:S1874J"3Remove this use of "getDrawable"; it is deprecated.(¥Ýü¨
+l	java:S117¾"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Æ¤‡ýÿÿÿÿ
+N
+java:S1874D"3Remove this use of "getDrawable"; it is deprecated.(É—œŽøÿÿÿÿ
+H
+java:S1874Ñ",Remove this use of "show"; it is deprecated.(§ÁÀ”ýÿÿÿÿ
+B
+java:S1172ê"&Remove these unused method parameters.(ýÒþ…ýÿÿÿÿ
+l	java:S117¦"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Æ¤‡ýÿÿÿÿ
+C
+java:S1659("(Declare "department" on a separate line.(»Ô¦Àüÿÿÿÿ
+l	java:S117§"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·­ƒ•ÿÿÿÿÿ
+R
+java:S1874Ñ"6Remove this use of "ProgressDialog"; it is deprecated.(§ÁÀ”ýÿÿÿÿ
+=
+java:S1659)"'Declare "amcToDate" on a separate line.(Ê÷ƒØ
+I
+java:S1874B"3Remove this use of "getDrawable"; it is deprecated.(ƒÈï«
+N
+java:S1874H"3Remove this use of "getDrawable"; it is deprecated.(˜Ð”ˆþÿÿÿÿ
+_
+java:S5361Ó"HReplace this call to "replaceAll()" by a call to the "replace()" method.(è§¸
+l	java:S117¿"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·­ƒ•ÿÿÿÿÿ
+Q
+java:S1874+"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+V	java:S110%"<This class has 9 parents which is greater than 5 authorized.(Ô±Äõøÿÿÿÿ
+G
+java:S1659(",Declare "instrumentType" on a separate line.(»Ô¦Àüÿÿÿÿ
+E
+java:S1659("*Declare "instrumentId" on a separate line.(»Ô¦Àüÿÿÿÿ

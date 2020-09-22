@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge">
+<ImageView
+        android:layout_rowSpan="2"
+        android:layout_width="60dp"
+        android:layout_height="70dp"
+        android:scaleType="fitXY"
+        android:id="@+id/userImage"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/instrument"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:textSize="20dp"
+        android:layout_toEndOf="@id/userImage"
+        android:layout_toRightOf="@id/userImage"
+        android:gravity="center_vertical"
+        android:textColor="@color/view_black"
+        android:id="@+id/instrumentId" />
+<TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"
+        android:textColor="@color/view_black"
+        android:layout_below="@+id/instrumentId"
+        android:layout_toRightOf="@id/userImage"
+        android:id="@+id/intrumentType"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="10dp"
+        android:textColor="@color/view_black"
+        android:layout_below="@+id/intrumentType"
+        android:layout_toRightOf="@id/userImage"
+        android:id="@+id/companyName"/>
+</RelativeLayout>

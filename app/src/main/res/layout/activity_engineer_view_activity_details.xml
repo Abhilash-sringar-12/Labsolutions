@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".engineer.ViewAssignedActivities">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_white"
+    android:orientation="vertical"
+    android:layout_marginTop="50dp"
+    android:gravity="center"
+    android:padding="30dp"
+    tools:context=".engineer.ViewAssignedActivities">
+    <TextView
+        android:id="@+id/customerName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_rectangle"
+        android:drawableEnd="@drawable/ic_baseline_supervised_user_circle_24"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColor="@color/view_black"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/activityCompanyName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/drawable_rectangle"
+        android:drawableEnd="@drawable/ic_baseline_add_location_24"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColor="@color/view_black"
+        android:layout_marginBottom="10dp"
+        android:textSize="20sp" />
+    <TextView
+        android:id="@+id/activityInstrumentId"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/view_black"
+        android:drawableEnd="@drawable/tools"
+        android:background="@drawable/drawable_rectangle"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:padding="10dp"
+        android:textSize="20sp" />
+
+    <TextView
+        android:id="@+id/scheduledDateAndTime"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/view_black"
+        android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+        android:background="@drawable/drawable_rectangle"
+        android:layout_marginBottom="10dp"
+        android:ems="10"
+        android:padding="10dp"
+        android:textSize="20sp" />
+    <TextView
+        android:layout_width="match_parent"
+        android:ems="10"
+        android:padding="10dp"
+        android:textColor="@color/view_black"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@drawable/ic_baseline_report_problem_24"
+        android:background="@drawable/drawable_rectangle_text"
+        android:id="@+id/activityProblemDescription"
+        android:layout_marginBottom="20dp"
+        android:textSize ="20sp"/>
+
+
+        <Button
+            android:id="@+id/approve"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/drawable_rounded"
+            android:text="Accept"
+            android:textColor="@color/view_white"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/enginnerDecline"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/drawable_rounded"
+            android:text="Decline"
+            android:textColor="@color/view_white"
+            android:textSize="20sp" />
+</LinearLayout>
+</ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".engineer.ResolveActivity">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+<ScrollView
+    android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/view_white"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:layout_marginTop="40dp"
+        android:padding="20dp"
+        android:id="@+id/resolveLayout"
+        tools:context=".engineer.ViewAssignedActivities">
+        <TextView
+            android:id="@+id/sparesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Spares Details"
+            android:layout_gravity="left"
+            android:textColor="@color/view_black"
+            android:padding = "10dp"
+            android:textSize="20sp"
+            android:gravity="top">
+        </TextView>
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/drawable_rectangle_text">
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+            android:id="@+id/sparesSection1">
+            <EditText
+                android:layout_width="100dp"
+                android:ems="10"
+                android:padding = "10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawable_rectangle_text"
+                android:layout_alignParentLeft="true"
+                android:id="@+id/spareOneQty"
+                android:singleLine="true"
+                android:inputType="number"
+                android:hint="Spr 1 Qty"
+                android:textColorHint="@color/view_black"
+                android:textSize ="20sp"/>
+            <EditText
+                android:layout_width="200dp"
+                android:ems="10"
+                android:padding = "10dp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/drawable_rectangle_text"
+                android:id="@+id/spareOneDesc"
+                style="@style/Widget.AppCompat.Spinner.Underlined"
+               android:layout_alignParentRight="true"
+                android:textColorHint="@color/view_black"
+                android:inputType="text"
+                android:hint="Spare Description"
+                android:textSize ="20sp"/>
+
+        </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/sparesSection2">
+        <EditText
+            android:layout_width="100dp"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_rectangle_text"
+            android:layout_alignParentLeft="true"
+            android:inputType="number"
+            android:id="@+id/spareTwoQty"
+            android:hint="Spr 2 Qty"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:textColorHint="@color/view_black"
+            android:textSize ="20sp"/>
+        <EditText
+            android:layout_width="200dp"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_rectangle_text"
+            android:id="@+id/spareTwoDesc"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_alignParentRight="true"
+            android:textColorHint="@color/view_black"
+            android:inputType="text"
+            android:hint="Spare Description"
+            android:textSize ="20sp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/sparesSection3">
+        <EditText
+            android:layout_width="100dp"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_rectangle_text"
+            android:layout_alignParentLeft="true"
+            android:inputType="number"
+            android:hint="Spr 3 Qty"
+            android:id="@+id/spareThreeQty"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:textColorHint="@color/view_black"
+            android:textSize ="20sp"/>
+        <EditText
+            android:layout_width="200dp"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_rectangle_text"
+            android:id="@+id/spareThreeDesc"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_alignParentRight="true"
+            android:textColorHint="@color/view_black"
+            android:inputType="text"
+            android:hint="Spare Description"
+            android:textSize ="20sp"/>
+
+    </RelativeLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:id="@+id/sparesSection4">
+        <EditText
+            android:layout_width="100dp"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_rectangle_text"
+            android:layout_alignParentLeft="true"
+            android:inputType="number"
+            android:id="@+id/spareFourQty"
+            android:hint="Spr 4 Qty"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:textColorHint="@color/view_black"
+            android:textSize ="20sp"/>
+        <EditText
+            android:layout_width="200dp"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="wrap_content"
+            android:background="@drawable/drawable_rectangle_text"
+            android:id="@+id/spareFourDesc"
+            style="@style/Widget.AppCompat.Spinner.Underlined"
+            android:layout_alignParentRight="true"
+            android:textColorHint="@color/view_black"
+            android:inputType="text"
+            android:hint="Spare Description"
+            android:textSize ="20sp"/>
+
+    </RelativeLayout>
+</LinearLayout>
+
+        <TextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Resolution Description"
+            android:layout_gravity="left"
+            android:textColor="@color/view_black"
+            android:padding = "10dp"
+            android:textSize="20sp"
+            android:gravity="top">
+        </TextView>
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="match_parent"
+            android:id="@+id/editTextResolutionDescription"
+            android:background="@drawable/drawable_rectangle_text"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
+            android:textColorHint="@color/view_black">
+            <EditText
+                android:layout_width="match_parent"
+                android:ems="10"
+                android:padding = "10dp"
+                android:layout_height="100dp"
+                android:background="@null"
+                android:inputType="textLongMessage"
+                android:textSize ="20sp"/>
+        </com.google.android.material.textfield.TextInputLayout>
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:id="@+id/closureType"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
+            android:checkedButton="@+id/pm"
+            android:orientation="horizontal">
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/resolved"
+                android:text="Resolved"
+                android:layout_marginBottom="10dp"
+                android:textSize="18dp"/>
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/cancel"
+                android:text="Drop"
+                android:textSize="18dp"/>
+
+            <RadioButton
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:id="@+id/waiting"
+                android:text="Waiting"
+                android:textSize="18dp"/>
+        </RadioGroup>
+
+            <Button
+                android:id="@+id/submit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:textSize ="20sp"
+                android:background="@drawable/drawable_rounded"
+                android:text="Submit" />
+    </LinearLayout>
+
+ </ScrollView>
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

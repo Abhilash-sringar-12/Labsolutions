@@ -1,0 +1,59 @@
+
+I
+java:S1874Y"3Remove this use of "getDrawable"; it is deprecated.(Ã÷ßî
+f
+java:S1192Ô"HDefine a constant instead of duplicating this literal "</td>\n" 3 times.(ıÁÚõ8îàªØÈ.
+@
+java:S1659%"%Declare "company" on a separate line.(ü¹ÍÔÿÿÿÿÿ
+N
+java:S1874S"3Remove this use of "getDrawable"; it is deprecated.(˜Ğ”ˆşÿÿÿÿ
+i
+java:S3776—"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(¶×êÖ
+P	java:S110#"<This class has 9 parents which is greater than 5 authorized.(‹Ù’
+K
+java:S3740¹"/Provide the parametrized type for this generic.(ôÍÏĞùÿÿÿÿ
+>
+java:S1659%"#Declare "phone" on a separate line.(ü¹ÍÔÿÿÿÿÿ
+C
+java:S1659%"(Declare "department" on a separate line.(ü¹ÍÔÿÿÿÿÿ
+I
+java:S1874U"3Remove this use of "getDrawable"; it is deprecated.(¥İü¨
+i
+java:S3776‡"RRefactor this method to reduce its Cognitive Complexity from 18 to the 15 allowed.(¹Àö×
+K
+java:S3740°"/Provide the parametrized type for this generic.(ñ°³¤úÿÿÿÿ
+k
+java:S1192Õ"HDefine a constant instead of duplicating this literal "</tr>\n" 6 times.(úÒ¶ÿÿÿÿÿ8îàªØÈ.
+R
+java:S1874®"6Remove this use of "ProgressDialog"; it is deprecated.(„äÛ¢úÿÿÿÿ
+H
+java:S1874®",Remove this use of "show"; it is deprecated.(„äÛ¢úÿÿÿÿ
+o
+java:S3252’"SUse static access with "android.text.style.DynamicDrawableSpan" for "ALIGN_BOTTOM".(’©–‰şÿÿÿÿ
+v
+java:S1192â"SDefine a constant instead of duplicating this literal "</tbody></table>\n" 3 times.(†¸†üÿÿÿÿ8îàªØÈ.
+A
+java:S1659%"&Declare "password" on a separate line.(ü¹ÍÔÿÿÿÿÿ
+I
+java:S1874M"3Remove this use of "getDrawable"; it is deprecated.(ƒÈï«
+q
+java:S1192Ë"NDefine a constant instead of duplicating this literal "<tbody><tr>\n" 4 times.(›Ä—•şÿÿÿÿ8îàªØÈ.
+I
+java:S1874Q"3Remove this use of "getDrawable"; it is deprecated.(Ş ì¸
+N
+java:S1874O"3Remove this use of "getDrawable"; it is deprecated.(É—œøÿÿÿÿ
+<	java:S131`""Add a default case to this switch.(Ò“ÿšùÿÿÿÿ
+d
+java:S3252“"MUse static access with "android.text.Spanned" for "SPAN_EXCLUSIVE_EXCLUSIVE".(£îŸ´
+A
+java:S1659%"&Declare "userName" on a separate line.(ü¹ÍÔÿÿÿÿÿ
+N
+java:S1874K"3Remove this use of "getDrawable"; it is deprecated.(óÕ–àùÿÿÿÿ
+j
+java:S1192Ö"GDefine a constant instead of duplicating this literal "<tr>\n" 4 times.(‡ô€…øÿÿÿÿ8îàªØÈ.
+H
+java:S1874W"3Remove this use of "getDrawable"; it is deprecated.(¥–„#
+Q
+java:S1874,"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+F
+java:S5411­"*Use the primitive boolean expression here.(†¬„åøÿÿÿÿ

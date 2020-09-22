@@ -1,0 +1,98 @@
+
+S
+java:S2589„"7Remove this expression which always evaluates to "true"(‡ÙÃ®ıÿÿÿÿ
+L
+java:S1874‰"6Remove this use of "ProgressDialog"; it is deprecated.(ºèr
+V	java:S110;"<This class has 9 parents which is greater than 5 authorized.(”—Èşÿÿÿÿ
+>
+java:S1659>"(Declare "sprFourQty" on a separate line.(ÒĞµ—
+n
+java:S3776g"SRefactor this method to reduce its Cognitive Complexity from 180 to the 15 allowed.(¨Œşÿÿÿÿ
+c
+java:S2147ç"ECombine this catch with the one at line 613, which has the same body.(ï­£Ä8ºÜé­É.
+˜
+java:S1186Û"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+R
+java:S1874Œ"6Remove this use of "ProgressDialog"; it is deprecated.(î¾‚ıÿÿÿÿ
+i
+java:S1192¼"MDefine a constant instead of duplicating this literal "Labsolutions" 9 times.(Ÿ­Š’şÿÿÿÿ
+c
+java:S2147é"ECombine this catch with the one at line 613, which has the same body.(½ÙŠï8ºÜé­É.
+L
+java:S1874d"6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº
+>
+java:S1659>"(Declare "sprTwoDesc" on a separate line.(ÒĞµ—
+H
+java:S1874Œ",Remove this use of "show"; it is deprecated.(î¾‚ıÿÿÿÿ
+?
+java:S1659>")Declare "sprFourDesc" on a separate line.(ÒĞµ—
+`
+java:S1192·"IDefine a constant instead of duplicating this literal "engineer" 5 times.(×Ûä…
+h
+java:S2147ë"ECombine this catch with the one at line 613, which has the same body.(ÿ‰À¾üÿÿÿÿ8ºÜé­É.
+c
+java:S1192“"GDefine a constant instead of duplicating this literal "mailId" 3 times.(¬’°ôùÿÿÿÿ
+R
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(æ‹…¿øÿÿÿÿ
+i
+java:S3776°"RRefactor this method to reduce its Cognitive Complexity from 44 to the 15 allowed.(‹¶èÂ
+o
+java:S1192¼"SDefine a constant instead of duplicating this literal "adminAllActivities" 3 times.(Ÿ­Š’şÿÿÿÿ
+Y
+java:S1117¦"=Rename "startDate" which hides the field declared at line 80.(”›ïËüÿÿÿÿ
+`
+java:S1192©"IDefine a constant instead of duplicating this literal "end-data" 3 times.(«šïì
+H
+java:S1874",Remove this use of "show"; it is deprecated.(æ‹…¿øÿÿÿÿ
+h
+java:S1192ª"QDefine a constant instead of duplicating this literal "current-activity" 7 times.(òÿĞğ
+W
+java:S1858Å"@"getKey" returns a string, there's no need to call "toString()".(ñ¤‚
+˜
+java:S1186ã"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+F
+java:S1874•"*Remove this use of "no"; it is deprecated.(³Çªÿûÿÿÿÿ
+c
+java:S1192²"GDefine a constant instead of duplicating this literal "status" 3 times.(¶ò¢ûıÿÿÿÿ
+s
+java:S1192¼"WDefine a constant instead of duplicating this literal " is waiting for spares" 3 times.(Ÿ­Š’şÿÿÿÿ
+˜
+java:S1186Ó"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦
+Y
+java:S1117Ü"=Rename "startDate" which hides the field declared at line 80.(”›ïËüÿÿÿÿ
+h
+java:S1192"LDefine a constant instead of duplicating this literal "Please wait" 3 times.(æ‹…¿øÿÿÿÿ
+B
+java:S1874‰",Remove this use of "show"; it is deprecated.(ºèr
+n
+java:S1192Š"WDefine a constant instead of duplicating this literal "engineer-approved-info" 3 times.(ü¾³
+P
+java:S11280".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ8Ï¯ÀÛÈ.
+>
+java:S1659>"(Declare "sprOneDesc" on a separate line.(ÒĞµ—
+i
+java:S3776Ú"RRefactor this method to reduce its Cognitive Complexity from 74 to the 15 allowed.(ÚûäÓ
+a
+java:S1192}"LDefine a constant instead of duplicating this literal "activities" 16 times.(èÅÏ0
+f
+java:S1192ª"ODefine a constant instead of duplicating this literal "activity-users" 9 times.(òÿĞğ
+v
+java:S1192à"SDefine a constant instead of duplicating this literal " resolved the call" 3 times.(†¨Í÷ùÿÿÿÿ8ºÜé­É.
+@
+java:S1659>"*Declare "sprThreeDesc" on a separate line.(ÒĞµ—
+c
+java:S1192³"GDefine a constant instead of duplicating this literal "token" 12 times.(Ûí±¯øÿÿÿÿ
+n
+java:S3776¤"RRefactor this method to reduce its Cognitive Complexity from 21 to the 15 allowed.(³ü¸úùÿÿÿÿ
+g
+java:S1192¡"KDefine a constant instead of duplicating this literal "timeStamp" 13 times.(ã¯‹úÿÿÿÿ
+g
+java:S1192¨"KDefine a constant instead of duplicating this literal "start-data" 3 times.(ğ©ü²øÿÿÿÿ
+B
+java:S1874ş"+Remove this use of "yes"; it is deprecated.(É›“•
+?
+java:S1659>")Declare "sprThreeQty" on a separate line.(ÒĞµ—
+=
+java:S1659>"'Declare "sprTwoQty" on a separate line.(ÒĞµ—
+˜
+java:S1186Ë"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦

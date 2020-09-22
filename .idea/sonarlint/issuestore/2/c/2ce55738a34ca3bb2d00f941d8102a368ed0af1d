@@ -1,0 +1,35 @@
+
+V	java:S110#"<This class has 9 parents which is greater than 5 authorized.(üº×”üÿÿÿÿ
+o
+java:S2293%"YReplace the type specification in this constructor call with the diamond operator ("<>").(‹•Ó´
+Q
+java:S1874)"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+m
+java:S3776,"RRefactor this method to reduce its Cognitive Complexity from 54 to the 15 allowed.(¨Œşÿÿÿÿ
+L
+java:S18748"6Remove this use of "ProgressDialog"; it is deprecated.(öô¾İ
+B
+java:S18748",Remove this use of "show"; it is deprecated.(öô¾İ
+—
+java:S1186s"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(¹Ş‰
+O
+java:S1874€"3Remove this use of "getDrawable"; it is deprecated.(óÕ–àùÿÿÿÿ
+J
+java:S1874‚"3Remove this use of "getDrawable"; it is deprecated.(ƒÈï«
+O
+java:S1874„"3Remove this use of "getDrawable"; it is deprecated.(É—œøÿÿÿÿ
+J
+java:S1874†"3Remove this use of "getDrawable"; it is deprecated.(Ş ì¸
+O
+java:S1874ˆ"3Remove this use of "getDrawable"; it is deprecated.(˜Ğ”ˆşÿÿÿÿ
+J
+java:S1874Š"3Remove this use of "getDrawable"; it is deprecated.(¥İü¨
+I
+java:S1874Œ"3Remove this use of "getDrawable"; it is deprecated.(¥–„#
+J
+java:S1874"3Remove this use of "getDrawable"; it is deprecated.(Ã÷ßî
+=	java:S131•""Add a default case to this switch.(Ò“ÿšùÿÿÿÿ
+o
+java:S3252Ç"SUse static access with "android.text.style.DynamicDrawableSpan" for "ALIGN_BOTTOM".(’©–‰şÿÿÿÿ
+d
+java:S3252È"MUse static access with "android.text.Spanned" for "SPAN_EXCLUSIVE_EXCLUSIVE".(£îŸ´

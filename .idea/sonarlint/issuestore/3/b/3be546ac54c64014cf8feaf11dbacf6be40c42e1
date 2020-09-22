@@ -1,0 +1,11 @@
+
+u
+java:S1104F"ZMake relativeLayout a static final constant or non-public and provide accessors if needed.(‚àË²üÿÿÿÿ
+s
+java:S1104C"XMake instrumentId a static final constant or non-public and provide accessors if needed.(»¶Ìµúÿÿÿÿ
+p
+java:S1104D"ZMake instrumentType a static final constant or non-public and provide accessors if needed.(ÊÎÎÕ
+r
+java:S1104E"WMake companyName a static final constant or non-public and provide accessors if needed.(©…˜úÿÿÿÿ
+}
+java:S1488&"bImmediately return this expression instead of assigning it to the temporary variable "viewHolder".(µ·¼‘øÿÿÿÿ

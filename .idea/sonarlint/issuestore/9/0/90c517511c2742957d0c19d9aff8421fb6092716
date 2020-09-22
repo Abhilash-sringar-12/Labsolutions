@@ -1,0 +1,44 @@
+
+k
+java:S1128"NRemove this unused import 'com.example.labsolutions.customer.ActivityDetails'.(©‚ÙØ8ğ¿Ğ‘É.
+r	java:S117\"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(§Æ¤‡ıÿÿÿÿ8òïşÈ.
+S
+java:S18743"6Remove this use of "ProgressDialog"; it is deprecated.(ğİıº8“¼´şÈ.
+r	java:S117]"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·­ƒ•ÿÿÿÿÿ8òïşÈ.
+]	java:S110,"<This class has 9 parents which is greater than 5 authorized.(–â£şÿÿÿÿ8àÓ şÈ.
+q
+java:S1128"ORemove this unused import 'com.example.labsolutions.customer.CustomerActivity'.(ã÷°şÿÿÿÿ8âë€ÿÈ.
+M
+java:S1659-"+Declare "scheduledTime" on a separate line.(à„î’üÿÿÿÿ8‚·®şÈ.
+t
+java:S37766"RRefactor this method to reduce its Cognitive Complexity from 38 to the 15 allowed.(¨Œşÿÿÿÿ8æ»·ÿÈ.
+Ÿ
+java:S1186Ö"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(Ô°¤¦8×æ¶ÿÈ.
+@
+java:S16591"#Declare "mHour" on a separate line.(²¬ã‚8›ğşÈ.
+I
+java:S1874‡"+Remove this use of "yes"; it is deprecated.(É›“•8¥Ò‘É.
+:
+java:S1700."Rename field "reScheduleCall"(ô‰îÖ8›‘âşÈ.
+k
+java:S1192…"MDefine a constant instead of duplicating this literal "Labsolutions" 4 times.(§µÏÜ8¥Ò‘É.
+A
+java:S16591"$Declare "mMonth" on a separate line.(²¬ã‚8›ğşÈ.
+B
+java:S16591"%Declare "mMinute" on a separate line.(²¬ã‚8›ğşÈ.
+?
+java:S16591""Declare "mDay" on a separate line.(²¬ã‚8›ğşÈ.
+J
+java:S1874",Remove this use of "show"; it is deprecated.(”‡”·8¥Ò‘É.
+M
+java:S1874µ"*Remove this use of "no"; it is deprecated.(³Çªÿûÿÿÿÿ8¥Ò‘É.
+n
+java:S1192"PDefine a constant instead of duplicating this literal " is rescheduled" 3 times.(ÙñÓ‰8¥Ò‘É.
+h
+java:S1192”"JDefine a constant instead of duplicating this literal "timeStamp" 3 times.(ºÍ†Ú8¥Ò‘É.
+O
+java:S1172Ä"1Remove this unused method parameter "activityId".(›ôá×8×æ¶ÿÈ.
+h
+java:S1192"JDefine a constant instead of duplicating this literal "Call for " 3 times.(ÙñÓ‰8¥Ò‘É.
+T
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(”‡”·8¥Ò‘É.

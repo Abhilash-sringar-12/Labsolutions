@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/view_white"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="30dp"
+    tools:context=".admin.CreateUserActivity">
+    <AutoCompleteTextView
+        android:id="@+id/autoCompleteTextView1"
+        android:layout_width="match_parent"
+        android:hint="Select Instrument"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/instruments"
+        android:layout_below="@+id/instruments"
+        android:drawableEnd="@drawable/tools"
+        android:layout_marginTop="30dp"
+        android:textColorHint="@color/view_black"
+        android:textSize="20sp"
+        android:ems="10" />
+    <EditText
+        android:id="@+id/editDate"
+        android:clickable="true"
+        android:layout_marginTop="30dp"
+        android:hint="Schedule Date"
+        android:paddingLeft="10sp"
+        android:textSize="20sp"
+        android:inputType="date"
+        android:editable="false"
+        android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+        android:textColorHint="@color/view_black"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+    <EditText
+        android:id="@+id/editTime"
+        android:clickable="true"
+        android:layout_marginTop="30dp"
+        android:hint="Schedule Time"
+        android:paddingLeft="10sp"
+        android:textSize="20sp"
+        android:inputType="time"
+        android:drawableEnd="@drawable/ic_baseline_timer_24"
+        android:textColorHint="@color/view_black"
+        android:layout_height="wrap_content"
+        android:layout_width="match_parent" />
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:id="@+id/calltype"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:checkedButton="@+id/pm"
+        android:orientation="horizontal">
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/pm"
+            android:text="PM"
+            android:layout_marginBottom="10dp"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/breakdown"
+            android:text="BD"
+            android:textSize="20dp"/>
+
+        <RadioButton
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:layout_height="wrap_content"
+            android:id="@+id/calibration"
+            android:text="CAL"
+            android:textSize="20dp"/>
+    </RadioGroup>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:id="@+id/editTextProblemDescription"
+        android:background="@drawable/drawable_rectangle_text"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="10dp"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <EditText
+            android:layout_width="match_parent"
+            android:ems="10"
+            android:padding = "10dp"
+            android:layout_height="100dp"
+            android:background="@null"
+            android:inputType="textLongMessage"
+            android:textSize ="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/createActivity"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Create"
+        android:textColor="@color/view_white"
+        android:textSize="20sp"
+        android:layout_marginTop="20dp"
+        android:background="@drawable/drawable_rounded" />
+</LinearLayout>
