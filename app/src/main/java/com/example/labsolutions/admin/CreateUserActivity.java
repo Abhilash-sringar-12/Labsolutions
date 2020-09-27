@@ -34,7 +34,7 @@ import androidx.appcompat.widget.Toolbar;
 
 public class CreateUserActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
-    TextInputLayout emailId, password, userName, phone, company, department;
+    TextInputLayout emailId, password, userName, phone, company, department, companyAddress;
     RadioGroup radioGroup;
     RadioButton radioButton;
     FirebaseApp appUsers;
@@ -156,6 +156,7 @@ public class CreateUserActivity extends AppCompatActivity {
             userName = (TextInputLayout) findViewById(R.id.editTextUserName);
             company = (TextInputLayout) findViewById(R.id.editTextCompany);
             department = (TextInputLayout) findViewById(R.id.editTextDepartment);
+            companyAddress = (TextInputLayout) findViewById(R.id.editTextCompanyAddress);
             signUp = findViewById(R.id.button2);
             signUp.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -167,10 +168,11 @@ public class CreateUserActivity extends AppCompatActivity {
                         final String emailIdValue = emailId.getEditText().getText().toString();
                         final String passwordValue = password.getEditText().getText().toString();
                         final String companyValue = company.getEditText().getText().toString();
+                        final String companyAddressValue = companyAddress.getEditText().getText().toString();
                         final String departmentValue = department.getEditText().getText().toString();
                         final String phoneNumberValue = phone.getEditText().getText().toString();
                         final String userTypeValue = radioButton.getText().toString();
-                        if (validateFields(userNameValue, passwordValue, emailIdValue, phoneNumberValue, companyValue, departmentValue)) {
+                        if (validateFields(userNameValue, passwordValue, emailIdValue, phoneNumberValue, companyValue, departmentValue, companyAddressValue)) {
                             progressDialog = ProgressDialog.show(CreateUserActivity.this, "Please wait", "Creating user....", true, false);
                             final FirebaseAuth secondary = FirebaseAuth.getInstance(FirebaseApp.getInstance("Appusers"));
                             secondary.createUserWithEmailAndPassword(emailIdValue, passwordValue).addOnCompleteListener(CreateUserActivity.this, new OnCompleteListener() {
@@ -181,7 +183,7 @@ public class CreateUserActivity extends AppCompatActivity {
                                             Commons.dismissProgressDialog(progressDialog);
                                             Toast.makeText(CreateUserActivity.this, "Failed to create User", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, phoneNumberValue, companyValue, departmentValue, userTypeValue);
+                                            UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, phoneNumberValue, companyValue, departmentValue, userTypeValue,companyAddressValue);
                                             FirebaseDatabase.getInstance(appUsers).getReference("users").child(secondary.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(CreateUserActivity.this, new OnCompleteListener() {
                                                 @Override
                                                 public void onComplete(@NonNull Task task) {
@@ -260,7 +262,7 @@ public class CreateUserActivity extends AppCompatActivity {
         }
     }
 
-    private Boolean validateFields(String userNameValue, String passwordValue, String emailIdValue, String phoneNumberValue, String companyValue, String departmentValue) {
+    private Boolean validateFields(String userNameValue, String passwordValue, String emailIdValue, String phoneNumberValue, String companyValue, String departmentValue, String companyAddressValue) {
         Boolean isFormValid = true;
         if (userNameValue.isEmpty()) {
             userName.setError("Please enter user name");
@@ -317,6 +319,13 @@ public class CreateUserActivity extends AppCompatActivity {
             company.requestFocus();
         } else {
             company.setError(null);
+        }
+        if (companyAddressValue.isEmpty()) {
+            companyAddress.setError("Please enter Company Name");
+            isFormValid = false;
+            companyAddress.requestFocus();
+        } else {
+            companyAddress.setError(null);
         }
         if (departmentValue.isEmpty()) {
             department.setError("Please enter department name");

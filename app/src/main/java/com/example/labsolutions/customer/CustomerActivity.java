@@ -109,7 +109,9 @@ public class CustomerActivity extends AppCompatActivity {
                             ? snapshot.child("mailId").getValue(String.class) : "";
                     String type = snapshot.child("type").getValue() != null
                             ? snapshot.child("type").getValue(String.class) : "";
-                    userInfo = new UserInfo(userName, emailId, phoneNumber, companyName, department, type);
+                    String companyAddress = snapshot.child("companyAddress").getValue() != null
+                            ? snapshot.child("companyAddress").getValue(String.class) : "";
+                    userInfo = new UserInfo(userName, emailId, phoneNumber, companyName, department, type,companyAddress);
                     loadInstruments(databaseReferenceUInstruments, companyName, department);
                     final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference()
                             .child("admin");

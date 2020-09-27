@@ -67,7 +67,7 @@ public class ResolveActivity extends AppCompatActivity {
     String customerPhone;
     String customerMail;
     String customerDepartment;
-    String customerCompany;
+    String customerCompany, customerCompanyAddress;
     String instrumentId;
     String problemDescription;
     String activityStartTime;
@@ -150,6 +150,8 @@ public class ResolveActivity extends AppCompatActivity {
                                     ? currentActivityInfo.child("department").getValue(String.class) : "";
                             customerCompany = currentActivityInfo.child("companyName").getValue() != null
                                     ? currentActivityInfo.child("companyName").getValue(String.class) : "";
+                            customerCompanyAddress = currentActivityInfo.child("companyAddress").getValue() != null
+                                    ? currentActivityInfo.child("companyAddress").getValue(String.class) : "";
                             instrumentId = activityInfo.child("instrumentId").getValue(String.class);
                             problemDescription = activityInfo.child("problemDescription").getValue() != null
                                     ? activityInfo.child("problemDescription").getValue(String.class) : "";
@@ -544,6 +546,8 @@ public class ResolveActivity extends AppCompatActivity {
             table.addCell(headingCell);
             table.addCell("Company Name :");
             table.addCell(customerCompany);
+            table.addCell("Company Address :");
+            table.addCell(customerCompanyAddress);
             table.addCell("User Name :");
             table.addCell(customerName);
             table.addCell("Department/Lab :");
@@ -586,6 +590,7 @@ public class ResolveActivity extends AppCompatActivity {
             sparesTable.addCell(sprFourQty.getText().toString());
             PdfPCell commentCell = new PdfPCell(new Phrase("Comment:"));
             commentCell.setColspan(3);
+            commentCell.setMinimumHeight(100);
             sparesTable.addCell(commentCell);
             PdfPCell customerCell = new PdfPCell(new Phrase("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tCustomer Details", boldFont));
             customerCell.setColspan(3);

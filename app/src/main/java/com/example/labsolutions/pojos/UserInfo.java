@@ -7,18 +7,26 @@ public class UserInfo {
     String companyName;
     String department;
     String userType;
-
-
+    String companyAddress;
     String uuid;
 
 
-    public UserInfo(String user, String mailId, String phoneNumber, String companyName, String department, String userType) {
+    public UserInfo(String user, String mailId, String phoneNumber, String companyName, String department, String userType, String companyAddress) {
         this.user = user;
         this.mailId = mailId;
         this.phoneNumber = phoneNumber;
         this.companyName = companyName;
-        this.department =department;
+        this.department = department;
         this.userType = userType;
+        this.companyAddress = companyAddress;
+    }
+
+    public String getCompanyAddress() {
+        return companyAddress;
+    }
+
+    public void setCompanyAddress(String companyAddress) {
+        this.companyAddress = companyAddress;
     }
 
     public String getDepartment() {

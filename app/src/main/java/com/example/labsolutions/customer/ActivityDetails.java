@@ -76,7 +76,7 @@ public class ActivityDetails extends AppCompatActivity {
     String engineerMailId;
     String enginnerId;
     String spareQtyOne, spareQtyTwo, spareQtyThree, spareQtyFour, spareDescOne, spareDescTwo, spareDescThree, spareDescFour;
-    String closureTime, adminTokenId, enginnerTokenid, customerTokenId, closureDate, durationHours, durationMinutes, resolutionDescription, customerCompany, customerName, customerDepartment, instrumentId, problemDescription, date, time, approvedTime, approvedDate, engineerName, scheduledDate, scheduledTime;
+    String closureTime, adminTokenId, enginnerTokenid, customerTokenId, closureDate, durationHours, durationMinutes, resolutionDescription, customerCompany, customerCompanyAddress, customerName, customerDepartment, instrumentId, problemDescription, date, time, approvedTime, approvedDate, engineerName, scheduledDate, scheduledTime;
     ApiService apiService;
 
     @Override
@@ -114,6 +114,7 @@ public class ActivityDetails extends AppCompatActivity {
                             final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference()
                                     .child("admin");
                             customerCompany = currentActivityInfo.child("companyName").getValue() != null ? currentActivityInfo.child("companyName").getValue(String.class) : "";
+                            customerCompanyAddress = currentActivityInfo.child("companyAddress").getValue() != null ? currentActivityInfo.child("companyAddress").getValue(String.class) : "";
                             instrumentId = activityInfo.child("instrumentId").getValue() != null
                                     ? activityInfo.child("instrumentId").getValue(String.class) : "";
                             String callType = activityInfo.child("callType").getValue() != null
@@ -413,6 +414,8 @@ public class ActivityDetails extends AppCompatActivity {
             table.addCell(headingCell);
             table.addCell("Company Name :");
             table.addCell(customerCompany);
+            table.addCell("Company Address :");
+            table.addCell(customerCompanyAddress);
             table.addCell("User Name :");
             table.addCell(customerName);
             table.addCell("Department/Lab :");
@@ -455,6 +458,7 @@ public class ActivityDetails extends AppCompatActivity {
             sparesTable.addCell(spareQtyFour);
             PdfPCell commentCell = new PdfPCell(new Phrase("Comment:"));
             commentCell.setColspan(3);
+            commentCell.setMinimumHeight(100);
             sparesTable.addCell(commentCell);
             PdfPCell customerCell = new PdfPCell(new Phrase("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tCustomer Details", boldFont));
             customerCell.setColspan(3);

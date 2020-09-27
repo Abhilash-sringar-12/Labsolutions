@@ -84,7 +84,7 @@ public class CreateWorkAdminActivity extends AppCompatActivity {
                                         Commons.dismissProgressDialog(progressDialog);
                                         Toast.makeText(CreateWorkAdminActivity.this, "Failed to create User", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, null, null, null, null);
+                                        UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, null, null, null, null,null);
                                         FirebaseDatabase.getInstance(admin).getReference("workadmin").child(secondary.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(CreateWorkAdminActivity.this, new OnCompleteListener() {
                                             @Override
                                             public void onComplete(@NonNull Task task) {

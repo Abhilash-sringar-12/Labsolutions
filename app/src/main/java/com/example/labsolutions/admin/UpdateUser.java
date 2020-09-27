@@ -30,7 +30,7 @@ public class UpdateUser extends AppCompatActivity {
 
     FirebaseAuth firebaseAuth;
     String userId;
-    TextInputLayout emailId, password, userName, phone, company, department;
+    TextInputLayout emailId, password, userName, phone, company, department, companyAddress;
     RadioGroup radioGroup;
     RadioButton engineer;
     RadioButton customer;
@@ -60,6 +60,7 @@ public class UpdateUser extends AppCompatActivity {
             phone = (TextInputLayout) findViewById(R.id.editTextPhone);
             userName = (TextInputLayout) findViewById(R.id.editTextUserName);
             company = (TextInputLayout) findViewById(R.id.editTextCompany);
+            companyAddress = (TextInputLayout) findViewById(R.id.editTextCompanyAddress);
             department = (TextInputLayout) findViewById(R.id.editTextDepartment);
             radioGroup = (RadioGroup) findViewById(R.id.usertype);
             setUserData();
@@ -74,7 +75,8 @@ public class UpdateUser extends AppCompatActivity {
                         final String departmentValue = department.getEditText().getText().toString();
                         final String phoneNumberValue = phone.getEditText().getText().toString();
                         final String userTypeValue = radioButton.getText().toString();
-                        if (validateFields(userNameValue, phoneNumberValue, companyValue, departmentValue)) {
+                        final String companyAddressValue = companyAddress.getEditText().getText().toString();
+                        if (validateFields(userNameValue, phoneNumberValue, companyValue, departmentValue, companyAddressValue)) {
                             progressDialog = ProgressDialog.show(UpdateUser.this, "Please wait", "Updating user.....", true, false);
 
                             final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference("users").child(userId);
@@ -96,17 +98,22 @@ public class UpdateUser extends AppCompatActivity {
                                                                         databaseReference.child("userType").setValue(userTypeValue).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                                Commons.dismissProgressDialog(progressDialog);
-                                                                                if (task.isSuccessful()) {
-                                                                                    resetForm();
-                                                                                    Toast.makeText(UpdateUser.this, "Successfully Updated User", Toast.LENGTH_SHORT).show();
-                                                                                    Intent intent1 = new Intent(UpdateUser.this, AdminActivity.class);
-                                                                                    startActivity(intent1);
-                                                                                    finishAffinity();
-                                                                                } else {
-                                                                                    Toast.makeText(UpdateUser.this, "Please Tyr again", Toast.LENGTH_SHORT).show();
+                                                                                databaseReference.child("companyAddress").setValue(companyAddressValue).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                    @Override
+                                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                                        Commons.dismissProgressDialog(progressDialog);
+                                                                                        if (task.isSuccessful()) {
+                                                                                            resetForm();
+                                                                                            Toast.makeText(UpdateUser.this, "Successfully Updated User", Toast.LENGTH_SHORT).show();
+                                                                                            Intent intent1 = new Intent(UpdateUser.this, AdminActivity.class);
+                                                                                            startActivity(intent1);
+                                                                                            finishAffinity();
+                                                                                        } else {
+                                                                                            Toast.makeText(UpdateUser.this, "Please Tyr again", Toast.LENGTH_SHORT).show();
 
-                                                                                }
+                                                                                        }
+                                                                                    }
+                                                                                });
                                                                             }
                                                                         });
                                                                     }
@@ -146,12 +153,15 @@ public class UpdateUser extends AppCompatActivity {
                         snapshot.child("phoneNumber").getValue(String.class) : "";
                 String userType = snapshot.child("userType").getValue() != null ?
                         snapshot.child("userType").getValue(String.class) : "";
+                String companyAddressStored = snapshot.child("companyAddress").getValue() != null ?
+                        snapshot.child("companyAddress").getValue(String.class) : "";
                 engineer = (RadioButton) findViewById(R.id.engineer);
                 customer = (RadioButton) findViewById(R.id.serviceuser);
                 company.getEditText().setText(companyName);
                 department.getEditText().setText(departmentName);
                 userName.getEditText().setText(user);
                 phone.getEditText().setText(phoneNumber);
+                companyAddress.getEditText().setText(companyAddressStored);
                 if (userType.equals("Engineer")) {
                     engineer.setChecked(true);
                 } else {
@@ -168,7 +178,7 @@ public class UpdateUser extends AppCompatActivity {
 
     }
 
-    private Boolean validateFields(String userNameValue, String phoneNumberValue, String companyValue, String departmentValue) {
+    private Boolean validateFields(String userNameValue, String phoneNumberValue, String companyValue, String departmentValue, String companyAddressValue) {
         Boolean isFormValid = true;
         if (userNameValue.isEmpty()) {
             userName.setError("Please enter user name");
@@ -198,6 +208,13 @@ public class UpdateUser extends AppCompatActivity {
         } else {
             company.setError(null);
         }
+        if (companyAddressValue.isEmpty()) {
+            companyAddress.setError("Please enter Company Name");
+            isFormValid = false;
+            companyAddress.requestFocus();
+        } else {
+            companyAddress.setError(null);
+        }
         if (departmentValue.isEmpty()) {
             department.setError("Please enter department name");
             isFormValid = false;
@@ -205,7 +222,6 @@ public class UpdateUser extends AppCompatActivity {
         } else {
             department.setError(null);
         }
-
         return isFormValid;
     }
 

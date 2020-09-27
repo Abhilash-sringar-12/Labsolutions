@@ -14,7 +14,7 @@
         android:id="@+id/editTextUserName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="30dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:hint="Name"
@@ -31,7 +31,7 @@
         android:id="@+id/editTextTextEmailAddress"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:focusable="true"
         android:focusableInTouchMode="true"
         android:hint="Email"
@@ -52,7 +52,7 @@
         app:passwordToggleEnabled="true"
         app:passwordToggleTint="@color/colorAccent"
         android:focusable="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
       android:hint="Password"
         android:focusableInTouchMode="true"
         android:textColorHint="@color/view_black">
@@ -68,7 +68,7 @@
         android:id="@+id/editTextPhone"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:hint="Phone"
         android:focusableInTouchMode="true"
         android:textColorHint="@color/view_black">
@@ -85,7 +85,7 @@
         android:id="@+id/editTextCompany"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:hint="Company"
         android:focusableInTouchMode="true"
         android:textColorHint="@color/view_black">
@@ -99,10 +99,27 @@
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
+        android:id="@+id/editTextCompanyAddress"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginTop="8dp"
+        android:hint="Company Address"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:drawableEnd="@drawable/ic_baseline_add_location_24"
+            android:ems="10"
+            android:inputType="text"
+            android:textSize ="20sp"/>
+    </com.google.android.material.textfield.TextInputLayout>
+<com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
         android:id="@+id/editTextDepartment"
         android:layout_height="wrap_content"
         android:focusable="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="8dp"
         android:hint="Department"
         android:focusableInTouchMode="true"
         android:textColorHint="@color/view_black">
@@ -118,7 +135,7 @@
         android:layout_width="match_parent"
         android:id="@+id/usertype"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
      android:checkedButton="@+id/engineer"
         android:orientation="horizontal">
     <RadioButton
@@ -146,7 +163,7 @@
         android:text="Sign In"
         android:textColor="@color/view_white"
         android:textSize="20sp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="12dp"
         android:background="@drawable/drawable_rounded" />
 
 </LinearLayout>
