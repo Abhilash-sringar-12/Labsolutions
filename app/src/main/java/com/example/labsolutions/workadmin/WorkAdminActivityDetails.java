@@ -266,8 +266,12 @@ public class WorkAdminActivityDetails extends AppCompatActivity {
                                 .setMessage("Are you sure you want to decline this activity?")
                                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                                     public void onClick(DialogInterface dialog, int which) {
-                                        progressDialog = ProgressDialog.show(WorkAdminActivityDetails.this, "Please wait", "In progress...", true, false);
-                                        update(activityId);
+                                        Intent intent1 = new Intent(WorkAdminActivityDetails.this, DeclineRegisteredCallActivity.class);
+                                        intent1.putExtra("adminTokenId", adminTokenId);
+                                        intent1.putExtra("customerTokenId", customerTokenId);
+                                        intent1.putExtra("activityId", activityId);
+                                        intent1.putExtra("instrumentIdValue", instrumentIdValue);
+                                        startActivity(intent1);
                                     }
                                 }).setNegativeButton(android.R.string.no, null)
                                 .setIcon(R.drawable.alert)
@@ -294,71 +298,4 @@ public class WorkAdminActivityDetails extends AppCompatActivity {
         startActivity(intent);
     }
 
-    private void update(final String activityId) {
-        try {
-            FirebaseDatabase.getInstance().getReference()
-                    .child("activity-users").child("current-activity").child(activityId).child("customer").addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    String startDate = DateUtility.getCurrentDate();
-                    String startTime = DateUtility.getCurrentTime();
-                    final DateInfo dateInfo = new DateInfo(startDate, startTime, ServerValue.TIMESTAMP);
-                    if (snapshot.getValue() != null) {
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("activity-users").child("completed-activity").child(activityId).child("customer").setValue(snapshot.getValue().toString()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                FirebaseDatabase.getInstance().getReference()
-                                        .child("activity-users").child("current-activity").child(activityId).child("customer").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            FirebaseDatabase.getInstance().getReference()
-                                                    .child("activity-users").child("current-activity").child(activityId).child("work-admin").removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                @Override
-                                                public void onComplete(@NonNull Task<Void> task) {
-                                                    if (task.isSuccessful()) {
-                                                        FirebaseDatabase.getInstance().getReference()
-                                                                .child("activities").child(activityId).child("status").setValue("Declined by admin").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                            @Override
-                                                            public void onComplete(@NonNull Task<Void> task) {
-                                                                FirebaseDatabase.getInstance().getReference()
-                                                                        .child("activities").child(activityId).child("admin-approved-info").setValue(dateInfo).addOnCompleteListener(WorkAdminActivityDetails.this, new OnCompleteListener<Void>() {
-                                                                    @Override
-                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
-                                                                        Commons.dismissProgressDialog(progressDialog);
-                                                                        if (task.isSuccessful()) {
-                                                                            SendNotification.notify(adminTokenId, "Labsolutions", "Work Admin declined call for " + instrumentIdValue, apiService, "adminAllActivities");
-                                                                            SendNotification.notify(customerTokenId, "Labsolutions", "Work Admin declined call for " + instrumentIdValue, apiService, "customerAllActivities");
-                                                                            Toast.makeText(WorkAdminActivityDetails.this, "Successfully declined the call", Toast.LENGTH_SHORT).show();
-                                                                            backToWorkadminAssignActivity();
-                                                                            finishAffinity();
-                                                                        } else {
-                                                                            Toast.makeText(WorkAdminActivityDetails.this, "Failed to decline the call", Toast.LENGTH_SHORT).show();
-                                                                        }
-                                                                    }
-                                                                });
-                                                            }
-                                                        });
-                                                    }
-                                                }
-                                            });
-                                        }
-                                    }
-                                });
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
 }

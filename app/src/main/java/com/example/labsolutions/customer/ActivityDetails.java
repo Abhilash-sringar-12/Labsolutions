@@ -158,7 +158,7 @@ public class ActivityDetails extends AppCompatActivity {
                             }
                             if (status.equals("Declined by admin")) {
                                 DataSnapshot approvedInfo = snapshot.child("admin-approved-info");
-                                activityInfoList.add(new ActivityInfo("Admin declined the registered call", approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
+                                activityInfoList.add(new ActivityInfo("Admin declined the registered call\nDecline Reason: " + snapshot.child("declineReason").getValue(String.class), approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
 
                             }
                             if (status.equals("Scheduled")) {

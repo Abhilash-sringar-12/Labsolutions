@@ -14,6 +14,11 @@
             android:label="Update User"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".workadmin.DeclineRegisteredCallActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Decline Registered Call"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".admin.ExportToExcel"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Export To Excel"
