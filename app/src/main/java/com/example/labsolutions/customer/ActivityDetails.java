@@ -119,6 +119,8 @@ public class ActivityDetails extends AppCompatActivity {
                                     ? activityInfo.child("instrumentId").getValue(String.class) : "";
                             String callType = activityInfo.child("callType").getValue() != null
                                     ? activityInfo.child("callType").getValue(String.class) : "";
+                            String modelAndMake = activityInfo.child("modelAndMake").getValue() != null
+                                    ? activityInfo.child("modelAndMake").getValue(String.class) : "";
                             problemDescription = activityInfo.child("problemDescription").getValue() != null
                                     ? activityInfo.child("problemDescription").getValue(String.class) : "";
                             customerName = currentActivityInfo.child("user").getValue() != null
@@ -138,7 +140,7 @@ public class ActivityDetails extends AppCompatActivity {
                             String customerMailId = currentActivityInfo.child("mailId").getValue() != null
                                     ? currentActivityInfo.child("mailId").getValue(String.class) : "";
                             String status = snapshot.child("status").getValue() != null ? snapshot.child("status").getValue(String.class) : "";
-                            activityInfoList.add(new ActivityInfo("Instrument id : " + instrumentId + "\n\n" + "Call Type : " + callType + "\n\n" + "Problem description : " + problemDescription, "", "", ""));
+                            activityInfoList.add(new ActivityInfo("Instrument id : " + instrumentId + "\n\n" + "Call Type : " + callType + "\n\n" + "Model and Make : " + modelAndMake + "\n\n" + "Problem description : " + problemDescription, "", "", ""));
                             activityInfoList.add(new ActivityInfo(customerName + " registered a call", date + " " + time, customerPhoneNumber, customerMailId));
                             activityInfoList.add(new ActivityInfo("Call Scheduled date & time : ", scheduledDate + " " + scheduledTime, "", ""));
                             if (status.equals("Approved by admin")) {

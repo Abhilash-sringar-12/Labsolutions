@@ -20,10 +20,21 @@
         android:textColorHint="@color/view_black"
         android:textSize="20sp"
         android:ems="10" />
-    <EditText
+        <EditText
+            android:layout_width="match_parent"
+            android:ems="10"
+            android:layout_marginTop="20dp"
+            android:id="@+id/editTextModel"
+            android:inputType="text"
+            android:hint="Model and Make"
+            android:drawableEnd="@drawable/tools"
+            android:textSize ="20sp"
+            android:textColorHint="@color/view_black"
+            android:layout_height="wrap_content" />
+  <EditText
         android:id="@+id/editDate"
         android:clickable="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:hint="Schedule Date"
         android:paddingLeft="10sp"
         android:textSize="20sp"
@@ -36,7 +47,7 @@
     <EditText
         android:id="@+id/editTime"
         android:clickable="true"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:hint="Schedule Time"
         android:paddingLeft="10sp"
         android:textSize="20sp"

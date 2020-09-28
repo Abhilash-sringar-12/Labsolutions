@@ -84,20 +84,21 @@ public class ViewAssignedActivities extends AppCompatActivity {
                             DataSnapshot scheduledInfo = snapshot.child("scheduled-info");
                             String customerNameValue = currentActivityInfo.child("user").getValue() != null
                                     ? currentActivityInfo.child("user").getValue(String.class) : "";
+                            String modelAndMake = activityInfo.child("modelAndMake").getValue() != null
+                                    ? activityInfo.child("modelAndMake").getValue(String.class) : "";
                             instrumentIdValue = activityInfo.child("instrumentId").getValue() != null
                                     ? activityInfo.child("instrumentId").getValue(String.class) : "";
                             String problemDescriptionValue = activityInfo.child("problemDescription").getValue() != null
                                     ? activityInfo.child("problemDescription").getValue(String.class) : "";
                             String companyNameValue = currentActivityInfo.child("companyName").getValue() != null
                                     ? currentActivityInfo.child("companyName").getValue(String.class) : "";
-
                             String scheduledDate = scheduledInfo.child("date").getValue() != null ? scheduledInfo.child("date").getValue(String.class) : "";
                             String scheduledTime = scheduledInfo.child("time").getValue() != null ? scheduledInfo.child("time").getValue(String.class) : "";
                             scheduledDateAndTime.setText(scheduledDate + " " + scheduledTime);
                             customerName.setText(customerNameValue);
                             instrumentId.setText(instrumentIdValue);
                             companyName.setText(companyNameValue);
-                            problemDescription.setText(problemDescriptionValue);
+                            problemDescription.setText("Model and Make : " + modelAndMake + "\nProblem description : " + problemDescriptionValue);
                             final DatabaseReference databaseReferenceUser = FirebaseDatabase.getInstance().getReference().child("users").child(FirebaseAuth.getInstance().getUid());
                             ValueEventListener valueEventListener = new ValueEventListener() {
                                 @Override
@@ -116,7 +117,7 @@ public class ViewAssignedActivities extends AppCompatActivity {
                                                 ? snapshot.child("type").getValue(String.class) : "";
                                         String companyAddress = snapshot.child("companyAddress").getValue() != null
                                                 ? snapshot.child("companyAddress").getValue(String.class) : "";
-                                        userInfo = new UserInfo(userName, emailId, phoneNumber, companyName, department, type,companyAddress);
+                                        userInfo = new UserInfo(userName, emailId, phoneNumber, companyName, department, type, companyAddress);
                                         customerMailId = emailId;
                                         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                                                 .child("workadmin");

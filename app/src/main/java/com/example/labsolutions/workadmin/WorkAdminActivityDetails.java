@@ -84,7 +84,10 @@ public class WorkAdminActivityDetails extends AppCompatActivity {
                                 DataSnapshot currentActivityInfo = snapshot.child("customer-info");
                                 DataSnapshot scheduledInfo = snapshot.child("scheduled-info");
                                 DataSnapshot activityInfo = snapshot.child("activity-info");
-                                instrumentIdValue = activityInfo.child("instrumentId").getValue().toString();
+                                instrumentIdValue = activityInfo.child("instrumentId").getValue() != null ?
+                                        activityInfo.child("instrumentId").getValue(String.class) : "";
+                                String modelAndMake = activityInfo.child("modelAndMake").getValue() != null
+                                        ? activityInfo.child("modelAndMake").getValue(String.class) : "";
                                 String problemDescriptionValue = activityInfo.child("problemDescription").getValue().toString();
                                 String companyNameValue = currentActivityInfo.child("companyName").getValue().toString();
                                 String scheduledDate = scheduledInfo.child("date").getValue() != null ? scheduledInfo.child("date").getValue(String.class) : "";
@@ -96,7 +99,7 @@ public class WorkAdminActivityDetails extends AppCompatActivity {
                                 customerMailId = currentActivityInfo.child("mailId").getValue().toString();
                                 instrumentId.setText(instrumentIdValue);
                                 companyName.setText(companyNameValue);
-                                problemDescription.setText(problemDescriptionValue);
+                                problemDescription.setText("Model and Make : " + modelAndMake + "\nProblem description : " + problemDescriptionValue);
                                 final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference()
                                         .child("admin");
                                 final DatabaseReference customerDatabaseReferenceUser = FirebaseDatabase.getInstance().getReference()

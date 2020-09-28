@@ -62,7 +62,7 @@ public class CustomerActivity extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     Button createActivity;
     TextInputLayout propblemDescription;
-    EditText scheduledDate, scheduledTime;
+    EditText scheduledDate, scheduledTime, makeAndModel;
     RadioGroup radioGroup;
     RadioButton radioButton;
     ProgressDialog progressDialog;
@@ -86,6 +86,7 @@ public class CustomerActivity extends AppCompatActivity {
             radioGroup = (RadioGroup) findViewById(R.id.calltype);
             scheduledDate = findViewById(R.id.editDate);
             scheduledTime = findViewById(R.id.editTime);
+            makeAndModel = findViewById(R.id.editTextModel);
             autocomplete = (AutoCompleteTextView)
                     findViewById(R.id.autoCompleteTextView1);
             firebaseAuth = FirebaseAuth.getInstance();
@@ -200,6 +201,9 @@ public class CustomerActivity extends AppCompatActivity {
                             Toast.makeText(CustomerActivity.this, "Please select an instrument from dropdown", Toast.LENGTH_SHORT).show();
                         } else if (!instrumentMap.get(instrumentIdSelected)) {
                             Toast.makeText(CustomerActivity.this, "Instrument selected is not under AMC dates! Please contact admin", Toast.LENGTH_SHORT).show();
+                        } else if (makeAndModel.getText().toString().isEmpty()) {
+                            Toast.makeText(CustomerActivity.this, "Please enter a Model and Make", Toast.LENGTH_SHORT).show();
+                            makeAndModel.requestFocus();
                         } else if (scheduledDate.getText().toString().isEmpty()) {
                             Toast.makeText(CustomerActivity.this, "Please select a schedule date", Toast.LENGTH_SHORT).show();
                             scheduledDate.requestFocus();
@@ -215,6 +219,7 @@ public class CustomerActivity extends AppCompatActivity {
                             propblemDescription.setError(null);
                             scheduledDate.setError(null);
                             scheduledTime.setError(null);
+                            makeAndModel.setError(null);
                             progressDialog = ProgressDialog.show(CustomerActivity.this, "Please wait", "Creating activity....", true, false);
                             DatabaseReference workAdminRef = FirebaseDatabase.getInstance().getReference("workadmin");
                             ValueEventListener eventListener = new ValueEventListener() {
@@ -222,6 +227,7 @@ public class CustomerActivity extends AppCompatActivity {
                                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                                     String startDate = DateUtility.getCurrentDate();
                                     String startTime = DateUtility.getCurrentTime();
+                                    String modeandmakeNumber = makeAndModel.getText().toString();
                                     final String scheduledDateValue = scheduledDate.getText().toString();
                                     final String scheduledTimeValue = scheduledTime.getText().toString() + ":00";
                                     final DateInfo scheduledDateInfo = new DateInfo(scheduledDateValue, scheduledTimeValue, null);
@@ -229,7 +235,7 @@ public class CustomerActivity extends AppCompatActivity {
                                     final String workadminId = snapshot.getChildren().iterator().next().getKey();
                                     final DateInfo dateInfo = new DateInfo(startDate, startTime, ServerValue.TIMESTAMP);
                                     FirebaseDatabase.getInstance().getReference("activities").child(issueId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
-                                    ActivityInfo activityInfo = new ActivityInfo(instrumentIdSelected, callType, problemDescriptionValue);
+                                    ActivityInfo activityInfo = new ActivityInfo(instrumentIdSelected,modeandmakeNumber, callType, problemDescriptionValue);
                                     final String workAdminToken = snapshot.getChildren().iterator().next().child("token").child("token").getValue() != null
                                             ? snapshot.getChildren().iterator().next().child("token").child("token").getValue(String.class) : "";
                                     FirebaseDatabase.getInstance().getReference("activities").child(issueId)
