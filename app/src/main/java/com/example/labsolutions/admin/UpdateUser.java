@@ -231,6 +231,7 @@ public class UpdateUser extends AppCompatActivity {
         company.getEditText().setText("");
         department.getEditText().setText("");
         userName.getEditText().setText("");
+        companyAddress.getEditText().setText("");
     }
 
 }

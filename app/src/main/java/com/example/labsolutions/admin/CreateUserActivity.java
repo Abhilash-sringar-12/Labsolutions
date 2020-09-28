@@ -39,7 +39,7 @@ public class CreateUserActivity extends AppCompatActivity {
     RadioButton radioButton;
     FirebaseApp appUsers;
     Button signUp;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z-]+\\.+[a-z]+";
     String phonePattern = "^[6-9]\\d{9}$";
     private ProgressDialog progressDialog;
 
@@ -214,7 +214,7 @@ public class CreateUserActivity extends AppCompatActivity {
                                                                 "</td>\n" +
                                                                 "</tr>\n" +
                                                                 "<tr>\n" +
-                                                                "<td colspan=\"2\" style=\"padding-top: 72px; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #000000; font-family: 'Postmates Std', 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 25px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: -1.6px; line-height: 52px; mso-line-height-rule: exactly; text-decoration: none;\">Thank you for choosing Labsoluntions Instruments & Consultancy pvt ltd</td>\n" +
+                                                                "<td colspan=\"2\" style=\"padding-top: 72px; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #000000; font-family: 'Postmates Std', 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 15px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: -1.6px; line-height: 52px; mso-line-height-rule: exactly; text-decoration: none;\">Thank you for choosing Labsoluntions Instruments & Consultancy pvt ltd</td>\n" +
                                                                 "</tr>\n" +
                                                                 "<tr>\n" +
                                                                 "  <td>Now that you have registered to our App, You will have to keep the below information for future references </td>\n" +
@@ -345,6 +345,7 @@ public class CreateUserActivity extends AppCompatActivity {
         phone.getEditText().setText("");
         company.getEditText().setText("");
         department.getEditText().setText("");
+        companyAddress.getEditText().setText("");
     }
 
 

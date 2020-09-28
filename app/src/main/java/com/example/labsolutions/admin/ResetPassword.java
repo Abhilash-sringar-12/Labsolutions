@@ -19,7 +19,7 @@ public class ResetPassword extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     Button reset;
     TextInputLayout email;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z-]+\\.+[a-z]+";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

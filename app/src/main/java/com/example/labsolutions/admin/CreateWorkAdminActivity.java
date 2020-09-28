@@ -34,7 +34,7 @@ public class CreateWorkAdminActivity extends AppCompatActivity {
     TextInputLayout emailId, password, userName;
     FirebaseApp admin;
     Button signUp;
-    String emailPattern = "[a-zA-Z0-9._-]+@[a-z]+\\.+[a-z]+";
+    String emailPattern = "[a-zA-Z0-9._-]+@[a-z-]+\\.+[a-z]+";
     private ProgressDialog progressDialog;
 
     @Override
