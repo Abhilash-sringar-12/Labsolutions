@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.example.labsolutions.R;
 import com.example.labsolutions.commons.Commons;
+import com.example.labsolutions.customer.ActivityDetails;
 import com.example.labsolutions.dateutils.DateUtility;
 import com.example.labsolutions.mailutils.MailUtility;
 import com.example.labsolutions.pojos.DateInfo;
@@ -59,7 +60,7 @@ import static com.example.labsolutions.commons.Commons.getDuration;
 public class ResolveActivity extends AppCompatActivity {
     Button send;
     TextInputLayout resolutionDescriptionField;
-    TextView sprOneQty, sprTwoQty, sprThreeQty, sprFourQty, sprOneDesc, sprTwoDesc, sprThreeDesc, sprFourDesc;
+    TextView sprOneQty, sprTwoQty, sprThreeQty, sprFourQty, sprOneDesc, sprTwoDesc, sprThreeDesc, sprFourDesc, callDetails;
     RadioGroup radioGroup;
     RadioButton radioButton;
     ApiService apiService;
@@ -119,7 +120,16 @@ public class ResolveActivity extends AppCompatActivity {
             sprTwoDesc = findViewById(R.id.spareTwoDesc);
             sprThreeDesc = findViewById(R.id.spareThreeDesc);
             sprFourDesc = findViewById(R.id.spareFourDesc);
+            callDetails = findViewById(R.id.viewMore);
             apiService = Client.getClient("https://fcm.googleapis.com/").create(ApiService.class);
+            callDetails.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent callDetails = new Intent(ResolveActivity.this, ActivityDetails.class);
+                    callDetails.putExtra("activityId", activityId);
+                    startActivity(callDetails);
+                }
+            });
             if (!activityId.isEmpty()) {
                 DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference currentActivityDs = rootRef.child("activities").child(activityId);

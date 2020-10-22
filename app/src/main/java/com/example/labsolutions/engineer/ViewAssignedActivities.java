@@ -232,7 +232,7 @@ public class ViewAssignedActivities extends AppCompatActivity {
                                                                             FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
                                                                             if (task.isSuccessful()) {
                                                                                 SendNotification.notify(adminTokenId, "Labsolutions", userInfo.getUser() + " accepted the call for " + instrumentIdValue, apiService, "adminAllActivities");
-                                                                                SendNotification.notify(workAdminTokenId, "Labsolutions", userInfo.getUser() + "  accepted the call for " + instrumentIdValue, apiService, "workAdminAssignActivity");
+                                                                                SendNotification.notify(workAdminTokenId, "Labsolutions", userInfo.getUser() + "  accepted the call for " + instrumentIdValue, apiService, "workAdminAllActivities");
                                                                                 SendNotification.notify(customerTokenId, "Labsolutions", userInfo.getUser() + " will be working on the call for " + instrumentIdValue, apiService, "customerCurrentActivity");
                                                                                 Commons.dismissProgressDialog(progressDialog);
                                                                                 Toast.makeText(ViewAssignedActivities.this, "You have accepted the call request", Toast.LENGTH_SHORT).show();

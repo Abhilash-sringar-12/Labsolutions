@@ -36,6 +36,18 @@
         android:id="@+id/resolveLayout"
         tools:context=".engineer.ViewAssignedActivities">
         <TextView
+            android:id="@+id/viewMore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Call Details"
+            android:layout_gravity="left"
+            android:textColor="@color/view_black"
+            android:drawableEnd="@drawable/ic_baseline_arrow_right_alt_24"
+            android:padding = "10dp"
+            android:textSize="20sp"
+            android:gravity="top">
+        </TextView>
+        <TextView
             android:id="@+id/sparesText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
