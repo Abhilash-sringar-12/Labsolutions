@@ -20,6 +20,7 @@ import com.example.labsolutions.R;
 import com.example.labsolutions.commons.Commons;
 import com.example.labsolutions.listviews.ActivityInfo;
 import com.example.labsolutions.listviews.ListActivitiesinfo;
+import com.example.labsolutions.mailutils.MailUtility;
 import com.example.labsolutions.services.ApiService;
 import com.example.labsolutions.services.Client;
 import com.example.labsolutions.services.SendNotification;
@@ -67,7 +68,7 @@ public class ActivityDetails extends AppCompatActivity {
     String currentuserMailId;
     ArrayList<ActivityInfo> activityInfoList = new ArrayList<ActivityInfo>();
     AbsListView listview;
-    Button export, reassign, reschedule;
+    Button export, reassign, reschedule, sendMail;
     RelativeLayout relativeLayout;
     RelativeLayout resceduleRelativeLayout;
     ProgressDialog progressDialog;
@@ -75,9 +76,52 @@ public class ActivityDetails extends AppCompatActivity {
     String customerId;
     String engineerMailId;
     String enginnerId;
+    String customerMailId;
     String spareQtyOne, spareQtyTwo, spareQtyThree, spareQtyFour, spareDescOne, spareDescTwo, spareDescThree, spareDescFour;
     String closureTime, adminTokenId, enginnerTokenid, customerTokenId, closureDate, durationHours, durationMinutes, resolutionDescription, customerCompany, customerCompanyAddress, customerName, customerDepartment, instrumentId, problemDescription, date, time, approvedTime, approvedDate, engineerName, scheduledDate, scheduledTime;
     ApiService apiService;
+    final static String MESSAGE_BODY = "\"<head>\\n\" +\n" +
+            "                                                                \"<title>Labsolutions</title>\\n\" +\n" +
+            "                                                                \"<meta content=\\\"text/html; charset=utf-8\\\" http-equiv=\\\"Content-Type\\\">\\n\" +\n" +
+            "                                                                \"<meta content=\\\"width=device-width\\\" name=\\\"viewport\\\">\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"</head>\\n\" +\n" +
+            "                                                                \"<body style=\\\"background-color: #f4f4f5;\\\">\\n\" +\n" +
+            "                                                                \"<table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" style=\\\"width: 100%; height: 100%; background-color: #f4f4f5; text-align: center;\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"text-align: center;\\\">\\n\" +\n" +
+            "                                                                \"<table align=\\\"center\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" id=\\\"body\\\" style=\\\"background-color: #fff; width: 100%; max-width: 680px; height: 100%;\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td>\\n\" +\n" +
+            "                                                                \"<table align=\\\"center\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"page-center\\\" style=\\\"text-align: left; padding-bottom: 88px; width: 100%; padding-left: 120px; padding-right: 120px;\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"padding-top: 24px;\\\">\\n\" +\n" +
+            "                                                                \"<img src=\\\"http://www.hostgator.co.in/files/writeable/uploads/hostgator166687/image/labsolutionslogo3.png\\\" style=\\\"width: auto;\\\">\\n\" +\n" +
+            "                                                                \"</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"<tr>\\n\" +\n" +
+            "                                                                \"<td colspan=\\\"2\\\" style=\\\"padding-top: 72px; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #000000; font-family: 'Postmates Std', 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 15px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: -1.6px; line-height: 52px; mso-line-height-rule: exactly; text-decoration: none;\\\">Thank you for choosing Labsoluntions Instruments & Consultancy pvt ltd</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"<tr>\\n\" +\n" +
+            "                                                                \"  <td>Please download the attached service report </td>\\n\" +\n" +
+            "                                                                \"  </tr>\\n\" +\n" +
+            "                                                                \"<tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"padding-top: 48px; padding-bottom: 48px;\\\">\\n\" +\n" +
+            "                                                                \"<table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" style=\\\"width: 100%\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"width: 100%; height: 1px; max-height: 1px; background-color: #d9dbe0; opacity: 0.81\\\"></td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"</tbody></table>\\n\" +\n" +
+            "                                                                \"</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"</tbody></table>\\n\" +\n" +
+            "                                                                \"</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"</tbody></table>\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"</body>\";";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +136,7 @@ public class ActivityDetails extends AppCompatActivity {
             listview = findViewById(R.id.activityDetailsView);
             export = findViewById(R.id.generateReport);
             reassign = findViewById(R.id.reassign);
+            sendMail = findViewById(R.id.sendMail);
             reschedule = findViewById(R.id.reScheduleCallButton);
             relativeLayout = findViewById(R.id.exportLayout);
             resceduleRelativeLayout = findViewById(R.id.rescheduleLayout);
@@ -137,7 +182,7 @@ public class ActivityDetails extends AppCompatActivity {
                                     ? scheduledInfo.child("time").getValue(String.class) : "";
                             String customerPhoneNumber = currentActivityInfo.child("phoneNumber").getValue() != null
                                     ? currentActivityInfo.child("phoneNumber").getValue(String.class) : "";
-                            String customerMailId = currentActivityInfo.child("mailId").getValue() != null
+                            customerMailId = currentActivityInfo.child("mailId").getValue() != null
                                     ? currentActivityInfo.child("mailId").getValue(String.class) : "";
                             String status = snapshot.child("status").getValue() != null ? snapshot.child("status").getValue(String.class) : "";
                             activityInfoList.add(new ActivityInfo("Instrument id : " + instrumentId + "\n\n" + "Call Type : " + callType + "\n\n" + "Model and Make : " + modelAndMake + "\n\n" + "Problem description : " + problemDescription, "", "", ""));
@@ -269,6 +314,17 @@ public class ActivityDetails extends AppCompatActivity {
                             }
                         }
                     });
+
+                    sendMail.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View view) {
+                            try {
+                                createPdf("mail");
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    });
                 }
 
             }
@@ -374,7 +430,7 @@ public class ActivityDetails extends AppCompatActivity {
                     public void onClick(View view) {
                         try {
                             if (ContextCompat.checkSelfPermission(ActivityDetails.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-                                createPdf();
+                                createPdf("download");
                             } else {
                                 ActivityCompat.requestPermissions(ActivityDetails.this,
                                         new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
@@ -390,12 +446,17 @@ public class ActivityDetails extends AppCompatActivity {
         }
     }
 
-    private void createPdf() {
+    private void createPdf(String type) {
         try {
-            File file = new File(Environment.getExternalStorageDirectory(), "/service-report.pdf");
             Document document = new Document();
+            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+            if (type.equals("download")) {
+                File file = new File(Environment.getExternalStorageDirectory(), "/service-report.pdf");
+                PdfWriter.getInstance(document, new FileOutputStream(file));
+            } else if (type.equals("mail")) {
+                PdfWriter.getInstance(document, outputStream);
+            }
             Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.drawable.labsolutionslogo3);
-            PdfWriter.getInstance(document, new FileOutputStream(file));
             document.open();
             float[] pointColumnWidths = {150f, 150f};
             PdfPTable table = new PdfPTable(pointColumnWidths);
@@ -478,7 +539,14 @@ public class ActivityDetails extends AppCompatActivity {
             document.add(table);
             document.add(sparesTable);
             document.close();
-            Toast.makeText(ActivityDetails.this, "Successfully downloaded service report", Toast.LENGTH_SHORT).show();
+            if (type.equals("download")) {
+                Toast.makeText(ActivityDetails.this, "Successfully downloaded service report", Toast.LENGTH_SHORT).show();
+            } else {
+                byte[] bytes = outputStream.toByteArray();
+                MailUtility.sendMail(customerMailId, "Labsolutions Service Report", MESSAGE_BODY, bytes);
+                Toast.makeText(ActivityDetails.this, "Successfully sent service report to "+ customerName, Toast.LENGTH_SHORT).show();
+
+            }
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (MalformedURLException e) {

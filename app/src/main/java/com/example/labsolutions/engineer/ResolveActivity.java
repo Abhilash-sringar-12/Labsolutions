@@ -99,6 +99,48 @@ public class ResolveActivity extends AppCompatActivity {
     long waitingEndTime = 0;
     long engineerAceeptedTime;
     ProgressDialog progressDialog;
+    final static String MESSAGE_BODY = "\"<head>\\n\" +\n" +
+            "                                                                \"<title>Labsolutions</title>\\n\" +\n" +
+            "                                                                \"<meta content=\\\"text/html; charset=utf-8\\\" http-equiv=\\\"Content-Type\\\">\\n\" +\n" +
+            "                                                                \"<meta content=\\\"width=device-width\\\" name=\\\"viewport\\\">\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"</head>\\n\" +\n" +
+            "                                                                \"<body style=\\\"background-color: #f4f4f5;\\\">\\n\" +\n" +
+            "                                                                \"<table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" style=\\\"width: 100%; height: 100%; background-color: #f4f4f5; text-align: center;\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"text-align: center;\\\">\\n\" +\n" +
+            "                                                                \"<table align=\\\"center\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" id=\\\"body\\\" style=\\\"background-color: #fff; width: 100%; max-width: 680px; height: 100%;\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td>\\n\" +\n" +
+            "                                                                \"<table align=\\\"center\\\" cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" class=\\\"page-center\\\" style=\\\"text-align: left; padding-bottom: 88px; width: 100%; padding-left: 120px; padding-right: 120px;\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"padding-top: 24px;\\\">\\n\" +\n" +
+            "                                                                \"<img src=\\\"http://www.hostgator.co.in/files/writeable/uploads/hostgator166687/image/labsolutionslogo3.png\\\" style=\\\"width: auto;\\\">\\n\" +\n" +
+            "                                                                \"</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"<tr>\\n\" +\n" +
+            "                                                                \"<td colspan=\\\"2\\\" style=\\\"padding-top: 72px; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #000000; font-family: 'Postmates Std', 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 15px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: -1.6px; line-height: 52px; mso-line-height-rule: exactly; text-decoration: none;\\\">Thank you for choosing Labsoluntions Instruments & Consultancy pvt ltd</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"<tr>\\n\" +\n" +
+            "                                                                \"  <td>Please download the attached service report </td>\\n\" +\n" +
+            "                                                                \"  </tr>\\n\" +\n" +
+            "                                                                \"<tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"padding-top: 48px; padding-bottom: 48px;\\\">\\n\" +\n" +
+            "                                                                \"<table cellpadding=\\\"0\\\" cellspacing=\\\"0\\\" style=\\\"width: 100%\\\">\\n\" +\n" +
+            "                                                                \"<tbody><tr>\\n\" +\n" +
+            "                                                                \"<td style=\\\"width: 100%; height: 1px; max-height: 1px; background-color: #d9dbe0; opacity: 0.81\\\"></td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"</tbody></table>\\n\" +\n" +
+            "                                                                \"</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"</tbody></table>\\n\" +\n" +
+            "                                                                \"</td>\\n\" +\n" +
+            "                                                                \"</tr>\\n\" +\n" +
+            "                                                                \"</tbody></table>\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"\\n\" +\n" +
+            "                                                                \"</body>\";";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -619,7 +661,7 @@ public class ResolveActivity extends AppCompatActivity {
             document.add(sparesTable);
             document.close();
             byte[] bytes = outputStream.toByteArray();
-            MailUtility.sendMail(customerMail, "Labsolutions Service Report", "check pdf", bytes);
+            MailUtility.sendMail(customerMail, "Labsolutions Service Report", MESSAGE_BODY, bytes);
             SendNotification.notify(adminTokenId, "Labsolutions", engineerName + " resolved the call", apiService, "adminAllActivities");
             SendNotification.notify(workAdminTokenId, "Labsolutions", engineerName + " resolved the call", apiService, "workAdminAllActivities");
             SendNotification.notify(customerTokenId, "Labsolutions", engineerName + " resolved the call", apiService, "customerAllActivities");
