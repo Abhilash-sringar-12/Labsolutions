@@ -37,7 +37,7 @@ public class MainActivity extends AppCompatActivity {
                             Intent intent = new Intent(MainActivity.this, AdminActivity.class);
                             startActivity(intent);
                             finish();
-                        } else if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("workadmin@gmail.com")) {
+                        } else if (FirebaseAuth.getInstance().getCurrentUser().getEmail().equals("service@labsolutions-ic.in")) {
                             UpdateToken.updateAccessToken("", "workAdmin");
                             Intent intent = new Intent(MainActivity.this, WorkadminActivity.class);
                             startActivity(intent);

@@ -84,22 +84,67 @@ public class CreateWorkAdminActivity extends AppCompatActivity {
                                         Commons.dismissProgressDialog(progressDialog);
                                         Toast.makeText(CreateWorkAdminActivity.this, "Failed to create User", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, null, null, null, null,null);
+                                        UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, null, null, null, null, null);
                                         FirebaseDatabase.getInstance(admin).getReference("workadmin").child(secondary.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(CreateWorkAdminActivity.this, new OnCompleteListener() {
                                             @Override
                                             public void onComplete(@NonNull Task task) {
+                                                secondary.signOut();
                                                 if (!task.isSuccessful()) {
                                                     Toast.makeText(CreateWorkAdminActivity.this, "Failed to create work admin", Toast.LENGTH_SHORT).show();
                                                     Commons.dismissProgressDialog(progressDialog);
                                                 } else {
                                                     Toast.makeText(CreateWorkAdminActivity.this, "Work admin Successfully created", Toast.LENGTH_SHORT).show();
                                                     Commons.dismissProgressDialog(progressDialog);
-                                                    MailUtility.sendMail(emailIdValue, "Login credentials for Labsolutions app", "<h4>username:" + userNameValue + "</h4> <h4>password:" + passwordValue + "</h4>", null);
-                                                    resetForm();
+                                                    MailUtility.sendMail(emailIdValue, "Login credentials for Labsolutions app", "<head>\n" +
+                                                            "<title>Labsolutions</title>\n" +
+                                                            "<meta content=\"text/html; charset=utf-8\" http-equiv=\"Content-Type\">\n" +
+                                                            "<meta content=\"width=device-width\" name=\"viewport\">\n" +
+                                                            "\n" +
+                                                            "</head>\n" +
+                                                            "<body style=\"background-color: #f4f4f5;\">\n" +
+                                                            "<table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%; height: 100%; background-color: #f4f4f5; text-align: center;\">\n" +
+                                                            "<tbody><tr>\n" +
+                                                            "<td style=\"text-align: center;\">\n" +
+                                                            "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" id=\"body\" style=\"background-color: #fff; width: 100%; max-width: 680px; height: 100%;\">\n" +
+                                                            "<tbody><tr>\n" +
+                                                            "<td>\n" +
+                                                            "<table align=\"center\" cellpadding=\"0\" cellspacing=\"0\" class=\"page-center\" style=\"text-align: left; padding-bottom: 88px; width: 100%; padding-left: 120px; padding-right: 120px;\">\n" +
+                                                            "<tbody><tr>\n" +
+                                                            "<td style=\"padding-top: 24px;\">\n" +
+                                                            "<img src=\"http://www.hostgator.co.in/files/writeable/uploads/hostgator166687/image/labsolutionslogo3.png\" style=\"width: auto;\">\n" +
+                                                            "</td>\n" +
+                                                            "</tr>\n" +
+                                                            "<tr>\n" +
+                                                            "<td colspan=\"2\" style=\"padding-top: 72px; -ms-text-size-adjust: 100%; -webkit-font-smoothing: antialiased; -webkit-text-size-adjust: 100%; color: #000000; font-family: 'Postmates Std', 'Helvetica', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif; font-size: 15px; font-smoothing: always; font-style: normal; font-weight: 600; letter-spacing: -1.6px; line-height: 52px; mso-line-height-rule: exactly; text-decoration: none;\">Thank you for choosing Labsoluntions Instruments & Consultancy pvt ltd</td>\n" +
+                                                            "</tr>\n" +
+                                                            "<tr>\n" +
+                                                            "  <td>Now that you have registered to our App, You will have to keep the below information for future references </td>\n" +
+                                                            "  </tr>\n" +
+                                                            "<tr>\n" +
+                                                            "<td style=\"padding-top: 48px; padding-bottom: 48px;\">\n" +
+                                                            "<table cellpadding=\"0\" cellspacing=\"0\" style=\"width: 100%\">\n" +
+                                                            "<tbody><tr>\n" +
+                                                            "<td style=\"width: 100%; height: 1px; max-height: 1px; background-color: #d9dbe0; opacity: 0.81\"></td>\n" +
+                                                            "</tr>\n" +
+                                                            "</tbody></table>\n" +
+                                                            "</td>\n" +
+                                                            "</tr>\n" +
+                                                            "<tr>\n" +
+                                                            "<tdl̥>\n" +
+                                                            " <b>Your UserID:</b>" + emailIdValue + "<br> <b>Password:</b>" + passwordValue + "\n" +
+                                                            "                                    </td>\n" +
+                                                            "</tr>\n" +
+                                                            "</tbody></table>\n" +
+                                                            "</td>\n" +
+                                                            "</tr>\n" +
+                                                            "</tbody></table>\n" +
+                                                            "\n" +
+                                                            "\n" +
+                                                            "\n" +
+                                                            "</body>", null);resetForm();
                                                 }
                                             }
                                         });
-                                        secondary.signOut();
                                     }
                                 }
                             });
