@@ -191,7 +191,7 @@ public class ActivityDetails extends AppCompatActivity {
                             if (status.equals("Approved by admin")) {
                                 DataSnapshot approvedInfo = snapshot.child("admin-approved-info");
                                 activityInfoList.add(new ActivityInfo("Admin approved the registered call", approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
-                                if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("workadmin@gmail.com")) {
+                                if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("service@labsolutions-ic.in")) {
                                     if (snapshot.child("declined-data") != null) {
                                         for (DataSnapshot dataSnapshot : snapshot.child("declined-data").getChildren()) {
                                             activityInfoList.add(new ActivityInfo(dataSnapshot.getValue(String.class) + " declined the registered call", snapshot.child("engineer-approved-info").child("date").getValue(String.class) + " " + snapshot.child("engineer-approved-info").child("time").getValue(String.class), "", ""));
@@ -222,7 +222,7 @@ public class ActivityDetails extends AppCompatActivity {
                                 DataSnapshot waitingDataInfo = snapshot.child("waiting-data").child("start-data");
                                 String closureTime = waitingDataInfo.child("time").getValue() != null ? waitingDataInfo.child("time").getValue(String.class) : "";
                                 String closureDate = waitingDataInfo.child("date").getValue() != null ? waitingDataInfo.child("date").getValue(String.class) : "";
-                                if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("workadmin@gmail.com")) {
+                                if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("service@labsolutions-ic.in")) {
                                     if (snapshot.child("declined-data") != null) {
                                         for (DataSnapshot dataSnapshot : snapshot.child("declined-data").getChildren()) {
                                             activityInfoList.add(new ActivityInfo(dataSnapshot.getValue(String.class) + " declined the registered call", snapshot.child("engineer-approved-info").child("date").getValue(String.class) + " " + snapshot.child("engineer-approved-info").child("time").getValue(String.class), "", ""));
@@ -233,7 +233,7 @@ public class ActivityDetails extends AppCompatActivity {
                             }
                             ListActivitiesinfo listActivitiesinfo = new ListActivitiesinfo(ActivityDetails.this, R.layout.row_activities_details_item, activityInfoList);
                             listview.setAdapter(listActivitiesinfo);
-                            if ((status.equals("Approved by admin") || status.equals("Scheduled") || status.equals("Rescheduled")) && currentuserMailId.equals("workadmin@gmail.com")) {
+                            if ((status.equals("Approved by admin") || status.equals("Scheduled") || status.equals("Rescheduled")) && currentuserMailId.equals("service@labsolutions-ic.in")) {
                                 resceduleRelativeLayout.setVisibility(View.VISIBLE);
                             }
                             final ValueEventListener customerValueEventListener = new ValueEventListener() {
@@ -373,7 +373,7 @@ public class ActivityDetails extends AppCompatActivity {
             } else {
                 activityInfoList.add(new ActivityInfo("Duration of the call: " + durationHours + "hrs " + durationMinutes + "mins\n\n" + waitingText + "\n\nResolution Description : " + resolutionDescription, "", "", ""));
             }
-            if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("workadmin@gmail.com")) {
+            if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("service@labsolutions-ic.in")) {
                 relativeLayout.setVisibility(View.VISIBLE);
                 reassign.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -565,7 +565,7 @@ public class ActivityDetails extends AppCompatActivity {
         try {
             DataSnapshot approvedInfo = snapshot.child("admin-approved-info");
             activityInfoList.add(new ActivityInfo("Admin approved the registered call", approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
-            if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("workadmin@gmail.com")) {
+            if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("service@labsolutions-ic.in")) {
                 if (snapshot.child("declined-data") != null) {
                     for (DataSnapshot dataSnapshot : snapshot.child("declined-data").getChildren()) {
                         activityInfoList.add(new ActivityInfo(dataSnapshot.getValue(String.class) + " declined the registered call", snapshot.child("engineer-approved-info").child("date").getValue(String.class) + " " + snapshot.child("engineer-approved-info").child("time").getValue(String.class), "", ""));
