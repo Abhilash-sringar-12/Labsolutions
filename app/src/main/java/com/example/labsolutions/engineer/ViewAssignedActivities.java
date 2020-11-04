@@ -84,6 +84,8 @@ public class ViewAssignedActivities extends AppCompatActivity {
                             DataSnapshot scheduledInfo = snapshot.child("scheduled-info");
                             String customerNameValue = currentActivityInfo.child("user").getValue() != null
                                     ? currentActivityInfo.child("user").getValue(String.class) : "";
+                            customerMailId = currentActivityInfo.child("mailId").getValue() != null
+                                    ? currentActivityInfo.child("mailId").getValue(String.class) : "";
                             String modelAndMake = activityInfo.child("modelAndMake").getValue() != null
                                     ? activityInfo.child("modelAndMake").getValue(String.class) : "";
                             instrumentIdValue = activityInfo.child("instrumentId").getValue() != null
@@ -118,7 +120,6 @@ public class ViewAssignedActivities extends AppCompatActivity {
                                         String companyAddress = snapshot.child("companyAddress").getValue() != null
                                                 ? snapshot.child("companyAddress").getValue(String.class) : "";
                                         userInfo = new UserInfo(userName, emailId, phoneNumber, companyName, department, type, companyAddress);
-                                        customerMailId = emailId;
                                         final DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference()
                                                 .child("workadmin");
                                         final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference()

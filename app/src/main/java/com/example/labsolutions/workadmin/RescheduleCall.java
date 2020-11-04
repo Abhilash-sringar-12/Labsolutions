@@ -61,8 +61,8 @@ public class RescheduleCall extends AppCompatActivity {
             Intent intent = getIntent();
             final String activityId = intent.getStringExtra("activityId");
             final String adminToken = intent.getStringExtra("adminToken");
-            final String engineerToken = intent.getStringExtra("engineerToken");
-            final String customerToken = intent.getStringExtra("customerToken");
+            final String engineerToken = intent.getStringExtra("engineerTokenId");
+            final String customerToken = intent.getStringExtra("customerTokenId");
             final String instrumentIdValue = intent.getStringExtra("instrumentIdValue");
             scheduledDate = findViewById(R.id.reScheduleDate);
             scheduledTime = findViewById(R.id.reScheduleTime);

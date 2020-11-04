@@ -184,6 +184,7 @@ public class ActivityDetails extends AppCompatActivity {
                                     ? currentActivityInfo.child("phoneNumber").getValue(String.class) : "";
                             customerMailId = currentActivityInfo.child("mailId").getValue() != null
                                     ? currentActivityInfo.child("mailId").getValue(String.class) : "";
+                            engineerMailId = engineerActivityInfo.child("mailId").getValue() != null ? engineerActivityInfo.child("mailId").getValue(String.class) : "";
                             String status = snapshot.child("status").getValue() != null ? snapshot.child("status").getValue(String.class) : "";
                             activityInfoList.add(new ActivityInfo("Instrument id : " + instrumentId + "\n\n" + "Call Type : " + callType + "\n\n" + "Model and Make : " + modelAndMake + "\n\n" + "Problem description : " + problemDescription, "", "", ""));
                             activityInfoList.add(new ActivityInfo(customerName + " registered a call", date + " " + time, customerPhoneNumber, customerMailId));
@@ -305,8 +306,8 @@ public class ActivityDetails extends AppCompatActivity {
                                 Intent intent = new Intent(ActivityDetails.this, RescheduleCall.class);
                                 intent.putExtra("activityId", activityId);
                                 intent.putExtra("adminToken", adminTokenId);
-                                intent.putExtra("engineerToken", enginnerTokenid);
-                                intent.putExtra("customerId", customerTokenId);
+                                intent.putExtra("engineerTokenId", enginnerTokenid);
+                                intent.putExtra("customerTokenId", customerTokenId);
                                 intent.putExtra("instrumentIdValue", instrumentId);
                                 startActivity(intent);
                             } catch (Exception e) {
@@ -544,7 +545,7 @@ public class ActivityDetails extends AppCompatActivity {
             } else {
                 byte[] bytes = outputStream.toByteArray();
                 MailUtility.sendMail(customerMailId, "Labsolutions Service Report", MESSAGE_BODY, bytes);
-                Toast.makeText(ActivityDetails.this, "Successfully sent service report to "+ customerName, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityDetails.this, "Successfully sent service report to " + customerName, Toast.LENGTH_SHORT).show();
 
             }
         } catch (FileNotFoundException e) {
