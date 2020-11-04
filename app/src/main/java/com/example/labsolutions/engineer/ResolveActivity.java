@@ -661,7 +661,7 @@ public class ResolveActivity extends AppCompatActivity {
             document.add(sparesTable);
             document.close();
             byte[] bytes = outputStream.toByteArray();
-            MailUtility.sendMail(customerMail, "Labsolutions Service Report", MESSAGE_BODY, bytes);
+            MailUtility.sendMail(customerMail, "Labsolutions Service Report For " + instrumentId, MESSAGE_BODY, bytes);
             SendNotification.notify(adminTokenId, "Labsolutions", engineerName + " resolved the call", apiService, "adminAllActivities");
             SendNotification.notify(workAdminTokenId, "Labsolutions", engineerName + " resolved the call", apiService, "workAdminAllActivities");
             SendNotification.notify(customerTokenId, "Labsolutions", engineerName + " resolved the call", apiService, "customerAllActivities");
