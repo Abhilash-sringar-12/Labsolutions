@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.labsolutions">
+    package="com.application.labsolutions">
 
     <application
         android:allowBackup="true"
@@ -9,133 +9,133 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".admin.UpdateUser"
+            android:name="com.application.labsolutions.admin.UpdateUser"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Update User"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".workadmin.DeclineRegisteredCallActivity"
+            android:name="com.application.labsolutions.workadmin.DeclineRegisteredCallActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Decline Registered Call"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.ExportToExcel"
+            android:name="com.application.labsolutions.admin.ExportToExcel"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Export To Excel"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".workadmin.RescheduleCall"
+            android:name="com.application.labsolutions.workadmin.RescheduleCall"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Reschedule Call"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".engineer.AllActivities"
+            android:name="com.application.labsolutions.engineer.AllActivities"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="All Activities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".engineer.ResolveActivity"
+            android:name="com.application.labsolutions.engineer.ResolveActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_assigned_activities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".engineer.ReopenActivity"
+            android:name="com.application.labsolutions.engineer.ReopenActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_assigned_activities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".engineer.ViewAssignedActivities"
+            android:name="com.application.labsolutions.engineer.ViewAssignedActivities"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_assigned_activities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".engineer.AssignedActivities"
+            android:name="com.application.labsolutions.engineer.AssignedActivities"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_assigned_activities"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".customer.AllActivities"
+            android:name="com.application.labsolutions.customer.AllActivities"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Customer Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".workadmin.AllActivities"
+            android:name="com.application.labsolutions.workadmin.AllActivities"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.AllActivities"
+            android:name="com.application.labsolutions.admin.AllActivities"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.CreateWorkAdminActivity"
+            android:name="com.application.labsolutions.admin.CreateWorkAdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".workadmin.WorkAdminActivityDetails"
+            android:name="com.application.labsolutions.workadmin.WorkAdminActivityDetails"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Assign Activity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.UpdateInstruments"
+            android:name="com.application.labsolutions.admin.UpdateInstruments"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_details" />
         <activity
-            android:name=".customer.ActivityDetails"
+            android:name="com.application.labsolutions.customer.ActivityDetails"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_details" />
         <activity
-            android:name=".workadmin.WorkadminActivity"
+            android:name="com.application.labsolutions.workadmin.WorkadminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_details" />
         <activity
-            android:name=".customer.CurrentCustomerActivity"
+            android:name="com.application.labsolutions.customer.CurrentCustomerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_current_customer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".workadmin.WorkAdminAssignActivity"
+            android:name="com.application.labsolutions.workadmin.WorkAdminAssignActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_current_customer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".customer.CustomerActivity"
+            android:name="com.application.labsolutions.customer.CustomerActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_customer"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.InstrumentsActivity"
+            android:name="com.application.labsolutions.admin.InstrumentsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_instruments"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".workadmin.WorkAdminInstruments"
+            android:name="com.application.labsolutions.workadmin.WorkAdminInstruments"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_instruments"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.AddInstrumentActivity"
+            android:name="com.application.labsolutions.admin.AddInstrumentActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_add_instrument"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.CreateUserActivity"
+            android:name="com.application.labsolutions.admin.CreateUserActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_create_user"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.AdminActivity"
+            android:name="com.application.labsolutions.admin.AdminActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_admin"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".admin.ResetPassword"
+            android:name="com.application.labsolutions.admin.ResetPassword"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login"></activity>
         <activity
-            android:name=".admin.LoginActivity"
+            android:name="com.application.labsolutions.admin.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/title_activity_login">
             <intent-filter>
@@ -148,7 +148,7 @@
         -->
 
         <activity
-            android:name=".admin.MainActivity"
+            android:name="com.application.labsolutions.admin.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -162,7 +162,7 @@
             android:resource="@drawable/logo_notification" />
 
         <service
-            android:name=".services.MessagingService"
+            android:name="com.application.labsolutions.services.MessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>

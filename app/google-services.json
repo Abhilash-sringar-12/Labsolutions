@@ -8,9 +8,38 @@
   "client": [
     {
       "client_info": {
+        "mobilesdk_app_id": "1:421144564713:android:42e2d63cd53b3f21027178",
+        "android_client_info": {
+          "package_name": "com.application.labsolutions"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "421144564713-pmu5jan0ah0j207fk5af9fc5sdb33a7v.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDDozzmjnUAhDwhVmJJisrCk9yFGxobXe4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "421144564713-pmu5jan0ah0j207fk5af9fc5sdb33a7v.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
         "mobilesdk_app_id": "1:421144564713:android:7e74d965040e0b61027178",
         "android_client_info": {
-          "package_name": "com.example.labsolutions"
+          "package_name": "com.application.labsolutions"
         }
       },
       "oauth_client": [
