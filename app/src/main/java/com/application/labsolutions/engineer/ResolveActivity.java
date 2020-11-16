@@ -552,12 +552,22 @@ public class ResolveActivity extends AppCompatActivity {
 
 
     private Map<String, String> calculateDownTime() {
+        Map<String, String> actualDuration = null;
         if (waitingStartTime != 0 && waitingEndTime != 0) {
-            long waitingTime = waitingStartTime - waitingEndTime;
-            long overallTime = Long.parseLong(scheduledTimeStamp) - new Date().getTime();
-            Map<String, String> actualDuration = getDuration(overallTime, waitingTime);
-            hoursSpent = actualDuration.get("hours");
-            minutesSpent = actualDuration.get("minutes");
+            long waitingTime = waitingEndTime - waitingStartTime;
+            long overallTime = new Date().getTime() - Long.parseLong(scheduledTimeStamp);
+            if (overallTime > waitingTime) {
+                actualDuration = getDuration(waitingTime, overallTime);
+                hoursSpent = actualDuration.get("hours");
+                minutesSpent = actualDuration.get("minutes");
+            } else {
+                actualDuration = getDuration(Long.parseLong(scheduledTimeStamp), new Date().getTime());
+                if (!actualDuration.isEmpty()) {
+                    hoursSpent = actualDuration.get("hours");
+                    minutesSpent = actualDuration.get("minutes");
+                    return actualDuration;
+                }
+            }
             return actualDuration;
         } else {
 
