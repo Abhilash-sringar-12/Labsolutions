@@ -346,47 +346,63 @@ public class ResolveActivity extends AppCompatActivity {
         try {
             String startDate = DateUtility.getCurrentDate();
             String startTime = DateUtility.getCurrentTime();
-            final DateInfo dateInfo = new DateInfo(startDate, startTime, ServerValue.TIMESTAMP);
-            FirebaseDatabase.getInstance().getReference()
-                    .child("activity-users").child("current-activity").child(activityId).child("work-admin").setValue(workAdminId).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isSuccessful()) {
-                        FirebaseDatabase.getInstance().getReference().child("activities").child(activityId).child("waiting-data").child("start-data").setValue(dateInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isSuccessful()) {
-                                    FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("status").setValue("Waiting for spares").addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                FirebaseDatabase.getInstance().getReference()
-                                                        .child("activity-users").child("current-activity").child(activityId).child("engineer").setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                    @Override
-                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
-                                                        if (task.isSuccessful()) {
-                                                            SendNotification.notify(adminTokenId, "Labsolutions", engineerName + " is waiting for spares", apiService, "adminAllActivities");
-                                                            SendNotification.notify(workAdminTokenId, "Labsolutions", engineerName + " is waiting for spares", apiService, "workAdminAssignActivity");
-                                                            SendNotification.notify(customerTokenId, "Labsolutions", engineerName + " is waiting for spares", apiService, "customerCurrentActivity");
-                                                            Toast.makeText(ResolveActivity.this, "Notified Admin", Toast.LENGTH_SHORT).show();
-                                                            returnToALLDetailsPage();
-                                                        }
-                                                    }
-                                                });
-
-                                            }
-                                        }
-                                    });
+            if (waitingStartTime == 0) {
+                final DateInfo dateInfo = new DateInfo(startDate, startTime, ServerValue.TIMESTAMP);
+                FirebaseDatabase.getInstance().getReference()
+                        .child("activity-users").child("current-activity").child(activityId).child("work-admin").setValue(workAdminId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful()) {
+                            FirebaseDatabase.getInstance().getReference().child("activities").child(activityId).child("waiting-data").child("start-data").setValue(dateInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if (task.isSuccessful()) {
+                                        executeWaitingForSpares();
+                                    }
                                 }
-                            }
-                        });
+                            });
+                        }
                     }
-                }
-            });
+                });
+            } else {
+                FirebaseDatabase.getInstance().getReference()
+                        .child("activity-users").child("current-activity").child(activityId).child("work-admin").setValue(workAdminId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Void> task) {
+                        if (task.isSuccessful())
+                            FirebaseDatabase.getInstance().getReference().child("activities").child(activityId).child("waiting-data").child("end-data").setValue(null);
+                        executeWaitingForSpares();
+                    }
+                });
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void executeWaitingForSpares() {
+        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("status").setValue("Waiting for spares").addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                if (task.isSuccessful()) {
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("activity-users").child("current-activity").child(activityId).child("engineer").setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
+                            if (task.isSuccessful()) {
+                                SendNotification.notify(adminTokenId, "Labsolutions", engineerName + " is waiting for spares", apiService, "adminAllActivities");
+                                SendNotification.notify(workAdminTokenId, "Labsolutions", engineerName + " is waiting for spares", apiService, "workAdminAssignActivity");
+                                SendNotification.notify(customerTokenId, "Labsolutions", engineerName + " is waiting for spares", apiService, "customerCurrentActivity");
+                                Toast.makeText(ResolveActivity.this, "Notified Admin", Toast.LENGTH_SHORT).show();
+                                returnToALLDetailsPage();
+                            }
+                        }
+                    });
+
+                }
+            }
+        });
     }
 
     private void returnToALLDetailsPage() {

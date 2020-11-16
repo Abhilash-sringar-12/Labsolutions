@@ -154,6 +154,7 @@ public class ActivityDetails extends AppCompatActivity {
                             DataSnapshot activityInfo = snapshot.child("activity-info");
                             DataSnapshot startInfo = snapshot.child("start-info");
                             DataSnapshot scheduledInfo = snapshot.child("scheduled-info");
+                            DataSnapshot preEngineerInfo = snapshot.child("preAssignedEngineer");
                             final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference()
                                     .child("admin");
                             customerCompany = currentActivityInfo.child("companyName").getValue() != null ? currentActivityInfo.child("companyName").getValue(String.class) : "";
@@ -189,8 +190,9 @@ public class ActivityDetails extends AppCompatActivity {
                             activityInfoList.add(new ActivityInfo("Call Scheduled date & time : ", scheduledDate + " " + scheduledTime, "", ""));
                             if (status.equals("Approved by admin")) {
                                 DataSnapshot approvedInfo = snapshot.child("admin-approved-info");
-                                activityInfoList.add(new ActivityInfo("Admin approved the registered call", approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
+                                activityInfoList.add(new ActivityInfo("Admin approved the registered call.\nAn engineer will be assigned shortly!", approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
                                 if (currentuserMailId.equals("labsolutions.ic.app@gmail.com") || currentuserMailId.equals("service@labsolutions-ic.in")) {
+                                    activityInfoList.add(new ActivityInfo("Awaiting confirmation from " + preEngineerInfo.getValue(String.class), approvedInfo.child("date").getValue(String.class) + " " + approvedInfo.child("time").getValue(String.class), "", ""));
                                     if (snapshot.child("declined-data") != null) {
                                         for (DataSnapshot dataSnapshot : snapshot.child("declined-data").getChildren()) {
                                             activityInfoList.add(new ActivityInfo(dataSnapshot.getValue(String.class) + " declined the registered call", snapshot.child("engineer-approved-info").child("date").getValue(String.class) + " " + snapshot.child("engineer-approved-info").child("time").getValue(String.class), "", ""));

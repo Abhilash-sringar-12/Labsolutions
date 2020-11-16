@@ -219,6 +219,7 @@ public class WorkAdminActivityDetails extends AppCompatActivity {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
                                                                                 FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
+                                                                                FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("preAssignedEngineer").setValue(selectedEngineer);
                                                                                 progressDialog.dismiss();
                                                                                 if (task.isSuccessful()) {
                                                                                     SendNotification.notify(adminTokenId, "Labsolutions", "Call for " + instrumentIdValue + " is assigned to " + selectedEngineer, apiService, "adminAllActivities");
