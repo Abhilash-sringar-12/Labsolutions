@@ -47,6 +47,7 @@ public class RescheduleCall extends AppCompatActivity {
     int mYear, mMonth, mDay, mHour, mMinute;
     long previousScheduledStamp;
     ProgressDialog progressDialog;
+    String waitingData = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -152,6 +153,9 @@ public class RescheduleCall extends AppCompatActivity {
                                                                         public void onComplete(@NonNull Task<Void> task) {
                                                                             Commons.dismissProgressDialog(progressDialog);
                                                                             if (task.isSuccessful()) {
+                                                                                if (waitingData!="") {
+                                                                                    selectedCall.child("resceduled-after-waiting").setValue("true");
+                                                                                }
                                                                                 SendNotification.notify(adminToken, "Labsolutions", "Call for " + instrumentIdValue + " is rescheduled", apiService, "adminAllActivities");
                                                                                 SendNotification.notify(engineerToken, "Labsolutions", "Call for " + instrumentIdValue + " is rescheduled", apiService, "engineerAssignActivity");
                                                                                 SendNotification.notify(customerToken, "Labsolutions", "Call for " + instrumentIdValue + " is rescheduled", apiService, "customerCurrentActivity");
@@ -198,10 +202,12 @@ public class RescheduleCall extends AppCompatActivity {
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
                     try {
                         DataSnapshot scheduledData = snapshot.child("scheduled-info");
+                        DataSnapshot waitingDataInfo = snapshot.child("waiting-data");
                         if (scheduledData.getValue() != null) {
                             scheduledDate.setText(scheduledData.child("date").getValue() != null ? scheduledData.child("date").getValue(String.class) : "");
                             scheduledTime.setText(scheduledData.child("time").getValue() != null ? scheduledData.child("time").getValue(String.class) : "");
                             previousScheduledStamp = Long.parseLong((String) (scheduledData.child("timeStamp").getValue() != null ? scheduledData.child("timeStamp").getValue() : 0l));
+                            waitingData = waitingDataInfo.getValue().toString();
                         }
                     } catch (Exception e) {
                         e.printStackTrace();

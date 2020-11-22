@@ -94,6 +94,7 @@ public class ResolveActivity extends AppCompatActivity {
     String scheduledTimeStamp;
     FirebaseAuth firebaseAuth;
     String workAdminId;
+    Object rescheduledAfterWaiting;
     long waitingStartTime = 0;
     long waitingEndTime = 0;
     long engineerAceeptedTime;
@@ -216,7 +217,7 @@ public class ResolveActivity extends AppCompatActivity {
                             scheduledDate = scheduledInfo.child("date").getValue() != null ? scheduledInfo.child("date").getValue(String.class) : "";
                             scheduledTime = scheduledInfo.child("time").getValue() != null ? scheduledInfo.child("time").getValue(String.class) : "";
                             scheduledTimeStamp = scheduledInfo.child("timeStamp").getValue() != null ? scheduledInfo.child("timeStamp").getValue(String.class) : "";
-
+                            rescheduledAfterWaiting = snapshot.child("resceduled-after-waiting").getValue();
                             if (waitingDetails.getValue() != null) {
                                 waitingStartTime = (long) (waitingDetails.child("start-data").child("timeStamp").getValue() != null ? waitingDetails.child("start-data").child("timeStamp").getValue() : 0l);
                                 if (waitingDetails.child("end-data").getValue() != null)
@@ -357,6 +358,8 @@ public class ResolveActivity extends AppCompatActivity {
                                 @Override
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
+                                        if (rescheduledAfterWaiting != null)
+                                            FirebaseDatabase.getInstance().getReference().child("activities").child(activityId).child("resceduleed-after-waiting").setValue(null);
                                         executeWaitingForSpares();
                                     }
                                 }
@@ -569,7 +572,7 @@ public class ResolveActivity extends AppCompatActivity {
 
     private Map<String, String> calculateDownTime() {
         Map<String, String> actualDuration = null;
-        if (waitingStartTime != 0 && waitingEndTime != 0) {
+        if (waitingStartTime != 0 && waitingEndTime != 0 && rescheduledAfterWaiting == null) {
             long waitingTime = waitingEndTime - waitingStartTime;
             long overallTime = new Date().getTime() - Long.parseLong(scheduledTimeStamp);
             if (overallTime > waitingTime) {
