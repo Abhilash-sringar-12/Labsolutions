@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/relativeLayout"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeightLarge">
+    <ImageView
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:scaleType="fitXY"
+        android:id="@+id/activityImage"
+        android:src="@drawable/attendance"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp" />
+    <TextView
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:layout_marginLeft="10dp"
+        android:layout_toEndOf="@id/activityImage"
+        android:layout_toRightOf="@id/activityImage"
+        android:textSize="20dp"
+        android:text="Abhilash"
+        android:textColor="@color/view_black"
+        android:id="@+id/name" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:textSize="12dp"
+        android:text="EL"
+        android:layout_below="@+id/name"
+        android:layout_toRightOf="@id/activityImage"
+        android:textColor="@color/view_black"
+        android:id="@+id/leaveType" />
+
+    <TextView
+        android:id="@+id/date"
+        android:layout_width="120dp"
+        android:paddingRight="5dp"
+        android:layout_marginTop="30dp"
+        android:layout_height="wrap_content"
+        android:textColor="@color/view_black"
+        android:layout_alignParentRight="true"
+        android:text="Resolved"
+        android:textSize="12dp"
+        android:textStyle="bold|italic" />
+</RelativeLayout>

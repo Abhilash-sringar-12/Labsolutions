@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".engineer.ApplyLeave">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText"/>
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/view_white"
+            android:orientation="vertical"
+            android:layout_marginTop="50dp"
+            android:gravity="center"
+            android:padding="30dp"
+            tools:context=".admin.CreateUserActivity">
+            <TextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Leave Type"
+                android:layout_gravity="left"
+                android:textColor="@color/view_black"
+                android:padding = "10dp"
+                android:textSize="20sp"
+                android:gravity="top">
+            </TextView>
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:background="@drawable/drawable_rectangle"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:layout_marginBottom="10dp"
+                android:focusableInTouchMode="true"
+                android:textColorHint="@color/view_black">
+                <Spinner
+                    android:id="@+id/leaveType"
+                    style="@style/SpinnerCustomTheme"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:dropDownWidth="wrap_content" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:id="   @+id/leaveFrom"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:layout_marginTop="20dp"
+                android:hint="Leave From"
+                android:focusableInTouchMode="true"
+                android:ems="10"
+                android:inputType="date"
+                android:editable="false"
+                android:textColorHint="@color/view_black"
+                android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+                android:textSize ="20sp"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="true"
+                android:layout_marginTop="20dp"
+                android:hint="Back To Work On"
+                android:focusableInTouchMode="true"
+                android:id="@+id/backOn"
+                android:textColorHint="@color/view_black"
+                android:ems="10"
+                android:inputType="date"
+                android:editable="false"
+                android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+                android:textSize ="20sp"/>
+
+            <Button
+                android:id="@+id/applyLeave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/drawable_rounded"
+                android:text="Apply"
+                android:textColor="@color/view_white"
+                android:textSize="20sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/leaveText"
+                android:textColor="@color/view_black"
+                android:textStyle="bold|italic"
+                android:textSize="15sp"
+                android:textAlignment="center"
+                android:layout_marginTop="50px"
+                android:text="Your balance leaves is 21 days!"/>
+        </LinearLayout>
+    </ScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

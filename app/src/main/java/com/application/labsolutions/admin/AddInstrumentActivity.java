@@ -73,8 +73,10 @@ public class AddInstrumentActivity extends AppCompatActivity {
         menu.add(0, 6, 6,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_local_activity_24), "Activities"));
         menu.add(0, 7, 7,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cloud_download_24), "Export Activities"));
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_account_balance_wallet_24), "Update Leaves"));
         menu.add(0, 8, 8,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cloud_download_24), "Export Activities"));
+        menu.add(0, 9, 9,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -114,11 +116,16 @@ public class AddInstrumentActivity extends AppCompatActivity {
                 startActivity(intentAllActivities);
                 return true;
             case 7:
+                Intent intentUpdateLeaves = new Intent(AddInstrumentActivity.this, UpdateLeaves.class);
+                finishAffinity();
+                startActivity(intentUpdateLeaves);
+                return true;
+            case 8:
                 Intent intentExport = new Intent(AddInstrumentActivity.this, ExportToExcel.class);
                 finishAffinity();
                 startActivity(intentExport);
                 return true;
-            case 8:
+            case 9:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(AddInstrumentActivity.this, LoginActivity.class);

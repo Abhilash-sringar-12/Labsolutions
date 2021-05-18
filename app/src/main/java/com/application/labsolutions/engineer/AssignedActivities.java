@@ -173,6 +173,12 @@ public class AssignedActivities extends AppCompatActivity {
         menu.add(0, 2, 2,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_history_24), "History"));
         menu.add(0, 3, 3,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_add_task_24), "Log Attendance"));
+        menu.add(0, 4, 4,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_touch_app_24), "Apply Leaves"));
+        menu.add(0, 5, 5,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_new_releases_24), "Your Leaves"));
+        menu.add(0, 6, 6,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -192,6 +198,21 @@ public class AssignedActivities extends AppCompatActivity {
                 finishAffinity();
                 return true;
             case 3:
+                Intent intentAttendance = new Intent(AssignedActivities.this, Attendance.class);
+                finishAffinity();
+                startActivity(intentAttendance);
+                return true;
+            case 4:
+                Intent intentApplyLeave = new Intent(AssignedActivities.this, ApplyLeave.class);
+                finishAffinity();
+                startActivity(intentApplyLeave);
+                return true;
+            case 5:
+                Intent intentYourLeaves = new Intent(AssignedActivities.this, AppliedLeaves.class);
+                finishAffinity();
+                startActivity(intentYourLeaves);
+                return true;
+            case 6:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(AssignedActivities.this, LoginActivity.class);
