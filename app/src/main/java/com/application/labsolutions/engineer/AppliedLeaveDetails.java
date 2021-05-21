@@ -32,9 +32,9 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
-import java.util.UUID;
 
 public class AppliedLeaveDetails extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -45,8 +45,10 @@ public class AppliedLeaveDetails extends AppCompatActivity {
     TextView leaveText;
     Button cancelLeave;
     long fromDateTimeStamp, backOnDateTimeStamp, currentDateTimeStamp;
-    String leaveType, leaveId, fromDate, backOnDate, totalLeaves;
+    String leaveType, leaveId, fromDate, backOnDate, totalLeaves, month, year;
+    List<String> holidaysList = new ArrayList<>();
     ProgressDialog progressDialog;
+    Boolean needNoteToDelete = false;
     String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
@@ -64,6 +66,10 @@ public class AppliedLeaveDetails extends AppCompatActivity {
             backOn = findViewById(R.id.backOn);
             leaveText = findViewById(R.id.leaveText);
             leaveText.setVisibility(View.GONE);
+            Intent intent = getIntent();
+            if (intent.getStringExtra("userType").equals("admin")) {
+                cancelLeave.setVisibility(View.GONE);
+            }
             firebaseAuth = FirebaseAuth.getInstance();
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Toolbar toolbar = findViewById(R.id.toolbar);
@@ -73,26 +79,81 @@ public class AppliedLeaveDetails extends AppCompatActivity {
                 final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 DatabaseReference currentUserLeavesDs = rootRef.child("applied-leaves").child(currentUser);
                 progressDialog = ProgressDialog.show(AppliedLeaveDetails.this, "Please wait", "Loading your Leaves.....", true, false);
-                Intent intent = getIntent();
                 fromDate = intent.getStringExtra("leaveFrom");
                 backOnDate = intent.getStringExtra("backOn");
+                if (backOnDate.isEmpty()) {
+                    backOn.setVisibility(View.GONE);
+                } else {
+                    backOnDateTimeStamp = DateUtility.getTimeStamForLeaves(backOnDate);
+                }
                 leaveType = intent.getStringExtra("leaveType");
                 totalLeaves = intent.getStringExtra("totalLeaves");
                 leaveId = intent.getStringExtra("leaveId");
                 fromDateTimeStamp = DateUtility.getTimeStamForLeaves(fromDate);
-                backOnDateTimeStamp = DateUtility.getTimeStamForLeaves(backOnDate);
                 currentDateTimeStamp = new Date().getTime();
+                month = monthName[Integer.parseInt(fromDate.split("-")[1]) - 1];
+                year = fromDate.split("-")[2];
+                final DatabaseReference holidays = rootRef.child("holidays");
+                final DatabaseReference calenderRef = FirebaseDatabase.getInstance().getReference().child("calender/");
+                final DatabaseReference databaseReference = calenderRef.child(year + "/" + month + "/" + fromDate + "/" + firebaseAuth.getCurrentUser().getUid());
+                final ValueEventListener holidaysListener = new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        if (snapshot.hasChildren()) {
+                            for (DataSnapshot ds : snapshot.getChildren()) {
+                                holidaysList.add(ds.getKey());
+                                populateLeaveDetails();
+                                if (leaveType.equals("HD") && DateUtility.formatDate(new Date().toString()).equals(fromDate)) {
+                                    final ValueEventListener valueEventListener = new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                            if (snapshot.hasChildren() && (snapshot.child("loginDetails").getValue() != null))
+                                                needNoteToDelete = true;
+                                        }
 
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
 
-                populateLeaveDetails();
+                                        }
+                                    };
+                                    databaseReference.addValueEventListener(valueEventListener);
+                                }
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                };
+                holidays.addValueEventListener(holidaysListener);
                 cancelLeave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         try {
-                            if (currentDateTimeStamp > fromDateTimeStamp && currentDateTimeStamp < backOnDateTimeStamp) {
-                                fromDate = DateUtility.formatDate(new Date().toString());
+                            progressDialog = ProgressDialog.show(AppliedLeaveDetails.this, "Please wait", "Cancelling leaves!!!.....", true, false);
+                            if (leaveType.equals("EL")) {
+                                deleteLeavesFromCalender(fromDate, backOnDate, leaveType);
+                            } else {
+                                final String currentIndexMonth = monthName[Integer.parseInt(fromDate.split("-")[1]) - 1];
+                                final String year = fromDate.split("-")[2];
+                                if (needNoteToDelete) {
+                                    calenderRef.child(year + "/" + currentIndexMonth + "/" + fromDate + "/" + firebaseAuth.getCurrentUser().getUid() + "/type").setValue("PA").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(Task<Void> task) {
+                                            deleteBasedOnconditions(task);
+                                        }
+                                    });
+                                } else {
+                                    calenderRef.child(year + "/" + currentIndexMonth + "/" + fromDate + "/" + firebaseAuth.getCurrentUser().getUid()).setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            deleteBasedOnconditions(task);
+                                        }
+                                    });
+                                }
                             }
-                            deleteLeavesFromCalender(fromDate, backOnDate, leaveType);
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -104,13 +165,27 @@ public class AppliedLeaveDetails extends AppCompatActivity {
         }
     }
 
+    public void deleteBasedOnconditions(Task<Void> task) {
+        if (task.isSuccessful()) {
+            if (leaveType.equals("HD")) {
+                proceedDeleting(new LinkedHashMap<String, String>(), 0.5);
+            } else {
+                proceedDeleting(new LinkedHashMap<String, String>(), 1.0);
+            }
+        }
+
+    }
+
     public void deleteLeavesFromCalender(String startdate, String enddate, final String leaveType) {
         try {
+
+            if (currentDateTimeStamp > fromDateTimeStamp && currentDateTimeStamp < backOnDateTimeStamp) {
+                startdate = DateUtility.formatDate(new Date().toString());
+            }
             SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd-MM-yyyy");
-            progressDialog = ProgressDialog.show(AppliedLeaveDetails.this, "Please wait", "Cancelling leaves!!!.....", true, false);
+            DatabaseReference calenderRef = FirebaseDatabase.getInstance().getReference().child("calender/");
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(simpleDateFormat.parse(startdate));
-            final DatabaseReference calenderRef = FirebaseDatabase.getInstance().getReference().child("calender/");
             while (calendar.getTime().before(simpleDateFormat.parse(enddate))) {
                 Date result = calendar.getTime();
                 final String currentIndexDate = DateUtility.formatDate(result.toString());
@@ -118,7 +193,11 @@ public class AppliedLeaveDetails extends AppCompatActivity {
                 final String year = currentIndexDate.split("-")[2];
                 calendar.add(Calendar.DATE, 1);
                 if (result.getDay() != 0 && result.getDay() != 6) {
-                    calenderRef.child(year + "/" + currentIndexMonth + "/" + currentIndexDate + "/" + firebaseAuth.getCurrentUser().getUid()).setValue(null);
+                    if (needNoteToDelete) {
+                        calenderRef.child(year + "/" + currentIndexMonth + "/" + currentIndexDate + "/" + firebaseAuth.getCurrentUser().getUid() + "/type").setValue("PA");
+                    } else {
+                        calenderRef.child(year + "/" + currentIndexMonth + "/" + currentIndexDate + "/" + firebaseAuth.getCurrentUser().getUid()).setValue(null);
+                    }
                 }
             }
             deleteAppliedLeaves(fromDate, backOnDate, leaveType);
@@ -131,40 +210,49 @@ public class AppliedLeaveDetails extends AppCompatActivity {
     private void deleteAppliedLeaves(final String startdate, final String enddate, final String leaveType) {
         try {
             LinkedHashMap<String, String> appliedLeavesMap = new LinkedHashMap<>();
+            final double calculate;
             if ((currentDateTimeStamp > fromDateTimeStamp && currentDateTimeStamp < backOnDateTimeStamp) && !DateUtility.formatDate(new Date().toString()).equals(startdate)) {
                 appliedLeavesMap.put("leaveFrom", startdate);
                 appliedLeavesMap.put("backOn", DateUtility.formatDate(new Date().toString()));
                 appliedLeavesMap.put("leaveType", leaveType);
+                calculate = DateUtility.calculatedLeaves(DateUtility.formatDate(new Date().toString()), enddate, holidaysList);
             } else {
                 appliedLeavesMap = null;
+                calculate = DateUtility.calculatedLeaves(startdate, enddate, holidaysList);
             }
-            FirebaseDatabase.getInstance().getReference().child("applied-leaves/" + firebaseAuth.getCurrentUser().getUid() + "/" + leaveId).setValue(appliedLeavesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    Commons.dismissProgressDialog(progressDialog);
-                    if (task.isSuccessful()) {
-                        final double noOfDays = leaveType.equals("HD") ? 0.5 : DateUtility.calculatedLeaves(startdate, enddate);
-                        FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble((totalLeaves)) + noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                Toast.makeText(AppliedLeaveDetails.this, "Cancelled leave successfully", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(AppliedLeaveDetails.this, AppliedLeaves.class);
-                                startActivity(intent);
-                                finishAffinity();
-                            }
-                        });
-                    } else {
-                        Toast.makeText(AppliedLeaveDetails.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
-                    }
-                }
-            });
+            proceedDeleting(appliedLeavesMap, calculate);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
+    private void proceedDeleting(LinkedHashMap<String, String> appliedLeavesMap, final double calculate) {
+        FirebaseDatabase.getInstance().getReference().child("applied-leaves/" + firebaseAuth.getCurrentUser().getUid() + "/" + leaveId).setValue(appliedLeavesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Commons.dismissProgressDialog(progressDialog);
+                if (task.isSuccessful()) {
+                    final double noOfDays = calculate;
+                    FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble((totalLeaves)) + noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            Toast.makeText(AppliedLeaveDetails.this, "Cancelled leave successfully", Toast.LENGTH_SHORT).show();
+                            Intent intent = new Intent(AppliedLeaveDetails.this, AppliedLeaves.class);
+                            startActivity(intent);
+                            finishAffinity();
+                        }
+                    });
+                } else {
+                    Toast.makeText(AppliedLeaveDetails.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
     private void populateLeaveDetails() {
         try {
+            categories.clear();
             leaveFrom.setText(fromDate);
             backOn.setText(backOnDate);
             categories.add(leaveType);

@@ -5,6 +5,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 
 public class DateUtility {
 
@@ -51,6 +52,7 @@ public class DateUtility {
         }
         return timeStamp;
     }
+
     public static long getTimeStamForLeaves(String leaveDate) {
         long timeStamp = 0l;
         try {
@@ -70,7 +72,7 @@ public class DateUtility {
         return formatter.format(new Date(date));
     }
 
-    public static double calculatedLeaves(String startDate, String backOn) {
+    public static double calculatedLeaves(String startDate, String backOn, List<String> holidaysList) {
         double numberOfDays = 0.0;
         try {
             DateFormat df = new SimpleDateFormat("dd-MM-yyyy");
@@ -81,7 +83,9 @@ public class DateUtility {
             cal1.setTime(date1);
             cal2.setTime(date2);
             while (cal1.before(cal2)) {
-                if ((Calendar.SATURDAY != cal1.get(Calendar.DAY_OF_WEEK)) && (Calendar.SUNDAY != cal1.get(Calendar.DAY_OF_WEEK))) {
+                if ((Calendar.SATURDAY != cal1.get(Calendar.DAY_OF_WEEK))
+                        && (Calendar.SUNDAY != cal1.get(Calendar.DAY_OF_WEEK))
+                        && !holidaysList.contains(DateUtility.formatDate(cal1.getTime().toString()))) {
                     numberOfDays++;
                     cal1.add(Calendar.DATE, 1);
                 } else {

@@ -1,10 +1,4 @@
-package com.application.labsolutions.engineer;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+package com.application.labsolutions.admin;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -18,14 +12,20 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.SearchView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.application.labsolutions.R;
-import com.application.labsolutions.admin.InstrumentsActivity;
-import com.application.labsolutions.admin.LoginActivity;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.dateutils.DateUtility;
-import com.application.labsolutions.listviews.ActivitiesInfoDetails;
+import com.application.labsolutions.engineer.AppliedLeaves;
+import com.application.labsolutions.engineer.ApplyLeave;
+import com.application.labsolutions.engineer.AssignedActivities;
+import com.application.labsolutions.engineer.Attendance;
 import com.application.labsolutions.listviews.AppliedLeavesView;
-import com.application.labsolutions.listviews.CreatedInstrumentView;
 import com.application.labsolutions.listviews.LeaveDetails;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -34,13 +34,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 
-public class AppliedLeaves extends AppCompatActivity {
+public class AllUpcomingLeaves extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
     ProgressDialog progressDialog;
     RecyclerView listview;
@@ -56,7 +54,7 @@ public class AppliedLeaves extends AppCompatActivity {
 
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Toolbar toolbar = findViewById(R.id.toolbar);
-                toolbar.setTitle("Your Upcoming Leaves");
+                toolbar.setTitle("All Upcoming Applied Leaves");
                 setSupportActionBar(toolbar);
                 emptyImage = findViewById(R.id.emptyImage);
                 listview = findViewById(R.id.leavesListView);
@@ -64,9 +62,9 @@ public class AppliedLeaves extends AppCompatActivity {
                 searchView = findViewById(R.id.searchLeaves);
                 final String currentUser = firebaseAuth.getCurrentUser().getUid();
                 final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                final DatabaseReference currentUserLeavesDs = rootRef.child("applied-leaves").child(currentUser);
+                final DatabaseReference AllLeavesDs = rootRef.child("applied-leaves");
                 final DatabaseReference totalLeavesDs = rootRef.child("leaves").child(currentUser);
-                progressDialog = ProgressDialog.show(AppliedLeaves.this, "Please wait", "Loading your Leaves.....", true, false);
+                progressDialog = ProgressDialog.show(AllUpcomingLeaves.this, "Please wait", "Loading Applied Leaves.....", true, false);
                 ValueEventListener totalLeavesListner = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -75,31 +73,36 @@ public class AppliedLeaves extends AppCompatActivity {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 if (snapshot.hasChildren()) {
+                                    leavesList.clear();
                                     try {
-                                        for (DataSnapshot leavesDs : snapshot.getChildren()) {
-                                            long timeStamp = 0l;
-                                            String leaveFrom = leavesDs.child("leaveFrom").getValue() != null
-                                                    ? leavesDs.child("leaveFrom").getValue(String.class) : "";
-                                            String backOn = leavesDs.child("backOn").getValue() != null
-                                                    ? leavesDs.child("backOn").getValue(String.class) : "";
-                                            String leaveType = leavesDs.child("leaveType").getValue() != null
-                                                    ? leavesDs.child("leaveType").getValue(String.class) : "";
-                                            if (!leaveFrom.isEmpty()) {
+                                        for (DataSnapshot allLeaves : snapshot.getChildren()) {
+                                            for (final DataSnapshot leavesDs : allLeaves.getChildren()) {
+                                                long timeStamp = 0l;
+                                                String leaveFrom = leavesDs.child("leaveFrom").getValue() != null
+                                                        ? leavesDs.child("leaveFrom").getValue(String.class) : "";
+                                                String backOn = leavesDs.child("backOn").getValue() != null
+                                                        ? leavesDs.child("backOn").getValue(String.class) : "";
+                                                String leaveType = leavesDs.child("leaveType").getValue() != null
+                                                        ? leavesDs.child("leaveType").getValue(String.class) : "";
+                                                String userName = leavesDs.child("userName").getValue() != null
+                                                        ? leavesDs.child("userName").getValue(String.class) : "";
+                                                if (!leaveFrom.isEmpty()) {
 
-                                                timeStamp = DateUtility.getTimeStamForLeaves(leaveFrom);
+                                                    timeStamp = DateUtility.getTimeStamForLeaves(leaveFrom);
+                                                }
+                                                long backOnDateTimeStamp = 0;
+                                                if (!backOn.isEmpty())
+                                                    backOnDateTimeStamp = DateUtility.getTimeStamForLeaves(backOn);
+                                                long currentDateTimeStamp = new Date(DateUtility.getCurrentDate()).getTime();
+                                                if ((backOnDateTimeStamp == 0 && currentDateTimeStamp <= timeStamp) || backOnDateTimeStamp > currentDateTimeStamp)
+                                                    leavesList.add(new LeaveDetails(leaveType, leaveFrom, backOn, timeStamp, userName, leavesDs.getKey(), totalLeaves));
                                             }
-                                            long backOnDateTimeStamp = 0;
-                                            if (!backOn.isEmpty())
-                                                backOnDateTimeStamp = DateUtility.getTimeStamForLeaves(backOn);
-                                            long currentDateTimeStamp = new Date(DateUtility.getCurrentDate()).getTime();
-                                            if ((backOnDateTimeStamp ==0 && currentDateTimeStamp <= timeStamp)  || backOnDateTimeStamp > currentDateTimeStamp)
-                                                leavesList.add(new LeaveDetails(leaveType, leaveFrom, backOn, timeStamp, "", leavesDs.getKey(), totalLeaves));
                                         }
+
                                         Collections.sort(leavesList, LeaveDetails.leaves);
-                                        final AppliedLeavesView adapter = new AppliedLeavesView(AppliedLeaves.this, leavesList, "user");
+                                        final AppliedLeavesView adapter = new AppliedLeavesView(AllUpcomingLeaves.this, leavesList, "admin");
                                         listview.setHasFixedSize(true);
-                                        listview.setLayoutManager(new LinearLayoutManager(AppliedLeaves.this));
-                                        listview.setAdapter(adapter);
+                                        listview.setLayoutManager(new LinearLayoutManager(AllUpcomingLeaves.this));
                                         listview.setAdapter(adapter);
 
                                         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -132,7 +135,7 @@ public class AppliedLeaves extends AppCompatActivity {
 
                             }
                         };
-                        currentUserLeavesDs.addValueEventListener(valueEventListener);
+                        AllLeavesDs.addValueEventListener(valueEventListener);
                     }
 
                     @Override
@@ -154,34 +157,54 @@ public class AppliedLeaves extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case 1:
-                Intent intentAdminActivity = new Intent(AppliedLeaves.this, AssignedActivities.class);
+                Intent intentAdminActivity = new Intent(AllUpcomingLeaves.this, AdminActivity.class);
                 finishAffinity();
                 startActivity(intentAdminActivity);
                 return true;
             case 2:
-                Intent intentInstruments = new Intent(AppliedLeaves.this, AllActivities.class);
-                startActivity(intentInstruments);
+                Intent craeteWorkAdmin = new Intent(AllUpcomingLeaves.this, CreateWorkAdminActivity.class);
                 finishAffinity();
+                startActivity(craeteWorkAdmin);
                 return true;
             case 3:
-                Intent intentAttendance = new Intent(AppliedLeaves.this, Attendance.class);
+                Intent intentCreateUserActivity = new Intent(AllUpcomingLeaves.this, CreateUserActivity.class);
                 finishAffinity();
-                startActivity(intentAttendance);
+                startActivity(intentCreateUserActivity);
                 return true;
             case 4:
-                Intent intentApplyLeave = new Intent(AppliedLeaves.this, ApplyLeave.class);
+                Intent intentAddInstrument = new Intent(AllUpcomingLeaves.this, AddInstrumentActivity.class);
                 finishAffinity();
-                startActivity(intentApplyLeave);
+                startActivity(intentAddInstrument);
                 return true;
             case 5:
-                Intent intentYourLeaves = new Intent(AppliedLeaves.this, AppliedLeaves.class);
+                Intent intentInstruments = new Intent(AllUpcomingLeaves.this, InstrumentsActivity.class);
                 finishAffinity();
-                startActivity(intentYourLeaves);
+                startActivity(intentInstruments);
                 return true;
             case 6:
+                Intent intentAllActivities = new Intent(AllUpcomingLeaves.this, AllActivities.class);
+                finishAffinity();
+                startActivity(intentAllActivities);
+                return true;
+            case 7:
+                Intent intentUpdateLeaves = new Intent(AllUpcomingLeaves.this, UpdateLeaves.class);
+                finishAffinity();
+                startActivity(intentUpdateLeaves);
+                return true;
+            case 8:
+                Intent intentLeaves = new Intent(AllUpcomingLeaves.this, AllUpcomingLeaves.class);
+                finishAffinity();
+                startActivity(intentLeaves);
+                return true;
+            case 9:
+                Intent intentExport = new Intent(AllUpcomingLeaves.this, ExportToExcel.class);
+                finishAffinity();
+                startActivity(intentExport);
+                return true;
+            case 10:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
-                Intent intentSignOut = new Intent(AppliedLeaves.this, LoginActivity.class);
+                Intent intentSignOut = new Intent(AllUpcomingLeaves.this, LoginActivity.class);
                 finishAffinity();
                 startActivity(intentSignOut);
                 return true;
@@ -192,17 +215,24 @@ public class AppliedLeaves extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 1, 1,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_notifications_active_24), "Assigned Calls"));
-
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_supervised_user_circle_24), "Users"));
         menu.add(0, 2, 2,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_history_24), "History"));
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_person_add_24), "Add Admin"));
         menu.add(0, 3, 3,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_add_task_24), "Log Attendance"));
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_person_add_24), "Add User"));
         menu.add(0, 4, 4,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_touch_app_24), "Apply Leaves"));
+                menuIconWithText(getResources().getDrawable(R.drawable.tools), "Add Instruments"));
         menu.add(0, 5, 5,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_new_releases_24), "Your Leaves"));
+                menuIconWithText(getResources().getDrawable(R.drawable.tools), "Instruments"));
         menu.add(0, 6, 6,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_local_activity_24), "Activities"));
+        menu.add(0, 7, 7,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_account_balance_wallet_24), "Update Leaves"));
+        menu.add(0, 8, 8,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_new_releases_24), "Upcoming Leaves"));
+        menu.add(0, 9, 9,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cloud_download_24), "Export Activities"));
+        menu.add(0, 10, 10,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }

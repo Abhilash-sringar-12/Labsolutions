@@ -21,6 +21,10 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".admin.AllUpcomingLeaves"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="All Upcoming Leaves "
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".engineer.AppliedLeaveDetails"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Applied Leaves Details "

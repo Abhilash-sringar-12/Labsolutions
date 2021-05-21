@@ -47,9 +47,16 @@ public class AppliedLeavesView extends RecyclerView.Adapter<AppliedLeavesView.Vi
     @Override
     public void onBindViewHolder(@NonNull AppliedLeavesView.ViewHolder holder, int position) {
         final LeaveDetails leaveDetails = objects.get(position);
-        holder.name.setText(leaveDetails.getLeaveType());
-        holder.leaveType.setText(leaveDetails.getLeaveFrom());
-        holder.date.setText("Click To View");
+        if (userType.equals("admin")) {
+            holder.name.setText(leaveDetails.getName());
+            holder.leaveType.setText(leaveDetails.getLeaveType());
+            holder.date.setText(leaveDetails.getLeaveFrom());
+        } else {
+
+            holder.name.setText(leaveDetails.getLeaveType());
+            holder.leaveType.setText(leaveDetails.getLeaveFrom());
+            holder.date.setText("Click To View");
+        }
         holder.relativeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -59,6 +66,7 @@ public class AppliedLeavesView extends RecyclerView.Adapter<AppliedLeavesView.Vi
                 newIntent.putExtra("leaveFrom", leaveDetails.getLeaveFrom());
                 newIntent.putExtra("backOn", leaveDetails.getBackToWork());
                 newIntent.putExtra("totalLeaves", leaveDetails.getTotalLeaves());
+                newIntent.putExtra("userType", userType);
                 context.startActivity(newIntent);
             }
         });

@@ -15,6 +15,7 @@ import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
@@ -25,7 +26,6 @@ import android.widget.Toast;
 
 import com.application.labsolutions.R;
 import com.application.labsolutions.admin.LoginActivity;
-import com.application.labsolutions.admin.UpdateLeaves;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.dateutils.DateUtility;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,8 +38,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -57,8 +55,9 @@ public class ApplyLeave extends AppCompatActivity {
             "December"};
     final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
     Spinner spinner = null;
-    String noOfLeaves;
+    String noOfLeaves, userName;
     List<String> categories = new ArrayList<String>();
+    List<String> holidaysList = new ArrayList<String>();
     EditText leaveFrom, backOn;
     TextView leaveText;
     Button applyLeave;
@@ -86,13 +85,46 @@ public class ApplyLeave extends AppCompatActivity {
                 leaveFrom.setKeyListener(null);
                 backOn.setKeyListener(null);
                 final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
-                DatabaseReference leaves = rootRef.child("leaves/" + firebaseAuth.getCurrentUser().getUid());
-                ValueEventListener leaveValueEventListener = new ValueEventListener() {
+                final DatabaseReference leaves = rootRef.child("leaves/" + firebaseAuth.getCurrentUser().getUid());
+                final DatabaseReference user = rootRef.child("users/" + firebaseAuth.getCurrentUser().getUid());
+                final DatabaseReference holidays = rootRef.child("holidays");
+                final ValueEventListener leaveValueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         if (snapshot.exists()) {
                             noOfLeaves = snapshot.getValue() == null ? "0" : snapshot.getValue().toString();
                             leaveText.setText("Your balance leaves is " + noOfLeaves + "days!");
+                            ValueEventListener valueEventListener = new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                    if (snapshot.getValue() != null && snapshot.hasChildren()) {
+                                        userName = snapshot.child("user").getValue() != null
+                                                ? snapshot.child("user").getValue(String.class) : "";
+                                        ValueEventListener holidaysListener = new ValueEventListener() {
+                                            @Override
+                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                if (snapshot.hasChildren()) {
+                                                    for (DataSnapshot ds : snapshot.getChildren()) {
+                                                        holidaysList.add(ds.getKey());
+                                                    }
+                                                }
+                                            }
+
+                                            @Override
+                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                            }
+                                        };
+                                        holidays.addValueEventListener(holidaysListener);
+                                    }
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            };
+                            user.addValueEventListener(valueEventListener);
                         }
                     }
 
@@ -103,6 +135,25 @@ public class ApplyLeave extends AppCompatActivity {
                 };
                 leaves.addValueEventListener(leaveValueEventListener);
                 applyLeave = findViewById(R.id.applyLeave);
+                spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                               int arg2, long arg3) {
+                        if (spinner.getSelectedItem() != "") {
+                            String leaveType = spinner.getSelectedItem().toString();
+                            if (leaveType.equals("EL")) {
+                                leaveFrom.setVisibility(View.VISIBLE);
+                                backOn.setVisibility(View.VISIBLE);
+                            } else {
+                                backOn.setVisibility(View.GONE);
+                            }
+                        }
+
+                    }
+
+                    public void onNothingSelected(AdapterView<?> arg0) {
+                        // TODO Auto-generated method stub
+                    }
+                });
                 applyLeave.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -114,10 +165,12 @@ public class ApplyLeave extends AppCompatActivity {
                                 Toast.makeText(ApplyLeave.this, "Please Select Leave Type", Toast.LENGTH_SHORT).show();
                             } else if (fromDate.isEmpty()) {
                                 Toast.makeText(ApplyLeave.this, "Please Select From Date", Toast.LENGTH_SHORT).show();
-                            } else if (backOnDate.isEmpty()) {
+                            } else if (backOn.getVisibility() == View.VISIBLE && backOnDate.isEmpty()) {
                                 Toast.makeText(ApplyLeave.this, "Please Select Back On Date", Toast.LENGTH_SHORT).show();
-                            } else if (leaveType.equals("HD") && DateUtility.calculatedLeaves(DateUtility.formatDate(fromDate), DateUtility.formatDate(backOnDate)) > 1.0) {
-                                Toast.makeText(ApplyLeave.this, "You can only apply Half day one at a time", Toast.LENGTH_SHORT).show();
+                            } else if (holidaysList.contains(DateUtility.formatDate(fromDate))) {
+                                Toast.makeText(ApplyLeave.this, fromDate + " is a Holiday", Toast.LENGTH_SHORT).show();
+                            } else if (backOn.getVisibility() == View.VISIBLE && holidaysList.contains(DateUtility.formatDate(backOnDate))) {
+                                Toast.makeText(ApplyLeave.this, backOnDate + " is a Holiday", Toast.LENGTH_SHORT).show();
                             } else {
                                 validatedLeaveDates(leaveType, fromDate, backOnDate);
                             }
@@ -148,7 +201,6 @@ public class ApplyLeave extends AppCompatActivity {
                                     }
                                 }, mYear, mMonth, mDay);
                         datePickerDialog.getDatePicker().setMaxDate(new Date("31 Dec " + mYear).getTime());
-                        datePickerDialog.getDatePicker().setMinDate(new Date(String.valueOf(new Date())).getTime());
                         datePickerDialog.show();
                         backOn.setText("");
                     }
@@ -264,7 +316,7 @@ public class ApplyLeave extends AppCompatActivity {
 
     public void getDaysBetweenDates(Date startdate, Date enddate, final String leaveType) {
         try {
-            progressDialog = ProgressDialog.show(ApplyLeave.this, "Please wait", "Apllying leaves!!!.....", true, false);
+            progressDialog = ProgressDialog.show(ApplyLeave.this, "Please wait", "Applying leaves!!!.....", true, false);
             Calendar calendar = new GregorianCalendar();
             calendar.setTime(startdate);
             final DatabaseReference calenderRef = FirebaseDatabase.getInstance().getReference().child("calender/");
@@ -274,7 +326,7 @@ public class ApplyLeave extends AppCompatActivity {
                 final String currentIndexMonth = monthName[Integer.parseInt(currentIndexDate.split("-")[1]) - 1];
                 final String year = currentIndexDate.split("-")[2];
                 calendar.add(Calendar.DATE, 1);
-                if (result.getDay() != 0 && result.getDay() != 6) {
+                if (result.getDay() != 0 && result.getDay() != 6 && !holidaysList.contains(result)) {
                     calenderRef.child(year + "/" + currentIndexMonth + "/" + currentIndexDate + "/" + firebaseAuth.getCurrentUser().getUid() + "/type").setValue(leaveType);
                 }
             }
@@ -291,20 +343,23 @@ public class ApplyLeave extends AppCompatActivity {
             appliedLeavesMap.put("leaveFrom", DateUtility.formatDate(startdate.toString()));
             appliedLeavesMap.put("backOn", DateUtility.formatDate(enddate.toString()));
             appliedLeavesMap.put("leaveType", leaveType);
+            appliedLeavesMap.put("userName", userName);
             FirebaseDatabase.getInstance().getReference().child("applied-leaves/" + firebaseAuth.getCurrentUser().getUid() + "/" + UUID.randomUUID()).setValue(appliedLeavesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
-                    Commons.dismissProgressDialog(progressDialog);
+
                     if (task.isSuccessful()) {
-                        final double noOfDays = leaveType.equals("HD") ? 0.5 : DateUtility.calculatedLeaves(DateUtility.formatDate(startdate.toString()), DateUtility.formatDate(enddate.toString()));
+                        final double noOfDays = DateUtility.calculatedLeaves(DateUtility.formatDate(startdate.toString()), DateUtility.formatDate(enddate.toString()), holidaysList);
                         FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble(noOfLeaves) - noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(ApplyLeave.this, "Applied leave successfully", Toast.LENGTH_SHORT).show();
+                                Commons.dismissProgressDialog(progressDialog);
                             }
                         });
                     } else {
                         Toast.makeText(ApplyLeave.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
+                        Commons.dismissProgressDialog(progressDialog);
                     }
                 }
             });
@@ -314,39 +369,48 @@ public class ApplyLeave extends AppCompatActivity {
     }
 
 
-
-    private void validatedLeaveDates(final String leaveType, String fromDate, String backOnDate) {
+    private void validatedLeaveDates(final String leaveType, final String fromDate, String backOnDate) {
         final Date formatedFromdate = new Date(fromDate);
-        final Date formatedBackOndate = new Date(backOnDate);
+        Date formatedBackOndate = null;
+        if (!backOnDate.isEmpty())
+            formatedBackOndate = new Date(backOnDate);
         if (formatedFromdate.getDay() == 0 || formatedFromdate.getDay() == 6) {
             Toast.makeText(ApplyLeave.this, "From Date Selected is a weekend!!!", Toast.LENGTH_SHORT).show();
-        } else if (formatedBackOndate.getDay() == 0 || formatedBackOndate.getDay() == 6) {
+        } else if (!backOnDate.isEmpty() && (formatedBackOndate.getDay() == 0 || formatedBackOndate.getDay() == 6)) {
             Toast.makeText(ApplyLeave.this, "Back On Date Selected is a weekend!!!", Toast.LENGTH_SHORT).show();
+        } else if (leaveType.equals("EL")) {
+            getDaysBetweenDates(formatedFromdate, formatedBackOndate, leaveType);
         } else {
-            final String currentIndexFromDate = DateUtility.formatDate(fromDate.toString());
-            final String currentIndexFromMonth = monthName[Integer.parseInt(currentIndexFromDate.split("-")[1]) - 1];
-            final String year = currentIndexFromDate.split("-")[2];
-            final String currentIndexBackOnDate = DateUtility.formatDate(backOnDate.toString());
-            final String currentIndexBackMonth = monthName[Integer.parseInt(currentIndexFromDate.split("-")[1]) - 1];
-            DatabaseReference leavesRef = FirebaseDatabase.getInstance().getReference().child("calender/" + year);
-            ValueEventListener valueEventListener = new ValueEventListener() {
+            progressDialog = ProgressDialog.show(ApplyLeave.this, "Please wait", "Applying leaves!!!.....", true, false);
+            final String formatedDate = DateUtility.formatDate(formatedFromdate.toString());
+            FirebaseDatabase.getInstance().getReference().child("calender/")
+                    .child(formatedDate.split("-")[2] + "/" + monthName[Integer.parseInt(formatedDate.split("-")[1]) - 1] + "/" + formatedDate + "/" + firebaseAuth.getCurrentUser().getUid() + "/type").setValue(leaveType).addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    DataSnapshot start = snapshot.child(currentIndexFromMonth).child(currentIndexFromDate + "/" + firebaseAuth.getCurrentUser().getUid());
-                    DataSnapshot end = snapshot.child(currentIndexBackMonth).child(currentIndexBackOnDate + "/" + firebaseAuth.getCurrentUser().getUid());
-                    if (start.hasChild("type")) {
-                    } else if (end.hasChild("type")) {
-                    } else {
-                        getDaysBetweenDates(formatedFromdate, formatedBackOndate, leaveType);
+                public void onComplete(@NonNull Task<Void> task) {
+                    if (task.isSuccessful()) {
+                        final double noOfDays = leaveType.equals("HD") ? 0.5 : 1.0;
+                        LinkedHashMap<String, String> appliedLeavesMap = new LinkedHashMap<>();
+                        appliedLeavesMap.put("leaveFrom", formatedDate);
+                        appliedLeavesMap.put("leaveType", leaveType);
+                        appliedLeavesMap.put("userName", userName);
+                        FirebaseDatabase.getInstance().getReference().child("applied-leaves/" + firebaseAuth.getCurrentUser().getUid() + "/" + UUID.randomUUID()).setValue(appliedLeavesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+                                    FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble(noOfLeaves) - noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            Toast.makeText(ApplyLeave.this, "Applied leave successfully", Toast.LENGTH_SHORT).show();
+                                            Commons.dismissProgressDialog(progressDialog);
+                                        }
+                                    });
+                                }
+                            }
+                        });
                     }
                 }
+            });
 
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-
-                }
-            };
-            leavesRef.addValueEventListener(valueEventListener);
         }
     }
 }

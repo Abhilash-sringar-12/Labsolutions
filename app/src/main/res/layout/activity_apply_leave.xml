@@ -63,7 +63,7 @@
             </com.google.android.material.textfield.TextInputLayout>
             <EditText
                 android:layout_width="match_parent"
-                android:id="   @+id/leaveFrom"
+                android:id="@+id/leaveFrom"
                 android:layout_height="wrap_content"
                 android:focusable="true"
                 android:layout_marginTop="20dp"

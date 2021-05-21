@@ -21,14 +21,18 @@
             app:titleTextAppearance="@style/Toolbar.TitleText"/>
 
     </com.google.android.material.appbar.AppBarLayout>
-
+    <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@color/view_white"
         android:orientation="vertical"
         android:gravity="center"
-        android:padding="30dp"
+        android:padding="50dp"
+        android:layout_marginTop="50px"
         tools:context=".admin.CreateUserActivity">
 
         <ImageView
@@ -49,7 +53,8 @@
             android:textColor="@color/view_black"
             android:textStyle="bold|italic"
             android:textSize="15sp"
-            android:text="Attendance is Mandatory, please login and logout daily, if you do not logout, by default 8 hours will be taken in to consideration">
+            android:textAlignment="center"
+            android:text="Attendance is Mandatory, please login and logout daily, if you miss to log atatendance it will be considered as leave! Please enable gps/location on your device, your login and logout location will be stored!">
 
         </TextView>
 
@@ -58,6 +63,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Log In"
+            android:visibility="gone"
             android:textColor="@color/view_white"
             android:textSize="20sp"
             android:layout_marginTop="20dp"
@@ -73,4 +79,5 @@
             android:layout_marginTop="20dp"
             android:background="@drawable/drawable_rounded" />
     </LinearLayout>
+    </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>
