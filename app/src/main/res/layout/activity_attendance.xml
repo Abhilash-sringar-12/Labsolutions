@@ -54,7 +54,7 @@
             android:textStyle="bold|italic"
             android:textSize="15sp"
             android:textAlignment="center"
-            android:text="Attendance is Mandatory, please login and logout daily, if you miss to log atatendance it will be considered as leave! Please enable gps/location on your device, your login and logout location will be stored!">
+            android:text="Attendance is Mandatory, please login and logout daily, if you miss to log attendance it will be considered as leave! Please enable gps/location on your device, your login and logout location will be stored!">
 
         </TextView>
 
