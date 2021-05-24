@@ -39,7 +39,20 @@ public class MailUtility {
             e.printStackTrace();
         }
     }
+    public static void sendExcelMail(String email, String subject, String messageBody, byte[] bytes) {
+        Session session = createSessionObject();
 
+        try {
+            Message message = createMessageExcel(email, subject, messageBody, session, bytes);
+            new SendMailTask().execute(message);
+        } catch (AddressException e) {
+            e.printStackTrace();
+        } catch (MessagingException e) {
+            e.printStackTrace();
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+    }
 
     public static Session createSessionObject() {
         Properties properties = new Properties();
@@ -74,6 +87,23 @@ public class MailUtility {
             mimeMultipart.addBodyPart(pdfBodyPart);
             message.setContent(mimeMultipart);
         }
+        return message;
+    }
+
+    public static Message createMessageExcel(String email, String subject, String messageBody, Session session, byte[] bytes) throws
+
+            MessagingException, UnsupportedEncodingException {
+        Message message = new MimeMessage(session);
+        message.setFrom(new InternetAddress("labsolutions.ic.app@gmail.com", "labsolutions.ic"));
+        message.addRecipient(Message.RecipientType.TO, new InternetAddress(email, email));
+        message.setSubject(subject);
+        DataSource dataSource = new ByteArrayDataSource(bytes, "application/excel");
+        MimeBodyPart pdfBodyPart = new MimeBodyPart();
+        pdfBodyPart.setDataHandler(new DataHandler(dataSource));
+        pdfBodyPart.setFileName("Monthly-attendance-report.xlsx");
+        MimeMultipart mimeMultipart = new MimeMultipart();
+        mimeMultipart.addBodyPart(pdfBodyPart);
+        message.setContent(mimeMultipart);
         return message;
     }
 

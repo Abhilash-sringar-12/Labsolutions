@@ -12,6 +12,7 @@ import com.application.labsolutions.R;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.customer.CustomerActivity;
 import com.application.labsolutions.engineer.AssignedActivities;
+import com.application.labsolutions.engineer.Attendance;
 import com.application.labsolutions.services.UpdateToken;
 import com.application.labsolutions.workadmin.WorkadminActivity;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -132,7 +133,7 @@ public class LoginActivity extends AppCompatActivity {
                     String userType = snapshot.child("userType").getValue().toString();
                     if (userType.equals("Engineer")) {
                         UpdateToken.updateAccessToken("", "user");
-                        Intent intent = new Intent(LoginActivity.this, AssignedActivities.class);
+                        Intent intent = new Intent(LoginActivity.this, Attendance.class);
                         Commons.dismissProgressDialog(progressDialog);
                         startActivity(intent);
                         finish();

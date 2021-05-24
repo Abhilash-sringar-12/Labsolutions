@@ -72,6 +72,8 @@ public class MessagingService extends FirebaseMessagingService {
             return com.application.labsolutions.engineer.AllActivities.class;
         } else if (classType.equals("workAdminAllActivities")) {
             return com.application.labsolutions.workadmin.AllActivities.class;
+        } else if (classType.equals("applyLeaves")) {
+            return com.application.labsolutions.admin.AllUpcomingLeaves.class;
         }
         return MainActivity.class;
     }

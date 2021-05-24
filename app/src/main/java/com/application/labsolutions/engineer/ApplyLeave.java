@@ -28,6 +28,9 @@ import com.application.labsolutions.R;
 import com.application.labsolutions.admin.LoginActivity;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.dateutils.DateUtility;
+import com.application.labsolutions.services.ApiService;
+import com.application.labsolutions.services.Client;
+import com.application.labsolutions.services.SendNotification;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -55,12 +58,13 @@ public class ApplyLeave extends AppCompatActivity {
             "December"};
     final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
     Spinner spinner = null;
-    String noOfLeaves, userName;
+    String noOfLeaves, userName, adminTokenId;
     List<String> categories = new ArrayList<String>();
     List<String> holidaysList = new ArrayList<String>();
     EditText leaveFrom, backOn;
     TextView leaveText;
     Button applyLeave;
+    ApiService apiService;
     ProgressDialog progressDialog;
 
     @Override
@@ -84,47 +88,70 @@ public class ApplyLeave extends AppCompatActivity {
                 addLeaveType();
                 leaveFrom.setKeyListener(null);
                 backOn.setKeyListener(null);
+                apiService = Client.getClient("https://fcm.googleapis.com/").create(ApiService.class);
                 final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
                 final DatabaseReference leaves = rootRef.child("leaves/" + firebaseAuth.getCurrentUser().getUid());
                 final DatabaseReference user = rootRef.child("users/" + firebaseAuth.getCurrentUser().getUid());
                 final DatabaseReference holidays = rootRef.child("holidays");
+                final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference()
+                        .child("admin");
                 final ValueEventListener leaveValueEventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.exists()) {
-                            noOfLeaves = snapshot.getValue() == null ? "0" : snapshot.getValue().toString();
-                            leaveText.setText("Your balance leaves is " + noOfLeaves + "days!");
-                            ValueEventListener valueEventListener = new ValueEventListener() {
-                                @Override
-                                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                    if (snapshot.getValue() != null && snapshot.hasChildren()) {
-                                        userName = snapshot.child("user").getValue() != null
-                                                ? snapshot.child("user").getValue(String.class) : "";
-                                        ValueEventListener holidaysListener = new ValueEventListener() {
-                                            @Override
-                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                if (snapshot.hasChildren()) {
-                                                    for (DataSnapshot ds : snapshot.getChildren()) {
-                                                        holidaysList.add(ds.getKey());
+                        try {
+                            if (snapshot.exists()) {
+                                noOfLeaves = snapshot.getValue() == null ? "0" : snapshot.getValue().toString();
+                                leaveText.setText("Your balance leaves is " + noOfLeaves + "days!");
+                                ValueEventListener valueEventListener = new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                        if (snapshot.getValue() != null && snapshot.hasChildren()) {
+                                            userName = snapshot.child("user").getValue() != null
+                                                    ? snapshot.child("user").getValue(String.class) : "";
+                                            ValueEventListener holidaysListener = new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                    if (snapshot.hasChildren()) {
+                                                        for (DataSnapshot ds : snapshot.getChildren()) {
+                                                            holidaysList.add(ds.getKey());
+                                                        }
+                                                        ValueEventListener adminValueEventListener = new ValueEventListener() {
+                                                            @Override
+                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                if (snapshot.hasChildren()) {
+                                                                    for (DataSnapshot ds : snapshot.getChildren()) {
+                                                                        adminTokenId = ds.child("token").child("token").getValue() != null ? ds.child("token").child("token").getValue(String.class) : "";
+                                                                    }
+                                                                }
+                                                            }
+
+                                                            @Override
+                                                            public void onCancelled(@NonNull DatabaseError error) {
+
+                                                            }
+                                                        };
+                                                        adminDatabaseReference.addValueEventListener(adminValueEventListener);
                                                     }
                                                 }
-                                            }
 
-                                            @Override
-                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                @Override
+                                                public void onCancelled(@NonNull DatabaseError error) {
 
-                                            }
-                                        };
-                                        holidays.addValueEventListener(holidaysListener);
+                                                }
+                                            };
+                                            holidays.addValueEventListener(holidaysListener);
+                                        }
                                     }
-                                }
 
-                                @Override
-                                public void onCancelled(@NonNull DatabaseError error) {
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError error) {
 
-                                }
-                            };
-                            user.addValueEventListener(valueEventListener);
+                                    }
+                                };
+                                user.addValueEventListener(valueEventListener);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -138,16 +165,19 @@ public class ApplyLeave extends AppCompatActivity {
                 spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                     public void onItemSelected(AdapterView<?> arg0, View arg1,
                                                int arg2, long arg3) {
-                        if (spinner.getSelectedItem() != "") {
-                            String leaveType = spinner.getSelectedItem().toString();
-                            if (leaveType.equals("EL")) {
-                                leaveFrom.setVisibility(View.VISIBLE);
-                                backOn.setVisibility(View.VISIBLE);
-                            } else {
-                                backOn.setVisibility(View.GONE);
+                        try {
+                            if (spinner.getSelectedItem() != "") {
+                                String leaveType = spinner.getSelectedItem().toString();
+                                if (leaveType.equals("EL")) {
+                                    leaveFrom.setVisibility(View.VISIBLE);
+                                    backOn.setVisibility(View.VISIBLE);
+                                } else {
+                                    backOn.setVisibility(View.GONE);
+                                }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-
                     }
 
                     public void onNothingSelected(AdapterView<?> arg0) {
@@ -354,6 +384,7 @@ public class ApplyLeave extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<Void> task) {
                                 Toast.makeText(ApplyLeave.this, "Applied leave successfully", Toast.LENGTH_SHORT).show();
+                                SendNotification.notify(adminTokenId, "Labsolutions", userName + " has applied leaves!!!", apiService, "applyLeaves");
                                 Commons.dismissProgressDialog(progressDialog);
                             }
                         });
@@ -400,6 +431,7 @@ public class ApplyLeave extends AppCompatActivity {
                                     FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble(noOfLeaves) - noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
+                                            SendNotification.notify(adminTokenId, "Labsolutions", userName + " has applied leaves!!!", apiService, "applyLeaves");
                                             Toast.makeText(ApplyLeave.this, "Applied leave successfully", Toast.LENGTH_SHORT).show();
                                             Commons.dismissProgressDialog(progressDialog);
                                         }

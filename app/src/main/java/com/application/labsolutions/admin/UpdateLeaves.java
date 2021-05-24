@@ -138,32 +138,36 @@ public class UpdateLeaves extends AppCompatActivity {
 
                 @Override
                 public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    keys.add("");
-                    for (DataSnapshot ds : snapshot.getChildren()) {
-                        spinnerMap.put(ds.child("user").getValue().toString(), ds.getKey());
-                        leavesMap.put(ds.getKey(), "0");
-                        keys.add(ds.child("user").getValue().toString());
-                    }
-                    addEngineers(keys);
-                    ValueEventListener leavesEventListener = new ValueEventListener() {
+                    try {
+                        keys.add("");
+                        for (DataSnapshot ds : snapshot.getChildren()) {
+                            spinnerMap.put(ds.child("user").getValue().toString(), ds.getKey());
+                            leavesMap.put(ds.getKey(), "0");
+                            keys.add(ds.child("user").getValue().toString());
+                        }
+                        addEngineers(keys);
+                        ValueEventListener leavesEventListener = new ValueEventListener() {
 
-                        @Override
-                        public void onDataChange(@NonNull DataSnapshot snapshot) {
-                            for (DataSnapshot ds : snapshot.getChildren()) {
-                                String engineerId = ds.getKey();
-                                String leaves = ds.getValue() == null ? "0" : ds.getValue().toString();
-                                leavesMap.put(engineerId, leaves);
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    String engineerId = ds.getKey();
+                                    String leaves = ds.getValue() == null ? "0" : ds.getValue().toString();
+                                    leavesMap.put(engineerId, leaves);
+                                }
+
+                                Commons.dismissProgressDialog(progressDialog);
                             }
 
-                            Commons.dismissProgressDialog(progressDialog);
-                        }
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError error) {
 
-                        @Override
-                        public void onCancelled(@NonNull DatabaseError error) {
-
-                        }
-                    };
-                    leaves.addValueEventListener(leavesEventListener);
+                            }
+                        };
+                        leaves.addValueEventListener(leavesEventListener);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
 
                 @Override

@@ -66,6 +66,7 @@ public class AppliedLeavesView extends RecyclerView.Adapter<AppliedLeavesView.Vi
                 newIntent.putExtra("leaveFrom", leaveDetails.getLeaveFrom());
                 newIntent.putExtra("backOn", leaveDetails.getBackToWork());
                 newIntent.putExtra("totalLeaves", leaveDetails.getTotalLeaves());
+                newIntent.putExtra("userName", leaveDetails.getName());
                 newIntent.putExtra("userType", userType);
                 context.startActivity(newIntent);
             }

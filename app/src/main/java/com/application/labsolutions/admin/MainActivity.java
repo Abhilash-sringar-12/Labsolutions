@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.application.labsolutions.R;
 import com.application.labsolutions.customer.CustomerActivity;
 import com.application.labsolutions.engineer.AssignedActivities;
+import com.application.labsolutions.engineer.Attendance;
 import com.application.labsolutions.services.UpdateToken;
 import com.application.labsolutions.workadmin.WorkadminActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -66,7 +67,7 @@ public class MainActivity extends AppCompatActivity {
                     String userType = snapshot.child("userType").getValue().toString();
                     if (userType.equals("Engineer")) {
                         UpdateToken.updateAccessToken("", "user");
-                        Intent intent = new Intent(MainActivity.this, AssignedActivities.class);
+                        Intent intent = new Intent(MainActivity.this, Attendance.class);
                         startActivity(intent);
                         finish();
                     } else if (userType.equals("Customer")) {

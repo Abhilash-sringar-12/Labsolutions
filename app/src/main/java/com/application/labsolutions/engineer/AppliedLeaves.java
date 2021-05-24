@@ -84,6 +84,8 @@ public class AppliedLeaves extends AppCompatActivity {
                                                     ? leavesDs.child("backOn").getValue(String.class) : "";
                                             String leaveType = leavesDs.child("leaveType").getValue() != null
                                                     ? leavesDs.child("leaveType").getValue(String.class) : "";
+                                            String userName = leavesDs.child("userName").getValue() != null
+                                                    ? leavesDs.child("userName").getValue(String.class) : "";
                                             if (!leaveFrom.isEmpty()) {
 
                                                 timeStamp = DateUtility.getTimeStamForLeaves(leaveFrom);
@@ -92,8 +94,8 @@ public class AppliedLeaves extends AppCompatActivity {
                                             if (!backOn.isEmpty())
                                                 backOnDateTimeStamp = DateUtility.getTimeStamForLeaves(backOn);
                                             long currentDateTimeStamp = new Date(DateUtility.getCurrentDate()).getTime();
-                                            if ((backOnDateTimeStamp ==0 && currentDateTimeStamp <= timeStamp)  || backOnDateTimeStamp > currentDateTimeStamp)
-                                                leavesList.add(new LeaveDetails(leaveType, leaveFrom, backOn, timeStamp, "", leavesDs.getKey(), totalLeaves));
+                                            if ((backOnDateTimeStamp == 0 && currentDateTimeStamp <= timeStamp) || backOnDateTimeStamp > currentDateTimeStamp)
+                                                leavesList.add(new LeaveDetails(leaveType, leaveFrom, backOn, timeStamp, userName, leavesDs.getKey(), totalLeaves));
                                         }
                                         Collections.sort(leavesList, LeaveDetails.leaves);
                                         final AppliedLeavesView adapter = new AppliedLeavesView(AppliedLeaves.this, leavesList, "user");

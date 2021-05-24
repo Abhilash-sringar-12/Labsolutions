@@ -18,6 +18,9 @@ import android.widget.Toast;
 import com.application.labsolutions.R;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.dateutils.DateUtility;
+import com.application.labsolutions.services.ApiService;
+import com.application.labsolutions.services.Client;
+import com.application.labsolutions.services.SendNotification;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -45,10 +48,11 @@ public class AppliedLeaveDetails extends AppCompatActivity {
     TextView leaveText;
     Button cancelLeave;
     long fromDateTimeStamp, backOnDateTimeStamp, currentDateTimeStamp;
-    String leaveType, leaveId, fromDate, backOnDate, totalLeaves, month, year;
+    String leaveType, leaveId, fromDate, backOnDate, totalLeaves, month, year, userName, adminTokenId;
     List<String> holidaysList = new ArrayList<>();
     ProgressDialog progressDialog;
     Boolean needNoteToDelete = false;
+    ApiService apiService;
     String[] monthName = {"January", "February",
             "March", "April", "May", "June", "July",
             "August", "September", "October", "November",
@@ -70,6 +74,8 @@ public class AppliedLeaveDetails extends AppCompatActivity {
             if (intent.getStringExtra("userType").equals("admin")) {
                 cancelLeave.setVisibility(View.GONE);
             }
+
+            apiService = Client.getClient("https://fcm.googleapis.com/").create(ApiService.class);
             firebaseAuth = FirebaseAuth.getInstance();
             if (FirebaseAuth.getInstance().getCurrentUser() != null) {
                 Toolbar toolbar = findViewById(R.id.toolbar);
@@ -89,26 +95,48 @@ public class AppliedLeaveDetails extends AppCompatActivity {
                 leaveType = intent.getStringExtra("leaveType");
                 totalLeaves = intent.getStringExtra("totalLeaves");
                 leaveId = intent.getStringExtra("leaveId");
+                userName = intent.getStringExtra("userName");
                 fromDateTimeStamp = DateUtility.getTimeStamForLeaves(fromDate);
                 currentDateTimeStamp = new Date().getTime();
                 month = monthName[Integer.parseInt(fromDate.split("-")[1]) - 1];
                 year = fromDate.split("-")[2];
+                final DatabaseReference adminDatabaseReference = FirebaseDatabase.getInstance().getReference().child("admin");
                 final DatabaseReference holidays = rootRef.child("holidays");
                 final DatabaseReference calenderRef = FirebaseDatabase.getInstance().getReference().child("calender/");
                 final DatabaseReference databaseReference = calenderRef.child(year + "/" + month + "/" + fromDate + "/" + firebaseAuth.getCurrentUser().getUid());
                 final ValueEventListener holidaysListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChildren()) {
-                            for (DataSnapshot ds : snapshot.getChildren()) {
-                                holidaysList.add(ds.getKey());
-                                populateLeaveDetails();
-                                if (leaveType.equals("HD") && DateUtility.formatDate(new Date().toString()).equals(fromDate)) {
-                                    final ValueEventListener valueEventListener = new ValueEventListener() {
+                        try {
+                            if (snapshot.hasChildren()) {
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    holidaysList.add(ds.getKey());
+                                    populateLeaveDetails();
+
+                                    ValueEventListener adminValueEventListener = new ValueEventListener() {
                                         @Override
                                         public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                            if (snapshot.hasChildren() && (snapshot.child("loginDetails").getValue() != null))
-                                                needNoteToDelete = true;
+                                            if (snapshot.hasChildren()) {
+                                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                                    adminTokenId = ds.child("token").child("token").getValue() != null ? ds.child("token").child("token").getValue(String.class) : "";
+                                                }
+                                            }
+                                            if (leaveType.equals("HD") && DateUtility.formatDate(new Date().toString()).equals(fromDate)) {
+                                                final ValueEventListener valueEventListener = new ValueEventListener() {
+                                                    @Override
+                                                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                        if (snapshot.hasChildren() && (snapshot.child("loginDetails").getValue() != null))
+                                                            needNoteToDelete = true;
+
+                                                    }
+
+                                                    @Override
+                                                    public void onCancelled(@NonNull DatabaseError error) {
+
+                                                    }
+                                                };
+                                                databaseReference.addValueEventListener(valueEventListener);
+                                            }
                                         }
 
                                         @Override
@@ -116,9 +144,12 @@ public class AppliedLeaveDetails extends AppCompatActivity {
 
                                         }
                                     };
-                                    databaseReference.addValueEventListener(valueEventListener);
+                                    adminDatabaseReference.addValueEventListener(adminValueEventListener);
+
                                 }
                             }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 
@@ -228,26 +259,31 @@ public class AppliedLeaveDetails extends AppCompatActivity {
     }
 
     private void proceedDeleting(LinkedHashMap<String, String> appliedLeavesMap, final double calculate) {
-        FirebaseDatabase.getInstance().getReference().child("applied-leaves/" + firebaseAuth.getCurrentUser().getUid() + "/" + leaveId).setValue(appliedLeavesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-            @Override
-            public void onComplete(@NonNull Task<Void> task) {
-                Commons.dismissProgressDialog(progressDialog);
-                if (task.isSuccessful()) {
-                    final double noOfDays = calculate;
-                    FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble((totalLeaves)) + noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Void> task) {
-                            Toast.makeText(AppliedLeaveDetails.this, "Cancelled leave successfully", Toast.LENGTH_SHORT).show();
-                            Intent intent = new Intent(AppliedLeaveDetails.this, AppliedLeaves.class);
-                            startActivity(intent);
-                            finishAffinity();
-                        }
-                    });
-                } else {
-                    Toast.makeText(AppliedLeaveDetails.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
+        try {
+            FirebaseDatabase.getInstance().getReference().child("applied-leaves/" + firebaseAuth.getCurrentUser().getUid() + "/" + leaveId).setValue(appliedLeavesMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    Commons.dismissProgressDialog(progressDialog);
+                    if (task.isSuccessful()) {
+                        final double noOfDays = calculate;
+                        FirebaseDatabase.getInstance().getReference().child("leaves/" + firebaseAuth.getCurrentUser().getUid()).setValue(String.valueOf(Double.parseDouble((totalLeaves)) + noOfDays)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                SendNotification.notify(adminTokenId, "Labsolutions", userName + " has cancelled leaves!!!", apiService, "applyLeaves");
+                                Toast.makeText(AppliedLeaveDetails.this, "Cancelled leave successfully", Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(AppliedLeaveDetails.this, AppliedLeaves.class);
+                                startActivity(intent);
+                                finishAffinity();
+                            }
+                        });
+                    } else {
+                        Toast.makeText(AppliedLeaveDetails.this, "Something went wrong!!!", Toast.LENGTH_SHORT).show();
+                    }
                 }
-            }
-        });
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void populateLeaveDetails() {

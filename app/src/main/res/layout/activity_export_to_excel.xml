@@ -35,6 +35,60 @@
     android:id="@+id/exportActivities"
     android:gravity="center"
     android:padding="30dp">
+    <TextView
+        android:id="@+id/actionTypeText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select action Type"
+        android:layout_gravity="left"
+        android:textColor="@color/view_black"
+        android:padding = "10dp"
+        android:textSize="20sp"
+        android:gravity="top">
+    </TextView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/drawable_rectangle"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginBottom="10dp"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <Spinner
+            android:id="@+id/actionType"
+            style="@style/SpinnerCustomTheme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:dropDownWidth="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <TextView
+        android:id="@+id/monthText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Month"
+        android:layout_gravity="left"
+        android:textColor="@color/view_black"
+        android:padding = "10dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:gravity="top">
+    </TextView>
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:background="@drawable/drawable_rectangle"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:layout_marginBottom="10dp"
+        android:focusableInTouchMode="true"
+        android:textColorHint="@color/view_black">
+        <Spinner
+            android:id="@+id/month"
+            style="@style/SpinnerCustomTheme"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:dropDownWidth="wrap_content" />
+    </com.google.android.material.textfield.TextInputLayout>
         <EditText
             android:layout_width="match_parent"
             android:id="@+id/startDate"
@@ -43,6 +97,7 @@
             android:layout_marginTop="20dp"
             android:hint="Start Date"
             android:focusableInTouchMode="true"
+            android:visibility="gone"
             android:ems="10"
             android:inputType="date"
             android:editable="false"
@@ -55,6 +110,7 @@
             android:focusable="true"
             android:layout_marginTop="20dp"
             android:hint="End Date"
+            android:visibility="gone"
             android:focusableInTouchMode="true"
             android:id="@+id/endDate"
             android:textColorHint="@color/view_black"
