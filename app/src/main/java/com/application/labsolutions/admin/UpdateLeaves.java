@@ -142,7 +142,7 @@ public class UpdateLeaves extends AppCompatActivity {
                         keys.add("");
                         for (DataSnapshot ds : snapshot.getChildren()) {
                             spinnerMap.put(ds.child("user").getValue().toString(), ds.getKey());
-                            leavesMap.put(ds.getKey(), "0");
+                            leavesMap.put(ds.getKey(), "13.0");
                             keys.add(ds.child("user").getValue().toString());
                         }
                         addEngineers(keys);
@@ -152,7 +152,7 @@ public class UpdateLeaves extends AppCompatActivity {
                             public void onDataChange(@NonNull DataSnapshot snapshot) {
                                 for (DataSnapshot ds : snapshot.getChildren()) {
                                     String engineerId = ds.getKey();
-                                    String leaves = ds.getValue() == null ? "0" : ds.getValue().toString();
+                                    String leaves = ds.getValue() == null ? "13.0" : ds.getValue().toString();
                                     leavesMap.put(engineerId, leaves);
                                 }
 

@@ -61,35 +61,39 @@ public class AdminActivity extends AppCompatActivity {
                 ValueEventListener eventListener = new ValueEventListener() {
                     @Override
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        if (snapshot.hasChildren()) {
-                            for (DataSnapshot ds : snapshot.getChildren()) {
-                                String name = ds.child("user").getValue(String.class);
-                                String type = ds.child("userType").getValue(String.class);
-                                String phoneNumber = ds.child("phoneNumber").getValue(String.class);
-                                String emailId = ds.child("mailId").getValue(String.class);
-                                String uid = ds.getKey();
-                                userList.add(new ListUserDetails(R.drawable.login_user, name, phoneNumber, uid, emailId, type));
-                            }
-                            Commons.dismissProgressDialog(progressDialog);
-                            final RegisteredUsersView registeredUsersView = new RegisteredUsersView(AdminActivity.this, R.layout.row_item, userList, "admin");
-                            listview.setAdapter(registeredUsersView);
-                            searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
-                                @Override
-                                public boolean onQueryTextSubmit(String query) {
-                                    registeredUsersView.getFilter().filter(query);
-                                    return false;
+                        try {
+                            if (snapshot.hasChildren()) {
+                                for (DataSnapshot ds : snapshot.getChildren()) {
+                                    String name = ds.child("user").getValue(String.class);
+                                    String type = ds.child("userType").getValue(String.class);
+                                    String phoneNumber = ds.child("phoneNumber").getValue(String.class);
+                                    String emailId = ds.child("mailId").getValue(String.class);
+                                    String uid = ds.getKey();
+                                    userList.add(new ListUserDetails(R.drawable.login_user, name, phoneNumber, uid, emailId, type));
                                 }
+                                Commons.dismissProgressDialog(progressDialog);
+                                final RegisteredUsersView registeredUsersView = new RegisteredUsersView(AdminActivity.this, R.layout.row_item, userList, "admin");
+                                listview.setAdapter(registeredUsersView);
+                                searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+                                    @Override
+                                    public boolean onQueryTextSubmit(String query) {
+                                        registeredUsersView.getFilter().filter(query);
+                                        return false;
+                                    }
 
-                                @Override
-                                public boolean onQueryTextChange(String newText) {
-                                    registeredUsersView.getFilter().filter(newText);
-                                    return false;
-                                }
-                            });
-                        } else {
-                            Commons.dismissProgressDialog(progressDialog);
-                            searchView.setVisibility(View.GONE);
-                            emptyImage.setImageResource(R.drawable.no_data);
+                                    @Override
+                                    public boolean onQueryTextChange(String newText) {
+                                        registeredUsersView.getFilter().filter(newText);
+                                        return false;
+                                    }
+                                });
+                            } else {
+                                Commons.dismissProgressDialog(progressDialog);
+                                searchView.setVisibility(View.GONE);
+                                emptyImage.setImageResource(R.drawable.no_data);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
 

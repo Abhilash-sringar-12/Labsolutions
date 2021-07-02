@@ -229,7 +229,6 @@ public class AddInstrumentActivity extends AppCompatActivity {
                                     if (!task.isSuccessful()) {
                                         Toast.makeText(AddInstrumentActivity.this, "Failed to create instrument", Toast.LENGTH_SHORT).show();
                                     } else {
-                                        resetForm();
                                         Toast.makeText(AddInstrumentActivity.this, "Created instrument succesfuly", Toast.LENGTH_SHORT).show();
                                     }
                                 }

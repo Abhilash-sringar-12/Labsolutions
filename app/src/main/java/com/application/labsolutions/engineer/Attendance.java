@@ -194,7 +194,7 @@ public class Attendance extends AppCompatActivity implements LocationListener {
                     @Override
                     public void onClick(View v) {
                         try {
-                            progressDialog = ProgressDialog.show(Attendance.this, "Please wait", "Loading Logging In....", true, false);
+                            progressDialog = ProgressDialog.show(Attendance.this, "Please wait", "Logging In....", true, false);
                             execute();
                             details = "loginDetails";
                         } catch (Exception e) {
@@ -208,7 +208,7 @@ public class Attendance extends AppCompatActivity implements LocationListener {
                     @Override
                     public void onClick(View v) {
                         try {
-                            progressDialog = ProgressDialog.show(Attendance.this, "Please wait", "Loading Logging Out....", true, false);
+                            progressDialog = ProgressDialog.show(Attendance.this, "Please wait", "Logging Out....", true, false);
                             execute();
                             details = "logoutDetails";
                         } catch (Exception e) {
@@ -263,6 +263,8 @@ public class Attendance extends AppCompatActivity implements LocationListener {
         try {
             locationManager = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
             locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, this);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 0, this);
+
         } catch (SecurityException e) {
             e.printStackTrace();
         }
@@ -349,7 +351,7 @@ public class Attendance extends AppCompatActivity implements LocationListener {
             attendanceDetails.put("loginTimeStamp", String.valueOf(new Date().getTime()));
             attendanceDetails.put("loginLocation", address);
 
-            attendanceDatabaseReference.child("type").setValue(type.isEmpty() ? "PA" : "HD").addOnCompleteListener(new OnCompleteListener<Void>() {
+            attendanceDatabaseReference.child("type").setValue(type.equals("HD") ? type : "PA").addOnCompleteListener(new OnCompleteListener<Void>() {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {

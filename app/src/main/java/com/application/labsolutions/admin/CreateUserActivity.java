@@ -93,6 +93,7 @@ public class CreateUserActivity extends AppCompatActivity {
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -196,7 +197,7 @@ public class CreateUserActivity extends AppCompatActivity {
                                             Commons.dismissProgressDialog(progressDialog);
                                             Toast.makeText(CreateUserActivity.this, "Failed to create User", Toast.LENGTH_SHORT).show();
                                         } else {
-                                            UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, phoneNumberValue, companyValue, departmentValue, userTypeValue,companyAddressValue);
+                                            UserInfo userInfo = new UserInfo(userNameValue, emailIdValue, phoneNumberValue, companyValue, departmentValue, userTypeValue, companyAddressValue);
                                             FirebaseDatabase.getInstance(appUsers).getReference("users").child(secondary.getCurrentUser().getUid()).setValue(userInfo).addOnCompleteListener(CreateUserActivity.this, new OnCompleteListener() {
                                                 @Override
                                                 public void onComplete(@NonNull Task task) {
@@ -254,7 +255,6 @@ public class CreateUserActivity extends AppCompatActivity {
                                                                 "\n" +
                                                                 "\n" +
                                                                 "</body>", null);
-                                                        resetForm();
                                                     }
                                                 }
                                             });

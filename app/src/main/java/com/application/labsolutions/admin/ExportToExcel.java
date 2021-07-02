@@ -490,7 +490,7 @@ public class ExportToExcel extends AppCompatActivity {
                                     try {
                                         workbook.write(bos);
                                         byte[] bytes = bos.toByteArray();
-                                        MailUtility.sendExcelMail("ababhilash121292@gmail.com", "Attendance Report", "", bytes);
+                                        MailUtility.sendExcelMail("ujvalsringar@gmail.com", "Attendance Report", "", bytes);
                                         Commons.dismissProgressDialog(progressDialog);
                                         Toast.makeText(ExportToExcel.this, "Report Successfully sent", Toast.LENGTH_SHORT).show();
                                     } catch (IOException e) {
@@ -711,7 +711,7 @@ public class ExportToExcel extends AppCompatActivity {
 
                 }
             };
-            activities.addValueEventListener(valueEventListener);
+            activities.orderByChild("timeStamp").addValueEventListener(valueEventListener);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();

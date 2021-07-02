@@ -149,6 +149,9 @@ public class ApplyLeave extends AppCompatActivity {
                                     }
                                 };
                                 user.addValueEventListener(valueEventListener);
+                            } else {
+                                leaveText.setText("Please contact Admin to add leaves!!!");
+                                applyLeave.setVisibility(View.GONE);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -231,6 +234,7 @@ public class ApplyLeave extends AppCompatActivity {
                                     }
                                 }, mYear, mMonth, mDay);
                         datePickerDialog.getDatePicker().setMaxDate(new Date("31 Dec " + mYear).getTime());
+                        datePickerDialog.getDatePicker().setMinDate(new Date(String.valueOf(new Date())).getTime());
                         datePickerDialog.show();
                         backOn.setText("");
                     }
