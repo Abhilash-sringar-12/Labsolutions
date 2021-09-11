@@ -21,18 +21,25 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.AllUpcomingLeaves"
+        <activity android:name=".admin.AdminDashboard"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Dashboard"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".admin.AllUpcomingLeaves"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="All Upcoming Leaves "
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".engineer.AppliedLeaveDetails"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".engineer.AppliedLeaveDetails"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Applied Leaves Details "
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".engineer.AppliedLeaves"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".engineer.AppliedLeaves"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Applied Leaves "
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".engineer.ApplyLeave"
             android:configChanges="orientation|keyboardHidden|screenSize"

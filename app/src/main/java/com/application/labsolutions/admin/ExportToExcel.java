@@ -26,7 +26,6 @@ import android.widget.Toast;
 import com.application.labsolutions.R;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.dateutils.DateUtility;
-import com.application.labsolutions.engineer.ApplyLeave;
 import com.application.labsolutions.mailutils.MailUtility;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -38,7 +37,6 @@ import com.google.firebase.database.ValueEventListener;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
-import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.IndexedColors;
 import org.apache.poi.ss.util.CellRangeAddress;
 import org.apache.poi.xssf.usermodel.XSSFFont;
@@ -69,9 +67,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-
-import javax.activation.DataSource;
-import javax.mail.util.ByteArrayDataSource;
 
 public class ExportToExcel extends AppCompatActivity {
     FirebaseAuth firebaseAuth;
@@ -742,6 +737,8 @@ public class ExportToExcel extends AppCompatActivity {
         menu.add(0, 9, 9,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cloud_download_24), "Export Activities"));
         menu.add(0, 10, 10,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_dashboard_customize_24), "Dashboard"));
+        menu.add(0, 11, 11,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -796,6 +793,11 @@ public class ExportToExcel extends AppCompatActivity {
                 startActivity(intentExport);
                 return true;
             case 10:
+                Intent intentDasboard = new Intent(ExportToExcel.this, AdminDashboard.class);
+                finishAffinity();
+                startActivity(intentDasboard);
+                return true;
+            case 11:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(ExportToExcel.this, LoginActivity.class);
