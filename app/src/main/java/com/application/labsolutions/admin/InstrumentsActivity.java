@@ -143,8 +143,10 @@ public class InstrumentsActivity extends AppCompatActivity {
         menu.add(0, 9, 9,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cloud_download_24), "Export Activities"));
         menu.add(0, 10, 10,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_dashboard_customize_24), "Dashboard"));
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_pie_chart_24), "Statistics"));
         menu.add(0, 11, 11,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_dashboard_customize_24), "Dashboard"));
+        menu.add(0, 12, 12,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -199,11 +201,16 @@ public class InstrumentsActivity extends AppCompatActivity {
                 startActivity(intentExport);
                 return true;
             case 10:
-                Intent intentDasboard = new Intent(InstrumentsActivity.this, AdminDashboard.class);
+                Intent intentDasboard = new Intent(InstrumentsActivity.this, Statistics.class);
                 finishAffinity();
                 startActivity(intentDasboard);
                 return true;
             case 11:
+                Intent intentAdminDashboard = new Intent(InstrumentsActivity.this, Dashboard.class);
+                finishAffinity();
+                startActivity(intentAdminDashboard);
+                return true;
+            case 12:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(InstrumentsActivity.this, LoginActivity.class);

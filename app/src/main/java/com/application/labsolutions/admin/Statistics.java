@@ -1,7 +1,6 @@
 package com.application.labsolutions.admin;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -9,7 +8,6 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -27,7 +25,6 @@ import android.widget.Toast;
 
 import com.application.labsolutions.R;
 import com.application.labsolutions.commons.Commons;
-import com.application.labsolutions.engineer.ApplyLeave;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -43,7 +40,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class AdminDashboard extends AppCompatActivity {
+public class Statistics extends AppCompatActivity {
     final long MILLIS_IN_A_DAY = 1000 * 60 * 60 * 24;
     FirebaseAuth firebaseAuth;
     Spinner spinner = null;
@@ -63,7 +60,7 @@ public class AdminDashboard extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_adim_dahboard);
+        setContentView(R.layout.activity_adim_statistics);
         Toolbar toolbar = findViewById(R.id.toolbar);
         try {
             toolbar.setTitle("Dashboard");
@@ -77,15 +74,13 @@ public class AdminDashboard extends AppCompatActivity {
             typeSpinner = findViewById(R.id.type);
             result = findViewById(R.id.dashboardResult);
             resultView = findViewById(R.id.resultText);
-            progressDialog = ProgressDialog.show(AdminDashboard.this, "Please wait", "Loading data.....", true, false);
+            progressDialog = ProgressDialog.show(Statistics.this, "Please wait", "Loading data.....", true, false);
             final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
             DatabaseReference users = rootRef.child("users");
             DatabaseReference instruments = rootRef.child("instruments");
             DatabaseReference activities = rootRef.child("activities");
             addTypes();
             addCallStatus();
-            fromScheduledDate.setKeyListener(null);
-            toScheduledDate.setKeyListener(null);
 
             fromScheduledDate.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -94,7 +89,7 @@ public class AdminDashboard extends AppCompatActivity {
                     int mYear = c.get(Calendar.YEAR);
                     int mMonth = c.get(Calendar.MONTH);
                     int mDay = c.get(Calendar.DAY_OF_MONTH);
-                    DatePickerDialog datePickerDialog = new DatePickerDialog(AdminDashboard.this,
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(Statistics.this,
                             new DatePickerDialog.OnDateSetListener() {
                                 @Override
                                 public void onDateSet(DatePicker view, int year,
@@ -120,7 +115,7 @@ public class AdminDashboard extends AppCompatActivity {
                         int mYear = c.get(Calendar.YEAR);
                         int mMonth = c.get(Calendar.MONTH);
                         int mDay = c.get(Calendar.DAY_OF_MONTH);
-                        DatePickerDialog datePickerDialog = new DatePickerDialog(AdminDashboard.this,
+                        DatePickerDialog datePickerDialog = new DatePickerDialog(Statistics.this,
                                 new DatePickerDialog.OnDateSetListener() {
                                     @Override
                                     public void onDateSet(DatePicker view, int year,
@@ -134,10 +129,10 @@ public class AdminDashboard extends AppCompatActivity {
                                         toScheduledDate.setText(df_medium_us_str);
                                     }
                                 }, mYear, mMonth, mDay);
-                        datePickerDialog.getDatePicker().setMinDate(new Date(fromScheduledDate.getText().toString()).getTime());
+                        datePickerDialog.getDatePicker().setMinDate(new Date(fromScheduledDate.getText().toString()).getTime()+MILLIS_IN_A_DAY);
                         datePickerDialog.show();
                     } else {
-                        Toast.makeText(AdminDashboard.this, "Choose Start Date first!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Statistics.this, "Choose Start Date first!", Toast.LENGTH_SHORT).show();
                     }
                 }
             });
@@ -146,38 +141,43 @@ public class AdminDashboard extends AppCompatActivity {
                 public void onClick(View v) {
                     try {
                         filteredActivities.clear();
-                        progressDialog = ProgressDialog.show(AdminDashboard.this, "Please wait", "Getting Results.....", true, false);
+                        progressDialog = ProgressDialog.show(Statistics.this, "Please wait", "Getting Results.....", true, false);
                         String selectedEngineer = spinner.getSelectedItem().toString();
                         String selectedCompany = companySpinner.getSelectedItem().toString();
                         String selectedType = typeSpinner.getSelectedItem().toString();
                         String selectedStatus = statusSpinner.getSelectedItem().toString();
                         String fromDate = fromScheduledDate.getText().toString();
-                        String toDate = toScheduledDate.getText().toString();
+                        String toDate = toScheduledDate.getText().toString().isEmpty() ? fromDate : toScheduledDate.getText().toString();
                         ValueEventListener activitiesValueListener = new ValueEventListener() {
                             @Override
                             public void onDataChange(@NonNull DataSnapshot activitiesSnapShot) {
-                                for (DataSnapshot activityDs : activitiesSnapShot.getChildren()) {
-                                    String currentActivityCompany = activityDs.child("customer-info/companyName").getValue(String.class);
-                                    String currentActivityEngineer = activityDs.child("preAssignedEngineer").getValue(String.class);
-                                    String currentActivityType = activityDs.child("activity-info/callType").getValue(String.class);
-                                    String currentActivityStatus = activityDs.child("status").getValue(String.class);
-                                    Long currentActivityScheduledDate = activityDs.child("timeStamp").getValue(Long.class);
-                                    if (selectedCompany.equals("All") || selectedCompany.equals(currentActivityCompany)) {
-                                        if(selectedEngineer.equals("All") ||selectedEngineer.equals(currentActivityEngineer))
-                                            if (selectedType.equals("All") || selectedType.equals(currentActivityType)) {
-                                                if (selectedStatus.equals("All") || selectedStatus.equals(currentActivityStatus)) {
-                                                    if ((fromDate.isEmpty() && toDate.isEmpty()) ) {
-                                                        filteredActivities.add(activityDs.getKey());
-                                                    } else if( currentActivityScheduledDate >=new Date(fromDate).getTime()
-                                                    && currentActivityScheduledDate<=new Date(toDate).getTime()) {
-                                                        filteredActivities.add(activityDs.getKey());
+                                try {
+                                    for (DataSnapshot activityDs : activitiesSnapShot.getChildren()) {
+                                        String currentActivityCompany = activityDs.child("customer-info/companyName").getValue(String.class);
+                                        String currentActivityEngineer = activityDs.child("preAssignedEngineer").getValue(String.class);
+                                        String currentActivityType = activityDs.child("activity-info/callType").getValue(String.class);
+                                        String currentActivityStatus = activityDs.child("status").getValue(String.class);
+                                        Long currentActivityScheduledDate = activityDs.child("timeStamp").getValue(Long.class);
+                                        if (selectedCompany.equals("All") || selectedCompany.equals(currentActivityCompany)) {
+                                            if (selectedEngineer.equals("All") || selectedEngineer.equals(currentActivityEngineer))
+                                                if (selectedType.equals("All") || selectedType.equals(currentActivityType)) {
+                                                    if (selectedStatus.equals("All") || selectedStatus.equals(currentActivityStatus)) {
+                                                        if ((fromDate.isEmpty() && toDate.isEmpty())) {
+                                                            filteredActivities.add(activityDs.getKey());
+                                                        } else if (currentActivityScheduledDate >= new Date(fromDate).getTime()
+                                                                && currentActivityScheduledDate <= new Date(toDate).getTime()) {
+                                                            filteredActivities.add(activityDs.getKey());
+                                                        }
                                                     }
                                                 }
-                                            }
+                                        }
                                     }
+                                    resultView.setText("Total Calls based on the fillters applied : " + String.valueOf(filteredActivities.size()));
+                                    Commons.dismissProgressDialog(progressDialog);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                    Commons.dismissProgressDialog(progressDialog);
                                 }
-                                resultView.setText("Total Calls based on the fillters applied : "+String.valueOf(filteredActivities.size()));
-                                Commons.dismissProgressDialog(progressDialog);
                             }
 
                             @Override
@@ -189,6 +189,7 @@ public class AdminDashboard extends AppCompatActivity {
 
                     } catch (Exception e) {
                         e.printStackTrace();
+                        Commons.dismissProgressDialog(progressDialog);
                     }
                 }
             });
@@ -270,7 +271,6 @@ public class AdminDashboard extends AppCompatActivity {
         dataAdapter.setDropDownViewResource(R.layout.spinner_item);
         this.statusSpinner.setAdapter(dataAdapter);
     }
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         menu.add(0, 1, 1,
@@ -292,8 +292,10 @@ public class AdminDashboard extends AppCompatActivity {
         menu.add(0, 9, 9,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cloud_download_24), "Export Activities"));
         menu.add(0, 10, 10,
-                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_dashboard_customize_24), "Dashboard"));
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_pie_chart_24), "Statistics"));
         menu.add(0, 11, 11,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_dashboard_customize_24), "Dashboard"));
+        menu.add(0, 12, 12,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -303,59 +305,64 @@ public class AdminDashboard extends AppCompatActivity {
         int id = item.getItemId();
         switch (id) {
             case 1:
-                Intent intentAdminActivity = new Intent(AdminDashboard.this, AdminActivity.class);
+                Intent intentAdminActivity = new Intent(Statistics.this, AdminActivity.class);
                 finishAffinity();
                 startActivity(intentAdminActivity);
                 return true;
             case 2:
-                Intent craeteWorkAdmin = new Intent(AdminDashboard.this, CreateWorkAdminActivity.class);
+                Intent craeteWorkAdmin = new Intent(Statistics.this, CreateWorkAdminActivity.class);
                 finishAffinity();
                 startActivity(craeteWorkAdmin);
                 return true;
             case 3:
-                Intent intentCreateUserActivity = new Intent(AdminDashboard.this, CreateUserActivity.class);
+                Intent intentCreateUserActivity = new Intent(Statistics.this, CreateUserActivity.class);
                 finishAffinity();
                 startActivity(intentCreateUserActivity);
                 return true;
             case 4:
-                Intent intentAddInstrument = new Intent(AdminDashboard.this, AddInstrumentActivity.class);
+                Intent intentAddInstrument = new Intent(Statistics.this, AddInstrumentActivity.class);
                 finishAffinity();
                 startActivity(intentAddInstrument);
                 return true;
             case 5:
-                Intent intentInstruments = new Intent(AdminDashboard.this, InstrumentsActivity.class);
+                Intent intentInstruments = new Intent(Statistics.this, InstrumentsActivity.class);
                 finishAffinity();
                 startActivity(intentInstruments);
                 return true;
             case 6:
-                Intent intentAllActivities = new Intent(AdminDashboard.this, AllActivities.class);
+                Intent intentAllActivities = new Intent(Statistics.this, AllActivities.class);
                 finishAffinity();
                 startActivity(intentAllActivities);
                 return true;
             case 7:
-                Intent intentUpdateLeaves = new Intent(AdminDashboard.this, UpdateLeaves.class);
+                Intent intentUpdateLeaves = new Intent(Statistics.this, UpdateLeaves.class);
                 finishAffinity();
                 startActivity(intentUpdateLeaves);
                 return true;
             case 8:
-                Intent intentLeaves = new Intent(AdminDashboard.this, AllUpcomingLeaves.class);
+                Intent intentLeaves = new Intent(Statistics.this, AllUpcomingLeaves.class);
                 finishAffinity();
                 startActivity(intentLeaves);
                 return true;
             case 9:
-                Intent intentExport = new Intent(AdminDashboard.this, ExportToExcel.class);
+                Intent intentExport = new Intent(Statistics.this, ExportToExcel.class);
                 finishAffinity();
                 startActivity(intentExport);
                 return true;
             case 10:
-                Intent intentDasboard = new Intent(AdminDashboard.this, AdminDashboard.class);
+                Intent intentDasboard = new Intent(Statistics.this, Statistics.class);
                 finishAffinity();
                 startActivity(intentDasboard);
                 return true;
             case 11:
+                Intent intentAdminDashboard = new Intent(Statistics.this, Dashboard.class);
+                finishAffinity();
+                startActivity(intentAdminDashboard);
+                return true;
+            case 12:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
-                Intent intentSignOut = new Intent(AdminDashboard.this, LoginActivity.class);
+                Intent intentSignOut = new Intent(Statistics.this, LoginActivity.class);
                 finishAffinity();
                 startActivity(intentSignOut);
                 return true;

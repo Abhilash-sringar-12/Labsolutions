@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".admin.AdminDashboard">
+    tools:context=".admin.Statistics">
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -32,7 +32,7 @@
             android:layout_marginTop="50dp"
             android:gravity="center"
             android:padding="30dp"
-            tools:context=".admin.AdminDashboard">
+            tools:context=".admin.Statistics">
         <TextView
             android:id="@+id/text1"
             android:layout_width="wrap_content"

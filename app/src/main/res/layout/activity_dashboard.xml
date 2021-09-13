@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".admin.Dashboard">
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorAccent"
+            app:popupTheme="@style/AppTheme.PopupOverlay"
+            app:titleTextAppearance="@style/Toolbar.TitleText" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginTop="30dp"
+            android:gravity="center"
+            android:padding="30dp"
+            tools:context=".admin.Dashboard">
+
+            <TableLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/table_layout"
+                android:layout_width="match_parent"
+                android:background="@drawable/drawable_rectangle_text"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/calibrationStats"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+                    android:fontFamily="serif"
+                    android:text="Calibration"
+                    android:textAlignment="center"
+                    android:clickable="true"
+                    android:textColor="@color/view_black"
+                    android:textStyle="bold|italic" />
+
+                <TableRow
+                    android:id="@+id/table_row1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/status"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Status"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/count"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Count"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/resolved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Resolved"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/calResolvedCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic" />
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/scheduled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Scheduled"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/calScheduledCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/table_row4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/forApproval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="For Approval"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic" />
+
+                    <TextView
+                        android:id="@+id/calApprovalCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic" />
+
+                </TableRow>
+
+                <TableRow
+                    android:id="@+id/table_row_waiting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/waiting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Waiting"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/calWaitingCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/table_layout_two"
+                android:layout_width="match_parent"
+                android:background="@drawable/drawable_rectangle_text"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/pm"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:text="PM"
+                    android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/view_black"
+                    android:textStyle="bold|italic"/>
+                <TableRow
+                    android:id="@+id/table_row11"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/pmStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Status"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/pmCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Count"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/pmResolved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Resolved"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/pmResolvedCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row33"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/pmScheduled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Scheduled"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/pmScheduledCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic" />
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row44"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/pmForApproval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="For Approval"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/pmApprovalCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row_pmWaiting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/pmWaiting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Waiting"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/pmWaitingCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+            </TableLayout>
+
+            <TableLayout
+                android:layout_marginTop="10dp"
+                android:id="@+id/table_layoutThree"
+                android:layout_width="match_parent"
+                android:background="@drawable/drawable_rectangle_text"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/bd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="serif"
+                    android:text="BD"
+                    android:drawableEnd="@drawable/ic_baseline_remove_red_eye_24"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:textAlignment="center"
+                    android:textColor="@color/view_black"
+                    android:textStyle="bold|italic"/>
+                <TableRow
+                    android:id="@+id/table_row111"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@color/colorAccent"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/bdStatus"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Status"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/bdCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Count"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row222"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/bdResolved"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Resolved"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/bdResolvedCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row333"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/bdScheduled"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Scheduled"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/bdScheduledCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row444"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/bdForApproval"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="For Approval"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/bdApprovalCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+                <TableRow
+                    android:id="@+id/table_row_bdWaiting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+                    <TextView
+                        android:id="@+id/bdWaiting"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="Waiting"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                    <TextView
+                        android:id="@+id/bdWaitingCount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="serif"
+                        android:text="0"
+                        android:textColor="@color/view_black"
+                        android:textStyle="bold|italic"/>
+
+                </TableRow>
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</androidx.constraintlayout.widget.ConstraintLayout>
