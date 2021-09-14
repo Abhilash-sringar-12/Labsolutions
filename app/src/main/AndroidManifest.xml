@@ -21,12 +21,14 @@
         android:roundIcon="@drawable/logo"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity
-            android:name=".admin.Dashboard">
+        <activity android:name=".admin.DashboardDetails"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="Dashboard"
-            android:theme="@style/AppTheme.NoActionBar"
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".admin.Dashboard"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:label="Dashboard"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".admin.Statistics"
             android:configChanges="orientation|keyboardHidden|screenSize"

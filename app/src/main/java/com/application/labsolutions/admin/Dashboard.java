@@ -43,7 +43,6 @@ public class Dashboard extends AppCompatActivity {
     ProgressDialog progressDialog;
     int calResolved,calWaiting,calScheduled,calForApproval, pmResolved,pmWaiting,pmScheduled,pmForApproval,bdResolved,bdWaiting,bdScheduled,bdForApproval =0;
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -53,6 +52,9 @@ public class Dashboard extends AppCompatActivity {
             toolbar.setTitle("Dashboard");
             setSupportActionBar(toolbar);
             firebaseAuth = FirebaseAuth.getInstance();
+            calibration= findViewById(R.id.calibrationStats);
+            pm= findViewById(R.id.pm);
+            bd= findViewById(R.id.bd);
             pmResolvedCount = findViewById(R.id.pmResolvedCount);
             pmApprovalCount = findViewById(R.id.pmApprovalCount);
             pmWaitingCount = findViewById(R.id.pmWaitingCount);
@@ -157,6 +159,30 @@ public class Dashboard extends AppCompatActivity {
         } catch (Exception e) {
             e.printStackTrace();
         }
+        calibration.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(Dashboard.this, DashboardDetails.class);
+                newIntent.putExtra("type", "CAL");
+                startActivity(newIntent);
+            }
+        });
+        bd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(Dashboard.this, DashboardDetails.class);
+                newIntent.putExtra("type", "BD");
+                startActivity(newIntent);
+            }
+        });
+        pm.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent newIntent = new Intent(Dashboard.this, DashboardDetails.class);
+                newIntent.putExtra("type", "PM");
+                startActivity(newIntent);
+            }
+        });
     }
 
     @Override
