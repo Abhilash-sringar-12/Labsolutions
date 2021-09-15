@@ -41,8 +41,6 @@ public class Dashboard extends AppCompatActivity {
             bdResolvedCount,bdWaitingCount,bdApprovalCount,bdScheduledCount,
             calResolvedCount,calWaitingCount,calApprovalCount,calScheduledCount;
     ProgressDialog progressDialog;
-    int calResolved,calWaiting,calScheduled,calForApproval, pmResolved,pmWaiting,pmScheduled,pmForApproval,bdResolved,bdWaiting,bdScheduled,bdForApproval =0;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -82,6 +80,9 @@ public class Dashboard extends AppCompatActivity {
                 @Override
                 public void onDataChange(@NonNull DataSnapshot activitiesSnapShot) {
                     try {
+
+                        int calResolved=0,calWaiting=0,calScheduled=0,calForApproval=0, pmResolved=0,pmWaiting=0,pmScheduled=0,pmForApproval=0,bdResolved=0,bdWaiting=0,bdScheduled = 0,bdForApproval =0;
+
                         for (DataSnapshot activityDs : activitiesSnapShot.getChildren()) {
                             String currentActivityType = activityDs.child("activity-info/callType").getValue(String.class);
                             String currentActivityStatus = activityDs.child("status").getValue(String.class);
