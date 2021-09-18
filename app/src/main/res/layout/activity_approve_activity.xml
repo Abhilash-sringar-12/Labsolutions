@@ -31,7 +31,7 @@
         android:background="@color/view_white"
         android:orientation="vertical"
         android:gravity="center"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="35dp"
         android:padding="20dp"
         android:id="@+id/resolveLayout"
         tools:context=".engineer.ViewAssignedActivities">
@@ -47,6 +47,38 @@
             android:textSize="20sp"
             android:gravity="top">
         </TextView>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="5dp"
+        android:background="@drawable/drawable_rectangle_text">
+        <EditText
+            android:id="@+id/attendedDate"
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:hint="Attended Date"
+            android:paddingLeft="20sp"
+            android:textSize="20sp"
+            android:inputType="date"
+            android:editable="false"
+            android:drawableEnd="@drawable/ic_baseline_calendar_today_24"
+            android:textColorHint="@color/view_black"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+        <EditText
+            android:id="@+id/attendedTime"
+            android:clickable="true"
+            android:layout_marginTop="5dp"
+            android:hint="Attended Time"
+            android:paddingLeft="20sp"
+            android:textSize="20sp"
+            android:inputType="time"
+            android:drawableEnd="@drawable/ic_baseline_timer_24"
+            android:textColorHint="@color/view_black"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent" />
+    </LinearLayout>
         <TextView
             android:id="@+id/sparesText"
             android:layout_width="wrap_content"
@@ -66,7 +98,7 @@
     <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-        android:layout_margin="5dp"
+            android:layout_margin="5dp"
             android:id="@+id/sparesSection1">
             <EditText
                 android:layout_width="100dp"
@@ -213,7 +245,7 @@
             android:id="@+id/editTextResolutionDescription"
             android:background="@drawable/drawable_rectangle_text"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp"
+            android:layout_marginBottom="10dp"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:textColorHint="@color/view_black">
@@ -230,7 +262,7 @@
             android:layout_width="match_parent"
             android:id="@+id/closureType"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="15dp"
             android:checkedButton="@+id/pm"
             android:orientation="horizontal">
             <RadioButton

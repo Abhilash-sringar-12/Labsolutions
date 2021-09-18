@@ -8,6 +8,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,8 +80,12 @@ public class ReopenActivity extends AppCompatActivity {
     String scheduledTime;
     String scheduledDate;
     String scheduledTimeStamp;
+    String attendedDate;
+    String attendedTime;
+    String attendedTimeStamp;
     FirebaseAuth firebaseAuth;
     String workAdminId;
+    EditText attendedDatePla, attendedTimePla;
     long waitingTime = 0;
     long engineerAceeptedTime;
     ProgressDialog progressDialog;
@@ -107,6 +112,8 @@ public class ReopenActivity extends AppCompatActivity {
             sprTwoDesc = findViewById(R.id.spareTwoDesc);
             sprThreeDesc = findViewById(R.id.spareThreeDesc);
             sprFourDesc = findViewById(R.id.spareFourDesc);
+            attendedDatePla = findViewById(R.id.attendedDate);
+            attendedTimePla = findViewById(R.id.attendedTime);
             apiService = Client.getClient("https://fcm.googleapis.com/").create(ApiService.class);
             if (!activityId.isEmpty()) {
                 progressDialog = ProgressDialog.show(ReopenActivity.this, "Please wait", "Loading  activity....", true, false);
@@ -132,6 +139,7 @@ public class ReopenActivity extends AppCompatActivity {
                             DataSnapshot resolutionDescriptionInfo = snapshot.child("resolved-info").child("resolution-description");
                             DataSnapshot closureInfo = snapshot.child("closure-info");
                             DataSnapshot scheduledInfo = snapshot.child("scheduled-info");
+                            DataSnapshot attendedInfo = snapshot.child("attended-info");
                             customerName = currentActivityInfo.child("user").getValue() != null
                                     ? currentActivityInfo.child("user").getValue(String.class) : "";
                             customerPhone = currentActivityInfo.child("phoneNumber").getValue() != null
@@ -154,7 +162,11 @@ public class ReopenActivity extends AppCompatActivity {
                             scheduledDate = scheduledInfo.child("date").getValue() != null ? scheduledInfo.child("date").getValue(String.class) : "";
                             scheduledTime = scheduledInfo.child("time").getValue() != null ? scheduledInfo.child("time").getValue(String.class) : "";
                             scheduledTimeStamp = scheduledInfo.child("timeStamp").getValue() != null ? scheduledInfo.child("timeStamp").getValue(String.class) : "";
-
+                            if (attendedInfo.getValue() != null) {
+                                attendedDate = attendedInfo.child("date").getValue() != null ? attendedInfo.child("date").getValue(String.class) : "";
+                                attendedTime = attendedInfo.child("time").getValue() != null ? attendedInfo.child("time").getValue(String.class) : "";
+                                attendedTimeStamp = attendedInfo.child("timeStamp").getValue() != null ? attendedInfo.child("timeStamp").getValue(String.class) : "";
+                            }
                             if (waitingDetails.getValue() != null) {
                                 waitingTime = (long) (waitingDetails.child("start-data").child("timeStamp").getValue() != null ? waitingDetails.child("start-data").child("timeStamp").getValue() : 0l);
                             }
@@ -180,6 +192,10 @@ public class ReopenActivity extends AppCompatActivity {
                                         ? snapshot.child("duration").child("hours").getValue(String.class) : "";
                                 minutesSpent = snapshot.child("duration").child("minutes").getValue() != null
                                         ? snapshot.child("duration").child("minutes").getValue(String.class) : "";
+                            }
+                            if (attendedDate != null && attendedTime != null) {
+                                attendedDatePla.setText(attendedDate);
+                                attendedTimePla.setText(attendedTime);
                             }
                             final ValueEventListener valueEventListener = new ValueEventListener() {
                                 @Override
@@ -314,10 +330,10 @@ public class ReopenActivity extends AppCompatActivity {
             table.addCell("Call Scheduled Date & Time :");
             table.addCell(scheduledDate + " " + scheduledTime);
             table.addCell("Call Attended Date & Time :");
-            table.addCell(scheduledDate + " " + scheduledTime);
+            table.addCell((attendedDate == null ? scheduledDate : attendedDate) + " " + (attendedTime == null ? scheduledTime : attendedTime));
             table.addCell("Call Completed Date & Time :");
             table.addCell(closureDate + " " + closureTime);
-            table.addCell("Instrument Down Time :");
+            table.addCell("Instrument Resolution Time :");
             table.addCell(hoursSpent + " hrs, " + minutesSpent + " mins");
             table.addCell("Problem Reported : ");
             table.addCell(problemDescription);

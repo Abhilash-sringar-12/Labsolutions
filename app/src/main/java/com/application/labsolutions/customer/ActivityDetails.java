@@ -76,7 +76,7 @@ public class ActivityDetails extends AppCompatActivity {
     String enginnerId;
     String customerMailId;
     String spareQtyOne, spareQtyTwo, spareQtyThree, spareQtyFour, spareDescOne, spareDescTwo, spareDescThree, spareDescFour;
-    String closureTime, adminTokenId, enginnerTokenid, customerTokenId, closureDate, durationHours, durationMinutes, resolutionDescription, customerCompany, customerCompanyAddress, customerName, customerDepartment, instrumentId, problemDescription, date, time, approvedTime, approvedDate, engineerName, scheduledDate, scheduledTime;
+    String closureTime, adminTokenId, enginnerTokenid, customerTokenId, closureDate, durationHours, durationMinutes, resolutionDescription, customerCompany, customerCompanyAddress, customerName, customerDepartment, instrumentId, problemDescription, date, time, approvedTime, approvedDate, engineerName, scheduledDate, scheduledTime, attendedDate, attendedTime, attendedTimeStamp;
     ApiService apiService;
     final static String MESSAGE_BODY = "\"<head>\\n\" +\n" +
             "                                                                \"<title>Labsolutions</title>\\n\" +\n" +
@@ -338,8 +338,17 @@ public class ActivityDetails extends AppCompatActivity {
         try {
             String waitingText = "Waiting duration: 0hrs 0mins ";
             DataSnapshot closureInfo = snapshot.child("closure-info");
+            DataSnapshot attendedInfo = snapshot.child("attended-info");
+
+            if (attendedInfo.getValue() != null) {
+                attendedDate = attendedInfo.child("date").getValue() != null ? attendedInfo.child("date").getValue(String.class) : "";
+                attendedTime = attendedInfo.child("time").getValue() != null ? attendedInfo.child("time").getValue(String.class) : "";
+                attendedTimeStamp = attendedInfo.child("timeStamp").getValue() != null ? attendedInfo.child("timeStamp").getValue(String.class) : "";
+                activityInfoList.add(new ActivityInfo("Call attended date & time", attendedDate + " " + attendedTime, "", ""));
+            }
             closureTime = closureInfo.child("time").getValue() != null ? closureInfo.child("time").getValue(String.class) : "";
             closureDate = closureInfo.child("date").getValue() != null ? closureInfo.child("date").getValue(String.class) : "";
+
             final String engineerName = snapshot.child("engineer-info").child("user").getValue() != null ? snapshot.child("engineer-info").child("user").getValue(String.class) : "";
             durationHours = snapshot.child("duration").child("hours").getValue() != null
                     ? snapshot.child("duration").child("hours").getValue(String.class) : "";
@@ -491,10 +500,10 @@ public class ActivityDetails extends AppCompatActivity {
             table.addCell("Call Scheduled Date & Time :");
             table.addCell(scheduledDate + " " + scheduledTime);
             table.addCell("Call Attended Date & Time :");
-            table.addCell(scheduledDate + " " + scheduledTime);
+            table.addCell((attendedDate == null ? scheduledDate : attendedDate) + " " + (attendedTime == null ? scheduledTime : attendedTime));
             table.addCell("Call Completed Date & Time :");
             table.addCell(closureDate + " " + closureTime);
-            table.addCell("Instrument Down Time :");
+            table.addCell("Instrument Resolution Time :");
             table.addCell(durationHours + " hrs, " + durationMinutes + " mins");
             table.addCell("Problem Reported : ");
             table.addCell(problemDescription);

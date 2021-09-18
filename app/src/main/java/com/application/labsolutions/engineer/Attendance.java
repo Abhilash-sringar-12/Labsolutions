@@ -285,6 +285,8 @@ public class Attendance extends AppCompatActivity implements LocationListener {
         menu.add(0, 5, 5,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_new_releases_24), "Your Leaves"));
         menu.add(0, 6, 6,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_pie_chart_24), "Your Stats"));
+        menu.add(0, 7, 7,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -313,12 +315,12 @@ public class Attendance extends AppCompatActivity implements LocationListener {
                 finishAffinity();
                 startActivity(intentApplyLeave);
                 return true;
-            case 5:
-                Intent intentYourLeaves = new Intent(Attendance.this, AppliedLeaves.class);
-                finishAffinity();
-                startActivity(intentYourLeaves);
-                return true;
             case 6:
+                Intent intentYourStats = new Intent(Attendance.this, YourStaticstics.class);
+                finishAffinity();
+                startActivity(intentYourStats);
+                return true;
+            case 7:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(Attendance.this, LoginActivity.class);

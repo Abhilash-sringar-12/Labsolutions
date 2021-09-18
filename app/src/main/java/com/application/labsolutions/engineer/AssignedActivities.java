@@ -179,6 +179,8 @@ public class AssignedActivities extends AppCompatActivity {
         menu.add(0, 5, 5,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_new_releases_24), "Your Leaves"));
         menu.add(0, 6, 6,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_pie_chart_24), "Your Stats"));
+        menu.add(0, 7, 7,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -207,12 +209,12 @@ public class AssignedActivities extends AppCompatActivity {
                 finishAffinity();
                 startActivity(intentApplyLeave);
                 return true;
-            case 5:
-                Intent intentYourLeaves = new Intent(AssignedActivities.this, AppliedLeaves.class);
-                finishAffinity();
-                startActivity(intentYourLeaves);
-                return true;
             case 6:
+                Intent intentYourStats = new Intent(AssignedActivities.this, YourStaticstics.class);
+                finishAffinity();
+                startActivity(intentYourStats);
+                return true;
+            case 7:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(AssignedActivities.this, LoginActivity.class);

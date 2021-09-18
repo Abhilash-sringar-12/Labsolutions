@@ -1,6 +1,8 @@
 package com.application.labsolutions.engineer;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -8,14 +10,18 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.application.labsolutions.R;
 import com.application.labsolutions.commons.Commons;
 import com.application.labsolutions.customer.ActivityDetails;
+import com.application.labsolutions.customer.CustomerActivity;
 import com.application.labsolutions.dateutils.DateUtility;
 import com.application.labsolutions.mailutils.MailUtility;
 import com.application.labsolutions.pojos.DateInfo;
@@ -45,7 +51,10 @@ import com.itextpdf.text.pdf.PdfWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.text.DateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.UUID;
 
@@ -78,6 +87,7 @@ public class ResolveActivity extends AppCompatActivity {
     String resolutionDescription;
     String activityId;
     long startDate;
+    long attendedTimeStamp;
     Map<String, String> endTimeStamp;
     String hoursSpent;
     String minutesSpent;
@@ -92,12 +102,16 @@ public class ResolveActivity extends AppCompatActivity {
     String scheduledTime;
     String scheduledDate;
     String scheduledTimeStamp;
+    String attendedDateValue;
+    String attendedTimeValue;
     FirebaseAuth firebaseAuth;
     String workAdminId;
     Object rescheduledAfterWaiting;
     long waitingStartTime = 0;
     long waitingEndTime = 0;
     long engineerAceeptedTime;
+    EditText attendedDate, attendedTime;
+    int mYear, mMonth, mDay, mHour, mMinute;
     ProgressDialog progressDialog;
     final static String MESSAGE_BODY = "\"<head>\\n\" +\n" +
             "                                                                \"<title>Labsolutions</title>\\n\" +\n" +
@@ -163,7 +177,56 @@ public class ResolveActivity extends AppCompatActivity {
             sprThreeDesc = findViewById(R.id.spareThreeDesc);
             sprFourDesc = findViewById(R.id.spareFourDesc);
             callDetails = findViewById(R.id.viewMore);
+            attendedDate = findViewById(R.id.attendedDate);
+            attendedTime = findViewById(R.id.attendedTime);
             apiService = Client.getClient("https://fcm.googleapis.com/").create(ApiService.class);
+            attendedDate.setKeyListener(null);
+            attendedTime.setKeyListener(null);
+            attendedDate.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Calendar c = Calendar.getInstance();
+                    mYear = c.get(Calendar.YEAR);
+                    mMonth = c.get(Calendar.MONTH);
+                    mDay = c.get(Calendar.DAY_OF_MONTH);
+                    DatePickerDialog datePickerDialog = new DatePickerDialog(ResolveActivity.this,
+                            new DatePickerDialog.OnDateSetListener() {
+                                @Override
+                                public void onDateSet(DatePicker view, int year,
+                                                      int monthOfYear, int dayOfMonth) {
+                                    Calendar cal = Calendar.getInstance();
+                                    cal.setTimeInMillis(0);
+                                    cal.set(year, monthOfYear, dayOfMonth, 0, 0, 0);
+                                    Date chosenDate = cal.getTime();
+                                    DateFormat df_medium_us = DateFormat.getDateInstance(DateFormat.MEDIUM, Locale.UK);
+                                    String df_medium_us_str = df_medium_us.format(chosenDate);
+                                    attendedDate.setText(df_medium_us_str);
+                                }
+                            }, mYear, mMonth, mDay);
+                    DatePicker datePicker = datePickerDialog.getDatePicker();
+                    datePicker.setMinDate(System.currentTimeMillis() - 1000);
+                    datePickerDialog.show();
+                }
+
+            });
+            attendedTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    final Calendar c = Calendar.getInstance();
+                    mHour = c.get(Calendar.HOUR_OF_DAY);
+                    mMinute = c.get(Calendar.MINUTE);
+                    TimePickerDialog timePickerDialog = new TimePickerDialog(ResolveActivity.this,
+                            new TimePickerDialog.OnTimeSetListener() {
+                                @Override
+                                public void onTimeSet(TimePicker view, int hourOfDay,
+                                                      int minute) {
+
+                                    attendedTime.setText(hourOfDay + ":" + minute);
+                                }
+                            }, mHour, mMinute, false);
+                    timePickerDialog.show();
+                }
+            });
             callDetails.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -503,52 +566,70 @@ public class ResolveActivity extends AppCompatActivity {
 
     private void resolveActivity() {
         try {
-            FirebaseDatabase.getInstance().getReference()
-                    .child("activity-users").child("current-activity").child(activityId).child("customer").setValue(null);
-            FirebaseDatabase.getInstance().getReference()
-                    .child("activity-users").child("current-activity").child(activityId).child("engineer").setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    if (task.isComplete()) {
-                        FirebaseDatabase.getInstance().getReference()
-                                .child("activity-users").child("completed-activity").child(activityId).child("engineer").setValue(firebaseAuth.getUid()).addOnCompleteListener(new OnCompleteListener<Void>() {
-                            @Override
-                            public void onComplete(@NonNull Task<Void> task) {
-                                if (task.isComplete()) {
-                                    closureDate = DateUtility.getCurrentDate();
-                                    closureTime = DateUtility.getCurrentTime();
-                                    endTimeStamp = ServerValue.TIMESTAMP;
-                                    DateInfo dateInfo = new DateInfo(closureDate, closureTime, endTimeStamp);
-                                    FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("closure-info").setValue(dateInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+            if (!attendedDate.getText().toString().isEmpty() && !attendedTime.getText().toString().isEmpty()) {
+                attendedDateValue = attendedDate.getText().toString();
+                attendedTimeValue = attendedTime.getText().toString() + ":00";
+                attendedTimeStamp = Long.valueOf(DateUtility.getTimeStamp(attendedDateValue + " " + attendedTimeValue));
+                if (attendedTimeStamp >= Long.parseLong(scheduledTimeStamp) && attendedTimeStamp <= new Date().getTime()) {
+                    final DateInfo attendedTimeInfo = new DateInfo(attendedDateValue, attendedTimeValue, null);
+                    FirebaseDatabase.getInstance().getReference()
+                            .child("activity-users").child("current-activity").child(activityId).child("customer").setValue(null);
+                    FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("attended-info").setValue(attendedTimeInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("attended-info/timeStamp").setValue(String.valueOf(attendedTimeStamp)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    FirebaseDatabase.getInstance().getReference()
+                                            .child("activity-users").child("current-activity").child(activityId).child("engineer").setValue(null).addOnCompleteListener(new OnCompleteListener<Void>() {
                                         @Override
                                         public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("status").setValue("Resolved").addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            if (task.isComplete()) {
+                                                FirebaseDatabase.getInstance().getReference()
+                                                        .child("activity-users").child("completed-activity").child(activityId).child("engineer").setValue(firebaseAuth.getUid()).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                     @Override
                                                     public void onComplete(@NonNull Task<Void> task) {
-                                                        if (task.isSuccessful()) {
-
-                                                            FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("duration").setValue(calculateDownTime()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                        if (task.isComplete()) {
+                                                            closureDate = DateUtility.getCurrentDate();
+                                                            closureTime = DateUtility.getCurrentTime();
+                                                            endTimeStamp = ServerValue.TIMESTAMP;
+                                                            DateInfo dateInfo = new DateInfo(closureDate, closureTime, endTimeStamp);
+                                                            FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("closure-info").setValue(dateInfo).addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                 @Override
                                                                 public void onComplete(@NonNull Task<Void> task) {
                                                                     if (task.isSuccessful()) {
-                                                                        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("resolved-info").child("resolution-description").setValue(resolutionDescription);
-                                                                        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("resolved-info").child("spares").setValue(Commons.setSparesData(sprOneQty, sprOneDesc, sprTwoQty, sprTwoDesc, sprThreeQty, sprThreeDesc, sprFourQty, sprFourDesc)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("status").setValue("Resolved").addOnCompleteListener(new OnCompleteListener<Void>() {
                                                                             @Override
                                                                             public void onComplete(@NonNull Task<Void> task) {
-                                                                                FirebaseDatabase.getInstance().getReference()
-                                                                                        .child("activity-users").child("completed-activity").child(activityId).child("customer").setValue(customerId).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                                                                    @Override
-                                                                                    public void onComplete(@NonNull Task<Void> task) {
-                                                                                        FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
-                                                                                        if (task.isSuccessful()) {
-                                                                                            createPdf();
+                                                                                if (task.isSuccessful()) {
+
+                                                                                    FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("duration").setValue(calculateDownTime()).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                        @Override
+                                                                                        public void onComplete(@NonNull Task<Void> task) {
+                                                                                            if (task.isSuccessful()) {
+                                                                                                FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("resolved-info").child("resolution-description").setValue(resolutionDescription);
+                                                                                                FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("resolved-info").child("spares").setValue(Commons.setSparesData(sprOneQty, sprOneDesc, sprTwoQty, sprTwoDesc, sprThreeQty, sprThreeDesc, sprFourQty, sprFourDesc)).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                    @Override
+                                                                                                    public void onComplete(@NonNull Task<Void> task) {
+                                                                                                        FirebaseDatabase.getInstance().getReference()
+                                                                                                                .child("activity-users").child("completed-activity").child(activityId).child("customer").setValue(customerId).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                                                                                            @Override
+                                                                                                            public void onComplete(@NonNull Task<Void> task) {
+                                                                                                                FirebaseDatabase.getInstance().getReference("activities").child(activityId).child("timeStamp").setValue(ServerValue.TIMESTAMP);
+                                                                                                                if (task.isSuccessful()) {
+                                                                                                                    createPdf();
+                                                                                                                }
+                                                                                                            }
+                                                                                                        });
+                                                                                                    }
+                                                                                                });
+
+                                                                                            }
                                                                                         }
-                                                                                    }
-                                                                                });
+                                                                                    });
+                                                                                }
                                                                             }
                                                                         });
-
                                                                     }
                                                                 }
                                                             });
@@ -557,13 +638,23 @@ public class ResolveActivity extends AppCompatActivity {
                                                 });
                                             }
                                         }
+
                                     });
                                 }
-                            }
-                        });
-                    }
+                            });
+
+                        }
+                    });
+
+                } else {
+                    Commons.dismissProgressDialog(progressDialog);
+                    Toast.makeText(ResolveActivity.this, "Attended date and time should be greater than scheduled time and lesser that resolution time ", Toast.LENGTH_SHORT).show();
                 }
-            });
+            } else {
+                Commons.dismissProgressDialog(progressDialog);
+                Toast.makeText(ResolveActivity.this, "Please Enter Attended date and time", Toast.LENGTH_SHORT).show();
+
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -590,7 +681,7 @@ public class ResolveActivity extends AppCompatActivity {
             return actualDuration;
         } else {
 
-            Map<String, String> durations = getDuration(Long.parseLong(scheduledTimeStamp), new Date().getTime());
+            Map<String, String> durations = getDuration(attendedTimeStamp, new Date().getTime());
             if (!durations.isEmpty()) {
                 hoursSpent = durations.get("hours");
                 minutesSpent = durations.get("minutes");
@@ -639,10 +730,10 @@ public class ResolveActivity extends AppCompatActivity {
             table.addCell("Call Scheduled Date & Time :");
             table.addCell(scheduledDate + " " + scheduledTime);
             table.addCell("Call Attended Date & Time :");
-            table.addCell(scheduledDate + " " + scheduledTime);
+            table.addCell(attendedDateValue + " " + attendedTimeValue);
             table.addCell("Call Completed Date & Time :");
             table.addCell(closureDate + " " + closureTime);
-            table.addCell("Instrument Down Time :");
+            table.addCell("Instrument Resolution Time :");
             table.addCell(hoursSpent + " hrs, " + minutesSpent + " mins");
             table.addCell("Problem Reported : ");
             table.addCell(problemDescription);

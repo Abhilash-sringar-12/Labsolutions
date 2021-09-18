@@ -296,6 +296,8 @@ public class ApplyLeave extends AppCompatActivity {
         menu.add(0, 5, 5,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_new_releases_24), "Your Leaves"));
         menu.add(0, 6, 6,
+                menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_pie_chart_24), "Your Stats"));
+        menu.add(0, 7, 7,
                 menuIconWithText(getResources().getDrawable(R.drawable.ic_baseline_cancel_presentation_24), "Sign Out"));
         return true;
     }
@@ -330,6 +332,11 @@ public class ApplyLeave extends AppCompatActivity {
                 startActivity(intentYourLeaves);
                 return true;
             case 6:
+                Intent intentYourStats = new Intent(ApplyLeave.this, YourStaticstics.class);
+                finishAffinity();
+                startActivity(intentYourStats);
+                return true;
+            case 7:
                 firebaseAuth = FirebaseAuth.getInstance();
                 firebaseAuth.signOut();
                 Intent intentSignOut = new Intent(ApplyLeave.this, LoginActivity.class);
