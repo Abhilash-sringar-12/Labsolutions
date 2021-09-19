@@ -368,6 +368,9 @@ public class ReopenActivity extends AppCompatActivity {
             sparesTable.addCell("Call Registered By");
             sparesTable.addCell(customerName);
             sparesTable.addCell("");
+            sparesTable.addCell("Checked By");
+            sparesTable.addCell("");
+            sparesTable.addCell("");
             PdfPCell engineerCell = new PdfPCell(new Phrase("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tEnginner Details", boldFont));
             engineerCell.setColspan(3);
             sparesTable.addCell(engineerCell);

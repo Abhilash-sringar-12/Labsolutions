@@ -663,32 +663,13 @@ public class ResolveActivity extends AppCompatActivity {
 
     private Map<String, String> calculateDownTime() {
         Map<String, String> actualDuration = null;
-        if (waitingStartTime != 0 && waitingEndTime != 0 && rescheduledAfterWaiting == null) {
-            long waitingTime = waitingEndTime - waitingStartTime;
-            long overallTime = new Date().getTime() - Long.parseLong(scheduledTimeStamp);
-            if (overallTime > waitingTime) {
-                actualDuration = getDuration(waitingTime, overallTime);
-                hoursSpent = actualDuration.get("hours");
-                minutesSpent = actualDuration.get("minutes");
-            } else {
-                actualDuration = getDuration(Long.parseLong(scheduledTimeStamp), new Date().getTime());
-                if (!actualDuration.isEmpty()) {
-                    hoursSpent = actualDuration.get("hours");
-                    minutesSpent = actualDuration.get("minutes");
-                    return actualDuration;
-                }
-            }
-            return actualDuration;
-        } else {
+        Map<String, String> durations = getDuration(attendedTimeStamp, new Date().getTime());
+        if (!durations.isEmpty()) {
+            hoursSpent = durations.get("hours");
+            minutesSpent = durations.get("minutes");
 
-            Map<String, String> durations = getDuration(attendedTimeStamp, new Date().getTime());
-            if (!durations.isEmpty()) {
-                hoursSpent = durations.get("hours");
-                minutesSpent = durations.get("minutes");
-                return durations;
-            }
         }
-        return null;
+        return durations;
     }
 
     private void createPdf() {
@@ -766,6 +747,9 @@ public class ResolveActivity extends AppCompatActivity {
             PdfPCell customerCell = new PdfPCell(new Phrase("\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\t\tCustomer Details", boldFont));
             customerCell.setColspan(3);
             sparesTable.addCell(customerCell);
+            sparesTable.addCell("Checked By");
+            sparesTable.addCell("");
+            sparesTable.addCell("");
             sparesTable.addCell("Call Registered By");
             sparesTable.addCell(customerName);
             sparesTable.addCell("");
