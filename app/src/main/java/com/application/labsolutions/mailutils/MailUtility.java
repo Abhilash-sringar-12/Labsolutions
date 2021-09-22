@@ -64,7 +64,7 @@ public class MailUtility {
 
         return Session.getInstance(properties, new javax.mail.Authenticator() {
             protected PasswordAuthentication getPasswordAuthentication() {
-                return new PasswordAuthentication("labsolutions.ic.app@gmail.com", "hnjfxwseoxcrzntm");
+                return new PasswordAuthentication("labsolutions.ic.app@gmail.com", "nbvbtbokifcojqfx");
             }
         });
     }

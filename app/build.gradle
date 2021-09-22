@@ -8,7 +8,7 @@ android {
         applicationId "com.application.labsolutions"
         minSdkVersion 23
         targetSdkVersion 30
-        versionCode 6
+        versionCode 8
         versionName "1.2"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
