@@ -203,8 +203,6 @@ public class ResolveActivity extends AppCompatActivity {
                                     attendedDate.setText(df_medium_us_str);
                                 }
                             }, mYear, mMonth, mDay);
-                    DatePicker datePicker = datePickerDialog.getDatePicker();
-                    datePicker.setMinDate(System.currentTimeMillis() - 1000);
                     datePickerDialog.show();
                 }
 
