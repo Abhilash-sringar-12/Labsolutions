@@ -315,6 +315,11 @@ public class Attendance extends AppCompatActivity implements LocationListener {
                 finishAffinity();
                 startActivity(intentApplyLeave);
                 return true;
+            case 5:
+                Intent intentYourLeaves = new Intent(Attendance.this, AppliedLeaves.class);
+                finishAffinity();
+                startActivity(intentYourLeaves);
+                return true;
             case 6:
                 Intent intentYourStats = new Intent(Attendance.this, YourStaticstics.class);
                 finishAffinity();

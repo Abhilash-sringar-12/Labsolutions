@@ -209,6 +209,11 @@ public class AssignedActivities extends AppCompatActivity {
                 finishAffinity();
                 startActivity(intentApplyLeave);
                 return true;
+            case 5:
+                Intent intentYourLeaves = new Intent(AssignedActivities.this, AppliedLeaves.class);
+                finishAffinity();
+                startActivity(intentYourLeaves);
+                return true;
             case 6:
                 Intent intentYourStats = new Intent(AssignedActivities.this, YourStaticstics.class);
                 finishAffinity();
