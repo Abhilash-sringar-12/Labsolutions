@@ -116,48 +116,50 @@ public class Attendance extends AppCompatActivity implements LocationListener {
                                                                 holidaysList.add(ds.getKey());
                                                             }
                                                         }
-                                                        ValueEventListener attendanceValueListener = new ValueEventListener() {
-                                                            @Override
-                                                            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                                                                if (snapshot.hasChildren()) {
-                                                                    type = snapshot.child("type").getValue(String.class);
-                                                                    if (!snapshot.child("type").getValue(String.class).equals("HD") && !snapshot.child("type").getValue(String.class).equals("PA")) {
-                                                                        logAttendance.setVisibility(View.GONE);
-                                                                        logOutAttendance.setVisibility(View.GONE);
-                                                                        text.setText("You are on leave today! You cannot log attendance when you are on leave!");
-                                                                        Commons.dismissProgressDialog(progressDialog);
-                                                                    } else if (holidaysList.contains(DateUtility.formatDate(new Date().toString()))) {
-                                                                        logAttendance.setVisibility(View.GONE);
-                                                                        logOutAttendance.setVisibility(View.GONE);
-                                                                        text.setText("Today is a Holiday!");
-                                                                        Commons.dismissProgressDialog(progressDialog);
-                                                                    } else if (snapshot.child("loginDetails").exists() && snapshot.child("logoutDetails").exists()) {
-                                                                        logAttendance.setVisibility(View.GONE);
-                                                                        logOutAttendance.setVisibility(View.GONE);
-                                                                        text.setText("You have Logged Attendance for Today!!!");
-                                                                        Commons.dismissProgressDialog(progressDialog);
-                                                                    } else if (snapshot.child("loginDetails").exists()) {
-                                                                        logAttendance.setVisibility(View.GONE);
-                                                                        logOutAttendance.setVisibility(View.VISIBLE);
-                                                                        Commons.dismissProgressDialog(progressDialog);
+                                                        if (snapshot.child("loginDetails").exists() && snapshot.child("logoutDetails").exists()) {
+                                                            logAttendance.setVisibility(View.GONE);
+                                                            logOutAttendance.setVisibility(View.GONE);
+                                                            text.setText("You have Logged Attendance for Today!!!");
+                                                            Commons.dismissProgressDialog(progressDialog);
+                                                        } else {
+                                                            ValueEventListener attendanceValueListener = new ValueEventListener() {
+                                                                @Override
+                                                                public void onDataChange(@NonNull DataSnapshot snapshot) {
+                                                                    if (snapshot.hasChildren()) {
+                                                                        type = snapshot.child("type").getValue(String.class);
+                                                                        if (!snapshot.child("type").getValue(String.class).equals("HD") && !snapshot.child("type").getValue(String.class).equals("PA")) {
+                                                                            logAttendance.setVisibility(View.GONE);
+                                                                            logOutAttendance.setVisibility(View.GONE);
+                                                                            text.setText("You are on leave today! You cannot log attendance when you are on leave!");
+                                                                            Commons.dismissProgressDialog(progressDialog);
+                                                                        } else if (snapshot.child("loginDetails").exists() && snapshot.child("logoutDetails").exists()) {
+                                                                            logAttendance.setVisibility(View.GONE);
+                                                                            logOutAttendance.setVisibility(View.GONE);
+                                                                            text.setText("You have Logged Attendance for Today!!!");
+                                                                            Commons.dismissProgressDialog(progressDialog);
+                                                                        } else if (snapshot.child("loginDetails").exists()) {
+                                                                            logAttendance.setVisibility(View.GONE);
+                                                                            logOutAttendance.setVisibility(View.VISIBLE);
+                                                                            Commons.dismissProgressDialog(progressDialog);
+                                                                        } else {
+                                                                            logAttendance.setVisibility(View.VISIBLE);
+                                                                            logOutAttendance.setVisibility(View.GONE);
+                                                                            Commons.dismissProgressDialog(progressDialog);
+                                                                        }
                                                                     } else {
                                                                         logAttendance.setVisibility(View.VISIBLE);
                                                                         logOutAttendance.setVisibility(View.GONE);
                                                                         Commons.dismissProgressDialog(progressDialog);
                                                                     }
-                                                                } else {
-                                                                    logAttendance.setVisibility(View.VISIBLE);
-                                                                    logOutAttendance.setVisibility(View.GONE);
-                                                                    Commons.dismissProgressDialog(progressDialog);
                                                                 }
-                                                            }
 
-                                                            @Override
-                                                            public void onCancelled(@NonNull DatabaseError error) {
+                                                                @Override
+                                                                public void onCancelled(@NonNull DatabaseError error) {
 
-                                                            }
-                                                        };
-                                                        attendanceDatabaseReference.addValueEventListener(attendanceValueListener);
+                                                                }
+                                                            };
+                                                            attendanceDatabaseReference.addValueEventListener(attendanceValueListener);
+                                                        }
                                                     }
 
                                                     @Override
